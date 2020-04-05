@@ -1,23 +1,31 @@
 package agricolab.app.dao;
 
 import agricolab.app.model.User;
-import com.google.cloud.firestore.Firestore;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Repository("Firestore")
 public class UserFirestoreDAO implements UserDAO {
 
     @Override
     public int createUser(UUID id, User user) {
-        Firestore firesDB = FirestoreClient.getFirestore();
-        firesDB.collection("user").add(user);
-        return 1;
+        ApiFuture<WriteResult> promise = FirestoreClient.getFirestore().collection("user").document(id.toString()).set(user);
+
+        try {
+            System.out.println(promise.get().getUpdateTime());
+            return 0;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return 1;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return 2;
+        }
     }
 
     @Override
