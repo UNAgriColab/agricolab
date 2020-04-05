@@ -1,6 +1,5 @@
 package agricolab.app.api;
 
-
 import agricolab.app.model.User;
 import agricolab.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,8 @@ public class UserAPI {
     }
 
     @PostMapping
-    public void postUser(@RequestBody User u) {
-        userService.addUser(u);
+    public String postUser(@RequestBody User u) {
+        return userService.addUser(u);
     }
 
     @PutMapping

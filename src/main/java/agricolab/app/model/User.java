@@ -1,18 +1,36 @@
 package agricolab.app.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class User {
-    private final UUID id;
+    private UUID id;
     private String name;
     private String email;
     private String password;
 
-    public User(UUID id, String name, String email, String password) {
-        this.id = id;
+    public User() {
+    }
+
+    public User(@JsonProperty("name") String name,
+                @JsonProperty("email") String email,
+                @JsonProperty("password") String password) {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            '}';
     }
 
     public UUID getId() {
