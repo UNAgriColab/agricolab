@@ -14,7 +14,7 @@ public class Users {
     private int id;
 
     @Column
-    private String full_name;
+    private String fullName;
 
     @Column
     private Date birth;
@@ -33,8 +33,8 @@ public class Users {
         return id;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
     public Date getBirth() {
@@ -53,8 +53,8 @@ public class Users {
         this.id = id;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setfullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setBirth(Date birth) {
