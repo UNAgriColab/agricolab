@@ -4,12 +4,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
 public class User {
+    @Id
+    @GeneratedValue (strategy = GenerationType.SEQUENCE)
     private UUID id;
+    @Column
     private String name;
+    @Column
     private String email;
+    @Column
     private String password;
 
     public User() {

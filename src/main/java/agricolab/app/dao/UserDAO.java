@@ -6,14 +6,14 @@ import java.util.UUID;
 
 public interface UserDAO {
 
-    int createUser(UUID id, User user);
+    int createUser(UUID id, User u);
 
     default int createUser(User u) {
         UUID id = UUID.randomUUID();
         return createUser(id, u);
     }
 
-    int readUser(UUID id);
+    User getUser(String id);
 
     int updateUser(User u1, User u2);
 
