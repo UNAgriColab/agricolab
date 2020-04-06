@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "agricolab-un",
+  "private_key_id": "b3302570dc130eea45e8190a4e0e513258c6efce",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/5VFFdoeza/dC\nEJG0q20dSrVT8ag2RcPRNfJyaUSM8/hnjjAOMpgQyeR22X146Z69cBTX3uCLxqwJ\nHec9vEa7XWx2iy2cMAKHAnqxsvH7Wu7u1QtJgI7M6kDaCQuzuyQBMqZwjsmgpxt+\n/zKZD1ewF5ANP4dckELaIsW7kNvP940F6eIg0+vHOaRwNmRtVri3PcGW9QR77345\n+3jnk9cGZzMGH5bDsD7Zw8Jhxo1rWGE+4ui0dfpL06POBmnI0FW9GsC8IdFj37pD\nSDkotGk+6II7TjwA1CMwVW+894RV1D5CoCKZAo2MhOTStOPU8B2PFUhOfHQo6EVV\nZug2sf4FAgMBAAECggEABolAzKkmI6AejqdCU0FQiOIhzX9qb5jOO+rGvItl3Jg1\nwo83B1DFWbMKv1qWmb75W3H9H8I1a0Vj2DamyPVIAntC5cHFVq/S8jbNJ47VC67z\n+voSNZl1o7ip51NODPvnlMvdG/HdH8X5W4jFOC3r2nFfBHiAu5AlWsk663Habtms\nUkAkMDU3sB0XNVndrGddisomntAPHey8kYPyjKQLKhuIAel5S8EI8Kh0+tsNrHLr\nB+yAN8GXVZH12khaap1qkenlGONZZeLyHmBYz6lC7dpvB85l4T4hT3KbuptC9k4p\nOf7s1OjJWIuuMG8Ze/irb+rCnrTjrOioflqtajOqKQKBgQDxdsnkHB/DZtZksgqa\nFBcmH3ZB8yKNEMMpJN7EMPD7MHTqjT29muC9B1Y2iZhNOvIouZJHJqegvJmpHnzu\nsmcJnMkf3+sJe8zg4nq6rzZMbpgwwVT2qV5+RqyEdMS4ph1pato8yqEg5t8RXBVq\nB0MbJxUEOtOb4ecUpBVBJ9kh+QKBgQDLcqFyd5GtzN/B21lnD1wT0oDV+Kqmq3Db\nHg44RdXUKdBwRgXOWmbHnOIMQMRskifV+CMdUv7vqQ24fGwgwARptIV2rpOVY/ox\nGhraw68SVfaXsSTqNdPoOPGFgV5lUxgMwuIodKgYzgNSmr5Vsu/okGdrKJ3gpMbT\n+G5g24R/bQKBgAGZWcjq7sLqgWz1SOCwVV7pQm05YPcyLzish9UgxdfEAGI1QT1q\nMybNT6LY0mtggo4GfJOADAgid5oJG6axA8GqiiJt5y6O5VJv7YQi+OcUrGlWPmvL\nv1ZyvV27MDpQz00NahiQ9vQy0zNYOsQS/DzHy3nVseUMX+1hEMr3qpZxAoGBAKJM\nAuEm448LZeDnFC30AddKUT7gjXpCP9h85IkdpNQIu2AlbBJO6bkJvQZbUJbwDVlT\nBugownj7mpd2omeJ5rtQqDuiTteZFwi+s3ebLXlqHDqstS8l27NgYcPIDT61h/T+\nLp5pWYPYLKxkB7yj72DOecHxd+iyam7Eu4EG/W8NAoGBAPFQ9z0AOmKr7nWqkLYe\ntN3RzoALishKrpBN2tKjlSSw/QJ2AUPvfvzUHyh/RHzgnkZ7zX5ICv8OtSHSfmSy\nBBZN7JxVlOjzGwfh8nR1yISa9xcUm+tc1s+hCmhqtsOpERd9AylFZkFKmvR2WW9t\n6dEU+95zjtwUXNQS5AAB0dp1\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-49uv0@agricolab-un.iam.gserviceaccount.com",
+  "client_id": "104333846323477566201",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-49uv0%40agricolab-un.iam.gserviceaccount.com"
+}

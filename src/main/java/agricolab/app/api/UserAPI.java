@@ -6,6 +6,8 @@ import agricolab.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserAPI {
@@ -17,14 +19,15 @@ public class UserAPI {
         this.userService = userService;
     }
 
-    @GetMapping
-    public User getUser() {
-        return null;
+    @GetMapping ("/{id}")
+    public User getUser(@PathVariable String id) {
+        return userService.getUser(id);
     }
 
     @PostMapping
     public void postUser(@RequestBody User u) {
         userService.addUser(u);
+        System.out.println("Successful");
     }
 
     @PutMapping
