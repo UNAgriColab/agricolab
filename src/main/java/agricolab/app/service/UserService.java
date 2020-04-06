@@ -9,14 +9,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private final UserDAO userDAO;
-
     @Autowired
-    public UserService(@Qualifier("Firestore") UserDAO userDAO){
-        this.userDAO = userDAO;
+    @Qualifier("Firestore")
+    private static UserDAO userDAO;
+
+    public UserService(UserDAO userdao) {
+        this.userDAO = userdao;
     }
 
-    public int addUser(User user){
-        return userDAO.createUser(user);
+    public String addUser(User user) {
+        int error = userDAO.createUser(user);
+        if (error == 0) {
+            return "Sucessfully added User.";
+        } else {
+            return "Unable to add User. Error: " + error;
+        }
     }
 }
