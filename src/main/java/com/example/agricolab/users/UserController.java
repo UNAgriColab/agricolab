@@ -3,10 +3,7 @@ package com.example.agricolab.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping(value = "/user")
