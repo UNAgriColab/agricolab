@@ -16,7 +16,7 @@ public class FirebaseInit {
     public void init() {
         try {
             FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/agricolab-un-firebase-adminsdk-49uv0-20f565f9e1.json");
+                new FileInputStream("src/main/resources/ServiceFirebase.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setDatabaseUrl("https://agricolab-un.firebaseio.com")
