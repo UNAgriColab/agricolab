@@ -28,6 +28,6 @@ public class UserService {
         }
     }
     public User getUser(String id){
-        return userDAO.getUser(id);
+        return userDAO.readUser(id);
     }
 }

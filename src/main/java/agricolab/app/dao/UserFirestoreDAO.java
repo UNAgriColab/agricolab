@@ -41,7 +41,7 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public User getUser(String id) {
+    public User readUser(String id) {
         Firestore db=FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("user").document(id);
         ApiFuture<DocumentSnapshot> future = docRef.get();
