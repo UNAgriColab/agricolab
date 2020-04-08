@@ -1,6 +1,7 @@
-package com.example.agricolab.dao;
+package agricolab.dao;
 
-import com.example.agricolab.model.Request;
+import agricolab.model.Request;
+
 import java.util.UUID;
 
 public interface RequestDAO {

@@ -1,4 +1,4 @@
-package agricolab.app.dao;
+package agricolab.dao;
 
 import com.google.auth.oauth2.GoogleCredentials;
 

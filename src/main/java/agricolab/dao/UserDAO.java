@@ -1,6 +1,6 @@
-package agricolab.app.dao;
+package agricolab.dao;
 
-import agricolab.app.model.User;
+import agricolab.model.User;
 
 import java.util.UUID;
 
@@ -13,7 +13,7 @@ public interface UserDAO {
         return createUser(id, u);
     }
 
-    int readUser(UUID id);
+    User readUser(String id);
 
     int updateUser(User u1, User u2);
 

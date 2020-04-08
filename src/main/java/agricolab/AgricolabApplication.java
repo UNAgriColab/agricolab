@@ -1,4 +1,4 @@
-package com.example.agricolab;
+package agricolab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

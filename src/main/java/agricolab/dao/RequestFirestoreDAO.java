@@ -1,6 +1,6 @@
-package com.example.agricolab.dao;
+package agricolab.dao;
 
-import com.example.agricolab.model.Offers;
+import agricolab.model.Request;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
@@ -10,11 +10,11 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Repository
-public class OfferFirestoreDAO implements OffersDAO{
+public class RequestFirestoreDAO implements RequestDAO {
 
     @Override
-    public int createOffer(UUID id, Offers offers) {
-        ApiFuture<WriteResult> promise = FirestoreClient.getFirestore().collection("offer").document(id.toString()).set(offers);
+    public int createRequest(UUID id, Request request) {
+        ApiFuture<WriteResult> promise = FirestoreClient.getFirestore().collection("request").document(id.toString()).set(request);
 
         try {
             System.out.println(promise.get().getUpdateTime());
@@ -29,17 +29,17 @@ public class OfferFirestoreDAO implements OffersDAO{
     }
 
     @Override
-    public int readOffer(UUID id) {
+    public int readRequest(UUID id) {
         return 0;
     }
 
     @Override
-    public int updateOffer(Offers o1, Offers o2) {
+    public int updateRequest(Request r1, Request r2) {
         return 0;
     }
 
     @Override
-    public int deleteOffer(Offers o) {
+    public int deleteRequest(Request r) {
         return 0;
     }
 }

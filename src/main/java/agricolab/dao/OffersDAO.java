@@ -1,6 +1,7 @@
-package com.example.agricolab.dao;
+package agricolab.dao;
 
-import com.example.agricolab.model.Offers;
+import agricolab.model.Offers;
+
 import java.util.UUID;
 
 public interface OffersDAO  {

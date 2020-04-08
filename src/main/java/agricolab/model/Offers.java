@@ -1,4 +1,4 @@
-package com.example.agricolab.model;
+package agricolab.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

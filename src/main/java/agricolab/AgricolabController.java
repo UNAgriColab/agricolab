@@ -1,4 +1,4 @@
-package com.example.agricolab;
+package agricolab;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

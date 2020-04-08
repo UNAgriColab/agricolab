@@ -1,12 +1,10 @@
-package agricolab.app.service;
+package agricolab.service;
 
-import agricolab.app.dao.UserDAO;
-import agricolab.app.model.User;
+import agricolab.dao.UserDAO;
+import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class UserService {
