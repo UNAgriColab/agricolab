@@ -1,8 +1,11 @@
 package agricolab.app.dao;
 
 import agricolab.app.model.User;
+import antlr.collections.List;
 
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public interface UserDAO {
 
@@ -14,4 +17,5 @@ public interface UserDAO {
 
     int deleteUser(User u);
 
+    ArrayList<User> getAllUsers();
 }

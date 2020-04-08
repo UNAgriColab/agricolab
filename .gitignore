@@ -1,6 +1,7 @@
 HELP.md
 target/
 src/main/resources/agricolab-un-firebase-adminsdk*.json
+src/main/resources/ServiceFirebase.json
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**

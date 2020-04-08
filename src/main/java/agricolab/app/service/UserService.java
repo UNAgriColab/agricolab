@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserService {
@@ -23,5 +25,8 @@ public class UserService {
     }
     public User getUser(String id){
         return userDAO.getUser(id);
+    }
+    public ArrayList<User> getAllUsers(){
+        return userDAO.getAllUsers();
     }
 }
