@@ -13,7 +13,7 @@ public interface UserDAO {
         return createUser(id, u);
     }
 
-    User getUser(String id);
+    int readUser(UUID id);
 
     int updateUser(User u1, User u2);
 
