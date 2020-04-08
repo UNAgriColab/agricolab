@@ -1,11 +1,9 @@
-package agricolab.app.api;
+package agricolab.api;
 
-import agricolab.app.model.User;
-import agricolab.app.service.UserService;
+import agricolab.model.User;
+import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RequestMapping("/api/v1/user")
 @RestController

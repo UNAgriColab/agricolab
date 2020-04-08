@@ -1,9 +1,7 @@
-package agricolab.app.model;
+package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.persistence.*;
 import java.util.UUID;
 

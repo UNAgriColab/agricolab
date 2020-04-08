@@ -1,25 +1,25 @@
-package com.example.agricolab.service;
+package agricolab.service;
 
-import com.example.agricolab.dao.RequestDAO;
-import com.example.agricolab.model.Request;
+import agricolab.dao.OffersDAO;
+import agricolab.model.Offers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class RequestService {
+public class OfferService {
 
     @Autowired
     @Qualifier("Firestore")
-    private static RequestDAO requestDAO;
+    private static OffersDAO offerDAO;
 
-    public RequestService(RequestDAO requestDAO) {
-        this.requestDAO = requestDAO;
+    public OfferService(OffersDAO offerdao) {
+        this.offerDAO = offerdao;
     }
 
-    public String addRequest(Request request) {
-        int error = requestDAO.createRequest(request);
+    public String addOffer(Offers offer) {
+        int error = offerDAO.createUser(offer);
         if (error == 0) {
             return "Sucessfully added User.";
         } else {

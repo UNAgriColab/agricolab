@@ -1,8 +1,8 @@
-package com.example.agricolab.api;
+package agricolab.api;
 
-import com.example.agricolab.model.Offers;
-import com.example.agricolab.model.User;
-import com.example.agricolab.service.OfferService;
+import agricolab.model.Offers;
+import agricolab.model.User;
+import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
