@@ -7,25 +7,27 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private final UUID id;
+    private long id;
     @Column
     private String name;
     @Column
     private String email;
     @Column
     private String password;
+    @Column
+    private int age;
 
     public User(){
-        this.id=null;
+
     }
-    public User(UUID id, String name, String email, String password) {
-        this.id = id;
+    public User(String name, String email, String password, int age) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.age=age;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
@@ -54,6 +56,14 @@ public class User {
     public User setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override

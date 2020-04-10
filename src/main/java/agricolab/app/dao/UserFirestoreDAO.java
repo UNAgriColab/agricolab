@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.print.Doc;
+import javax.swing.text.Document;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +26,9 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public int createUser(User user) {
         Firestore db=FirestoreClient.getFirestore();
-        db.collection("user").document(user.getName()).set(user);
+        System.out.println(user.getId());
+        db.collection("users").document(user.getEmail()).set(user);
+        System.out.println(user);
         return 1;
     }
 
@@ -41,6 +44,7 @@ public class UserFirestoreDAO implements UserDAO {
             if (document.exists()) {
                 ret = document.toObject(User.class);
                 System.out.println("Nombre: " + ret.getName());
+
             } else {
                 System.out.println("No such document!");
             }
@@ -52,7 +56,7 @@ public class UserFirestoreDAO implements UserDAO {
     public ArrayList<User> getAllUsers(){
         ArrayList<User> allUsers= new ArrayList<User>();
         Firestore db= FirestoreClient.getFirestore();
-        CollectionReference userRef=db.collection("user");
+        CollectionReference userRef=db.collection("users");
         ApiFuture<QuerySnapshot> docs= userRef.get();
         List<QueryDocumentSnapshot> docList= null;
         try {
@@ -65,7 +69,6 @@ public class UserFirestoreDAO implements UserDAO {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
     return allUsers;
     }
 
