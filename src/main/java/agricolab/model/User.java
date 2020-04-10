@@ -2,48 +2,59 @@ package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
-import java.util.UUID;
-
-@Entity
 public class User {
-    @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private UUID id;
-    @Column
-    private String name;
-    @Column
+
     private String email;
-    @Column
+
+    private String name;
+
     private String password;
+
+    private Boolean vendedor;
 
     public User() {
     }
 
     public User(@JsonProperty("name") String name,
                 @JsonProperty("email") String email,
-                @JsonProperty("password") String password) {
+                @JsonProperty("password") String password,
+                @JsonProperty("vendedor")Boolean vendedor) {
+
         this.name = name;
         this.email = email;
         this.password = password;
+        this.vendedor = vendedor;
     }
 
     @Override
     public String toString() {
         return "User{" +
-            "id=" + id +
             ", name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
+            "vendedor = " + Boolean.toString(vendedor) +'\'' +
             '}';
     }
 
-    public UUID getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Boolean getVendedor() {
+        return vendedor;
+    }
+
+    public User setEmail(String email) {
+        this.email = email;
+        return this ;
     }
 
     public User setName(String name) {
@@ -51,21 +62,13 @@ public class User {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
+    public User setPassword(String password) {
+        this.password = password;
         return this;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
+    public User setVendedor(Boolean vendedor) {
+        this.vendedor = vendedor;
         return this;
     }
 }
