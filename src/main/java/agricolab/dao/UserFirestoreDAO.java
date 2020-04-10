@@ -2,57 +2,63 @@ package agricolab.dao;
 
 import agricolab.model.User;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.WriteResult;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Repository("Firestore")
 public class UserFirestoreDAO implements UserDAO {
 
     @Override
-    public int createUser(UUID id, User user) {
-        ApiFuture<WriteResult> promise = FirestoreClient.getFirestore().collection("user").document(id.toString()).set(user);
-
-        try {
-            System.out.println(promise.get().getUpdateTime());
-            return 0;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return 1;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return 2;
-        }
+    public int createUser(User user) {
+        Firestore db=FirestoreClient.getFirestore();
+        System.out.println(user.getEmail());
+        db.collection("user").document(user.getEmail()).set(user);
+        System.out.println(user);
+        return 1;
     }
 
     @Override
-    public User readUser(String id) {
+    public User getUser(String id){
         Firestore db=FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("user").document(id);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentReference ref = db.collection("user").document(id);
+        ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document = null;
+        User ret = null;
         try {
             document = future.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            if (document.exists()) {
+                ret = document.toObject(User.class);
+                System.out.println("Nombre: " + ret.getName());
+            } else {
+                System.out.println("No such document!");
+            }
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return null;
-
-//        User city = null;
-//        if (document.exists()) {
-//            // convert document to POJO
-//            city = document.toObject(User.class);
-//            System.out.println(city);
-//        } else {
-//            System.out.println("No such document!");
-//        }
-//        return city;
+        return ret;
+    }
+    public ArrayList<User> getAllUsers(){
+        ArrayList<User> allUsers= new ArrayList<User>();
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference userRef=db.collection("users");
+        ApiFuture<QuerySnapshot> docs= userRef.get();
+        List<QueryDocumentSnapshot> docList= null;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a: docList){
+                allUsers.add(a.toObject(User.class));
+                System.out.println(allUsers.size());
+            }
+            System.out.println(allUsers);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return allUsers;
     }
 
     @Override
