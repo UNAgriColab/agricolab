@@ -2,14 +2,15 @@ package agricolab.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class Request {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String userEmail;
@@ -35,6 +36,7 @@ public class Request {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description) {
+
         this.userEmail = userEmail;
         this.productName = productName;
         this.unit = unit;

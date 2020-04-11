@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-@Repository("")
+@Repository()
 public class RequestFirestoreDAO implements RequestDAO {
 
     @Override

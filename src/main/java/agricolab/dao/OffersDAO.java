@@ -2,19 +2,13 @@ package agricolab.dao;
 
 import agricolab.model.Offers;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
 public interface OffersDAO  {
-    int createOffer(UUID id, Offers offers);
 
-    default int createUser(Offers u) {
-        UUID id = UUID.randomUUID();
-        return createOffer(id, u);
-    }
+    int createOffer(Offers offer);
 
-    int readOffer(UUID id);
+    Offers getOffer(Long id);
 
-    int updateOffer(Offers o1, Offers o2);
-
-    int deleteOffer(Offers o);
+    ArrayList<Offers> getAllOffers();
 }

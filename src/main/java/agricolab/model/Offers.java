@@ -113,4 +113,5 @@ public class Offers {
         this.description = description;
         return this;
     }
+
 }
