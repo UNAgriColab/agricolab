@@ -1,19 +1,18 @@
-package agricolab.app.service;
+package agricolab.service;
 
-import agricolab.app.dao.UserDAO;
-import agricolab.app.model.User;
+import agricolab.dao.UserDAO;
+import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
+
 
 @Service
 public class UserService {
 
-    private final UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Autowired
     public UserService(@Qualifier("Firestore") UserDAO userDAO){
@@ -23,9 +22,11 @@ public class UserService {
     public int addUser(User user){
         return userDAO.createUser(user);
     }
-    public User getUser(String id){
-        return userDAO.getUser(id);
+
+    public User getUser(String email){
+        return userDAO.getUser(email);
     }
+
     public ArrayList<User> getAllUsers(){
         return userDAO.getAllUsers();
     }

@@ -1,21 +1,17 @@
 package agricolab.dao;
 
 import agricolab.model.Request;
-
-import java.util.UUID;
+import java.util.ArrayList;
 
 public interface RequestDAO {
 
-    int createRequest(UUID id, Request request);
+    int createRequest(Request request);
 
-    default int createRequest(Request u) {
-        UUID id = UUID.randomUUID();
-        return createRequest(id, u);
-    }
-
-    int readRequest(UUID id);
+    Request getRequest(Long id);
 
     int updateRequest(Request r1, Request r2);
 
     int deleteRequest(Request r);
+
+    ArrayList<Request> getAllRequest();
 }
