@@ -7,7 +7,7 @@ public interface UserDAO {
 
     int createUser(User u);
 
-    User getUser(String id);
+    User getUser(String email);
 
     int updateUser(User u1, User u2);
 

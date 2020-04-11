@@ -1,14 +1,12 @@
-package agricolab.app.api;
+package agricolab.api;
 
 
-import agricolab.app.model.User;
-import agricolab.app.service.UserService;
+import agricolab.model.User;
+import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 
 @RequestMapping("/api/v1/user")
@@ -22,9 +20,9 @@ public class UserAPI {
         this.userService = userService;
     }
 
-    @GetMapping ("/{id}")
-    public User getUser(@PathVariable String id) {
-        return userService.getUser(id);
+    @GetMapping ("/{email}")
+    public User getUser(@PathVariable String email) {
+        return userService.getUser(email);
     }
 
     @PostMapping
@@ -32,10 +30,12 @@ public class UserAPI {
         userService.addUser(u);
         System.out.println("Successful");
     }
+
     @GetMapping
     public ArrayList<User> getAllUsers(){
         return userService.getAllUsers();
     }
+
     @PutMapping
     public void putUser() {
     }
