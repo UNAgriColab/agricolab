@@ -1,6 +1,7 @@
 package agricolab.api;
 
 import agricolab.model.Offers;
+import agricolab.model.Request;
 import agricolab.model.User;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/api/v1//offer")
+@RequestMapping(value = "/api/v1/offer")
 public class OfferAPI {
 
     private final OfferService offerService;
@@ -19,14 +20,14 @@ public class OfferAPI {
         this.offerService = offerService;
     }
 
-    @GetMapping
-    public User getOffer() {
-        return null;
+    @GetMapping("/{id}")
+    public Offers getOffer(@PathVariable Long id) {
+        return offerService.getOffer(id);
     }
 
     @PostMapping
-    public String postOffer(@RequestBody Offers o) {
-        return offerService.addOffer(o);
+    public void postRequest(@RequestBody Offers o) {
+        offerService.addOffer(o);
     }
 
     @PutMapping
