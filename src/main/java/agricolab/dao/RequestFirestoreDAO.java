@@ -13,8 +13,7 @@ public class RequestFirestoreDAO implements RequestDAO {
     @Override
     public int createRequest(Request request) {
         Firestore db=FirestoreClient.getFirestore();
-        System.out.println(request.getId());
-        db.collection("request").document(Long.toString(request.getId())).set(request);
+        db.collection("request").add(request);
         System.out.println(request);
         return 0;
     }

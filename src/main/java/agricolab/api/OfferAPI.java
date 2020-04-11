@@ -1,8 +1,6 @@
 package agricolab.api;
 
 import agricolab.model.Offers;
-import agricolab.model.Request;
-import agricolab.model.User;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
