@@ -13,8 +13,7 @@ public class OfferFirestoreDAO implements OffersDAO{
     @Override
     public int createOffer(Offers offer) {
         Firestore db=FirestoreClient.getFirestore();
-        System.out.println(offer.getId());
-        db.collection("offer").document(Long.toString(offer.getId())).set(offer);
+        db.collection("offer").add(offer);
         System.out.println(offer);
         return 0;
     }

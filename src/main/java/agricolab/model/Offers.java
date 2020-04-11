@@ -4,23 +4,14 @@ package agricolab.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 
-@Entity
+
 public class Offers {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column
     private String userEmail;
-    @Column
     private String productName;
-    @Column
     private int presentation;
-    @Column
     private double pricePresentation;
-    @Column
     private int minQuantity;
-    @Column
     private String description;
 
 
@@ -44,18 +35,13 @@ public class Offers {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + Long.toString(id) +
+        return "Offer{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
                 ", presentation='" + Integer.toString(presentation) + '\'' +
                 ", pricePresentation='" + Double.toString(pricePresentation) + '\'' +
                 ", minQuantity='" + Integer.toString(minQuantity) + '\'' +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getUserEmail() {
@@ -79,11 +65,6 @@ public class Offers {
     }
 
     public String getDescription(){return description;}
-
-    public Offers setId(Long id) {
-        this.id = id;
-        return this;
-    }
 
     public Offers setUserEmail(String userEmail) {
         this.userEmail = userEmail;

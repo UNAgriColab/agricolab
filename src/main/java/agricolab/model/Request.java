@@ -7,22 +7,16 @@ import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
+
 public class Request {
 
-    @Id
-    private long id;
-    @Column
+
+
     private String userEmail;
-    @Column
     private String productName;
-    @Column
     private int unit;
-    @Column
     private int numberOfUnits;
-    @Column
     private double totalPrice;
-    @Column
     private String description;
 
 
@@ -47,18 +41,13 @@ public class Request {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + Long.toString(id) +
+        return "Request{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
                 ", unit='" + Integer.toString(unit) + '\'' +
                 ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
                 ", totalPrice='" + Double.toString(totalPrice) + '\'' +
                 '}';
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getUserEmail(){return userEmail; }
@@ -78,11 +67,6 @@ public class Request {
     public double getTotalPrice() { return totalPrice; }
 
     public String getDescription() {return description;}
-
-    public Request setId(int id) {
-        this.id = id;
-        return this;
-    }
 
 
     public Request setUserEmail(String userEmail) {
