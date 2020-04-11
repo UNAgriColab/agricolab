@@ -1,15 +1,22 @@
 package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.api.client.util.Key;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 
+    @Id
     private String email;
-
+    @Column
     private String name;
-
+    @Column
     private String password;
-
+    @Column
     private Boolean vendedor;
 
     public User() {
@@ -29,7 +36,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-            ", name='" + name + '\'' +
+            "name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             "vendedor = " + Boolean.toString(vendedor) +'\'' +
