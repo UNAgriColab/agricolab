@@ -1,14 +1,13 @@
 package agricolab.api;
 
 import agricolab.model.Request;
-import agricolab.model.User;
 import agricolab.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/api/v1//request")
+@RequestMapping(value = "/api/v1/request")
 public class RequestAPI {
 
     private final RequestService requestService;
@@ -18,14 +17,14 @@ public class RequestAPI {
         this.requestService = requestService;
     }
 
-    @GetMapping
-    public User getRequest() {
-        return null;
+    @GetMapping("/{id}")
+    public Request getRequest(@PathVariable Long id) {
+        return requestService.getRequest(id);
     }
 
     @PostMapping
-    public String postRequest(@RequestBody Request r) {
-        return requestService.addRequest(r);
+    public void postRequest(@RequestBody Request r) {
+         requestService.addRequest(r);
     }
 
     @PutMapping

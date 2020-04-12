@@ -1,9 +1,13 @@
 package agricolab.api;
 
+
 import agricolab.model.User;
 import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+
 
 @RequestMapping("/api/v1/user")
 @RestController
@@ -16,14 +20,20 @@ public class UserAPI {
         this.userService = userService;
     }
 
-    @GetMapping ("/{id}")
-    public User getUser(@PathVariable String id) {
-        return userService.getUser(id);
+    @GetMapping ("/{email}")
+    public User getUser(@PathVariable String email) {
+        return userService.getUser(email);
     }
 
     @PostMapping
-    public String postUser(@RequestBody User u) {
-        return userService.addUser(u);
+    public void postUser(@RequestBody User u) {
+        userService.addUser(u);
+        System.out.println("Successful");
+    }
+
+    @GetMapping
+    public ArrayList<User> getAllUsers(){
+        return userService.getAllUsers();
     }
 
     @PutMapping

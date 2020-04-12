@@ -6,26 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
+
 @Service
 public class UserService {
 
+    private UserDAO userDAO;
+
     @Autowired
-    @Qualifier("Firestore")
-    private static UserDAO userDAO;
-
-    public UserService(UserDAO userdao) {
-        this.userDAO = userdao;
+    public UserService(@Qualifier("Firestore") UserDAO userDAO){
+        this.userDAO = userDAO;
     }
 
-    public String addUser(User user) {
-        int error = userDAO.createUser(user);
-        if (error == 0) {
-            return "Sucessfully added User.";
-        } else {
-            return "Unable to add User. Error: " + error;
-        }
+    public int addUser(User user){
+        return userDAO.createUser(user);
     }
-    public User getUser(String id){
-        return userDAO.readUser(id);
+
+    public User getUser(String email){
+        return userDAO.getUser(email);
+    }
+
+    public ArrayList<User> getAllUsers(){
+        return userDAO.getAllUsers();
     }
 }
