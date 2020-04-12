@@ -4,7 +4,7 @@ import agricolab.model.Offers;
 
 import java.util.ArrayList;
 
-public interface OffersDAO  {
+public interface OfferDAO {
 
     int createOffer(Offers offer);
 

@@ -2,22 +2,13 @@ package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
 public class User {
 
-    @Id
     private String email;
-    @Column
     private String name;
-    @Column
     private String password;
-    @Column
     private Boolean seller;
-    @Column
     private int age;
 
     public User() {
