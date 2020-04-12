@@ -2,48 +2,71 @@ package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class User {
+
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    private UUID id;
+    private String email;
     @Column
     private String name;
     @Column
-    private String email;
-    @Column
     private String password;
+    @Column
+    private Boolean seller;
+    @Column
+    private int age;
 
     public User() {
     }
 
-    public User(@JsonProperty("name") String name,
-                @JsonProperty("email") String email,
-                @JsonProperty("password") String password) {
-        this.name = name;
+    public User(@JsonProperty("email") String email,
+                @JsonProperty("name") String name,
+                @JsonProperty("password") String password,
+                @JsonProperty("seller")Boolean seller,
+                @JsonProperty("age")int age) {
+
         this.email = email;
+        this.name = name;
         this.password = password;
+        this.seller = seller;
+        this.age =age;
     }
 
     @Override
     public String toString() {
         return "User{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
+            "name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
+            "vendedor = " + Boolean.toString(seller) +'\'' +
             '}';
     }
 
-    public UUID getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Boolean getSeller() {
+        return seller;
+    }
+
+    public int getAge(){return age;}
+
+    public User setEmail(String email) {
+        this.email = email;
+        return this ;
     }
 
     public User setName(String name) {
@@ -51,21 +74,18 @@ public class User {
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
+    public User setPassword(String password) {
+        this.password = password;
         return this;
     }
 
-    public String getPassword() {
-        return password;
+    public User setSeller(Boolean seller) {
+        this.seller = seller;
+        return this;
     }
 
-    public User setPassword(String password) {
-        this.password = password;
+    public User setAge(int age){
+        this.age = age;
         return this;
     }
 }

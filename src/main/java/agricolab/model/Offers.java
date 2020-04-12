@@ -2,91 +2,97 @@ package agricolab.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
 
 
 public class Offers {
 
-    private int id;
-
+    private String userEmail;
     private String productName;
-
-    private int convention;
-
-    private double priceConvention;
-
-    private int mainQuantity;
-
+    private int presentation;
+    private double pricePresentation;
+    private int minQuantity;
     private String description;
+
 
     public Offers(){
 
     }
 
     public Offers( @JsonProperty("productName")String productName,
-                   @JsonProperty("convention")int convention,
-                   @JsonProperty("priceConvention")double priceConvention,
-                   @JsonProperty("mainQuantity")int mainQuantity,
-                   @JsonProperty("description")String description) {
+                   @JsonProperty("userEmail")String userEmail,
+                   @JsonProperty("presentation")int presentation,
+                   @JsonProperty("pricePresentation")double pricePresentation,
+                   @JsonProperty("minQuantity")int minQuantity,
+                   @JsonProperty("description")String description){
         this.productName = productName;
-        this.convention = convention;
-        this.priceConvention = priceConvention;
-        this.mainQuantity = mainQuantity;
+        this.userEmail = userEmail;
+        this.presentation = presentation;
+        this.pricePresentation = pricePresentation;
+        this.minQuantity = minQuantity;
         this.description = description;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return "Offer{" +
+                ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
-                ", convention='" + convention + '\'' +
-                ", priceConvention='" + priceConvention + '\'' +
-                ", mainQuantity='" + mainQuantity + '\'' +
-                ", description='" + description + '\'' +
+                ", presentation='" + Integer.toString(presentation) + '\'' +
+                ", pricePresentation='" + Double.toString(pricePresentation) + '\'' +
+                ", minQuantity='" + Integer.toString(minQuantity) + '\'' +
                 '}';
     }
 
-    public int getId() {
-        return id;
+    public String getUserEmail() {
+        return userEmail;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public int getConvention() {
-        return convention;
+    public int getPresentation() {
+        return presentation;
     }
 
-    public double getPriceConvention() {
-        return priceConvention;
+    public double getPricePresentation() {
+        return pricePresentation;
     }
 
-    public int getMainQuantity() {
-        return mainQuantity;
+    public int getMinQuantity() {
+        return minQuantity;
     }
 
-    public String getDescription() { return description; }
+    public String getDescription(){return description;}
 
-    public void setId(int id) {
-        this.id = id;
+    public Offers setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+        return this;
     }
 
-    public void setProductName(String productName) {
+    public Offers setProductName(String productName) {
         this.productName = productName;
+        return this;
     }
 
-    public void setConvention(int convention) {
-        this.convention = convention;
+    public Offers setPresentation(int presentation) {
+        this.presentation = presentation;
+        return this;
     }
 
-    public void setPriceConvention(double priceConvention) {
-        priceConvention = priceConvention;
+    public Offers setPricePresentation(double pricePresentation) {
+        this.pricePresentation = pricePresentation;
+        return this;
     }
 
-    public void setMainQuantity(int mainQuantity) {
-        this.mainQuantity = mainQuantity;
+    public Offers setMinQuantity(int minQuantity) {
+        this.minQuantity = minQuantity;
+        return this;
+    }
+    public Offers setDescription (String description) {
+        this.description = description;
+        return this;
     }
 
-    public void setDescription(String description) { this.description = description; }
 }

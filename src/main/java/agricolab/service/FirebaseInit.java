@@ -1,4 +1,4 @@
-package agricolab.dao;
+package agricolab.service;
 
 import com.google.auth.oauth2.GoogleCredentials;
 
@@ -16,11 +16,11 @@ public class FirebaseInit {
     public void init() {
         try {
             FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/ServiceFirebase.json");
+                    new FileInputStream("src/main/resources/ServiceFirebase.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://agricolab-un.firebaseio.com")
-                .build();
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://agricolab-un.firebaseio.com")
+                    .build();
 
             FirebaseApp.initializeApp(options);
         } catch (Exception e) {
