@@ -1,10 +1,8 @@
 package agricolab.service;
 
-import agricolab.dao.OffersDAO;
+import agricolab.dao.OfferDAO;
 import agricolab.model.Offers;
-import agricolab.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,10 +12,10 @@ import java.util.ArrayList;
 public class OfferService {
 
 
-    private static OffersDAO offerDAO;
+    private static OfferDAO offerDAO;
 
     @Autowired
-    public OfferService(OffersDAO offerdao) {
+    public OfferService(OfferDAO offerdao) {
         this.offerDAO = offerdao;
     }
 

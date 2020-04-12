@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 
 @Repository()
-public class OfferFirestoreDAO implements OffersDAO{
+public class OfferFirestoreDAO implements OfferDAO {
 
     @Override
     public int createOffer(Offers offer) {
