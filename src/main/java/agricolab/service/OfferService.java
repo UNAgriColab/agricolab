@@ -23,7 +23,7 @@ public class OfferService {
         return offerDAO.createOffer(offer);
     }
 
-    public Offers getOffer(Long id){
+    public Offers getOffer(String id){
         return offerDAO.getOffer(id);
     }
 
