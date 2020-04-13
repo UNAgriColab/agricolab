@@ -1,17 +1,24 @@
 # agricolab
-AgriColab, Ingeniería de Software II. Universidad Nacional de Colombia.
+AgriColab\
+Ingeniería de Software II\
+Universidad Nacional de Colombia.
 
+### API documentation:
+Each entity has it's own endpoint to send or retrieve instances.
 
-## Documentation
-
-Entity classes:
-- User
-- Request
-- Offer
-
-
-### API endpoints:
-Each entity has it's own API to send or retrieve instances.
+- [User](#user)
+  - [Create User](#create-user)
+  - [Read User](#read-user)
+  - [Read all Users](#read-all-users)
+- [Request](#request)
+  - [Create Request](#create-request)
+  - [Read all Requests](#read-all-requests)
+  - [Read all Requests from User](#read-all-requests-from-user)
+- [Offer](#offer)
+  - [Create Offer](#create-offer)
+  - [Read all Offers](#read-all-offers)
+  - [Read all Offers from User](#read-all-offers-from-user)
+- [dev notes](#dev-notes)
 
 ----
 #### User
