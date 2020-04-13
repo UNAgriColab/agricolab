@@ -1,7 +1,6 @@
 package agricolab.dao;
 
 import agricolab.model.Offer;
-import agricolab.model.Request;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
