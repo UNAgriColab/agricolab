@@ -30,10 +30,16 @@ POST /api/v1/user
 ```
 ##### Read User:
 ```
-GET /api/v1/user/{email}
+GET /api/v1/user/samoralespu@unal.edu.co
 ```
 ```JSON
-
+{
+    "email":"samoralespu@unal.edu.co",
+    "name":"Santiago",
+    "password":"12345",
+    "age":18,
+    "seller":false
+}
 ```
 
 ##### Read all Users:
@@ -42,7 +48,7 @@ GET /api/v1/user
 ```
 ```JSON
 // Sample response:
-: [
+[
     {
         "email": "TestIntegralCommit@Test.com",
         "name": "Integral",
@@ -100,8 +106,74 @@ GET /api/v1/request
 ```
 ```JSON
 // Sample response
+[
+    {
+        "productName": "Papa",
+        "userEmail": "sanhmon@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Yuca",
+        "userEmail": "ayuda@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Arandano",
+        "userEmail": "3@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Platano",
+        "userEmail": "ayuda@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Yuca",
+        "userEmail": "saduquebe@unal.edu.co",
+        "unit": 6,
+        "numberOfUnits": 0,
+        "totalPrice": 24.5,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Guayaba",
+        "userEmail": "2@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Papa",
+        "userEmail": "ayuda@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    },
+    {
+        "productName": "Pitaya",
+        "userEmail": "1@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 0,
+        "totalPrice": 13.668,
+        "description": "el mejor arroz de la sabana de bogotá"
+    }
+]
 ```
-##### Read all Request from User:
+##### Read all Requests from User:
 ```
 GET /api/v1/request/{email}
 ```
@@ -132,6 +204,64 @@ GET /api/v1/offer
 ```
 ```JSON
 // Sample response
+[
+    {
+        "productName": "Yuca",
+        "userEmail": "ayuda@unal.edu.co",
+        "presentation": 4,
+        "pricePresentation": 1342.0,
+        "minQuantity": 2,
+        "description": "esto es arroz"
+    },
+    {
+        "productName": "Arroz",
+        "userEmail": "ayuda@unal.edu.co",
+        "presentation": 4,
+        "pricePresentation": 1342.0,
+        "minQuantity": 2,
+        "description": "esto es arroz"
+    },
+    {
+        "productName": "Banano",
+        "userEmail": "2@unal.edu.co",
+        "presentation": 4,
+        "pricePresentation": 1342.0,
+        "minQuantity": 2,
+        "description": "esto es arroz"
+    },
+    {
+        "productName": "Papa",
+        "userEmail": "ayuda@unal.edu.co",
+        "presentation": 4,
+        "pricePresentation": 1342.0,
+        "minQuantity": 2,
+        "description": "esto es arroz"
+    },
+    {
+        "productName": "Arracacha",
+        "userEmail": "1@unal.edu.co",
+        "presentation": 4,
+        "pricePresentation": 1342.0,
+        "minQuantity": 2,
+        "description": "esto es arroz"
+    },
+    {
+        "productName": "Papaya",
+        "userEmail": "3@unal.edu.co",
+        "presentation": 4,
+        "pricePresentation": 1342.0,
+        "minQuantity": 2,
+        "description": "esto es arroz"
+    },
+    {
+        "productName": "Papa",
+        "userEmail": "saduquebe@unal.edu.co",
+        "presentation": 5,
+        "pricePresentation": 500.0,
+        "minQuantity": 5,
+        "description": "Se vende papa por bulto WAOOOO"
+    }
+]
 ```
 ##### Read all Offers from User:
 ```
