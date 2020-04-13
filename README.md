@@ -5,8 +5,8 @@ user post method:
 localhost:8080/api/v1/request
 Body:
 {
-	"email":"sanhernandezmon@unal.edu.co",
-	"name":"Santiago",
+	"email":"test@unal.edu.co",
+	"name":"Test",
 	"password":"12345",
 	"seller":true ,
 	"age":18	
@@ -17,7 +17,7 @@ localhost:8080/api/v1/offer
 Body:
 {
 	"productName":"Arroz",
-	"userEmail":"sanhernandezmon@unal.edu.co",
+	"userEmail":"test@unal.edu.co",
 	"presentation":4,
 	"pricePresentation":1342,
 	"minQuantity":2,
@@ -29,9 +29,9 @@ localhost:8080/api/v1/request
 Body:
 {
 	"productName" : "Papa",
-	"userEmail" : "sanhmon@unal.edu.co",
+	"userEmail" : "test@unal.edu.co",
 	"unit" : 4,
 	"numeberOfUnits": 10,
 	"totalPrice":13.668,
-	"descrpition": "el mejor arroz de la sabana de bogotá"
+	"description": "el mejor arroz de la sabana de bogotá"
 }
