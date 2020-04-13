@@ -17,13 +17,12 @@ public class User {
     public User(@JsonProperty("email") String email,
                 @JsonProperty("name") String name,
                 @JsonProperty("password") String password,
-                @JsonProperty("seller")Boolean seller,
                 @JsonProperty("age")int age) {
 
         this.email = email;
         this.name = name;
         this.password = password;
-        this.seller = seller;
+        this.seller = false;
         this.age =age;
     }
 
@@ -33,7 +32,7 @@ public class User {
             "name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
-            "vendedor = " + Boolean.toString(seller) +'\'' +
+            "vendor = " + Boolean.toString(seller) +'\'' +
             '}';
     }
 
