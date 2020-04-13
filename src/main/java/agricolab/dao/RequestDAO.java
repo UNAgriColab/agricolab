@@ -7,7 +7,7 @@ public interface RequestDAO {
 
     int createRequest(Request request);
 
-    Request getRequest(Long id);
+    Request getRequest(String id);
 
     int updateRequest(Request r1, Request r2);
 

@@ -8,7 +8,7 @@ public interface OfferDAO {
 
     int createOffer(Offers offer);
 
-    Offers getOffer(Long id);
+    Offers getOffer(String id);
 
     ArrayList<Offers> getAllOffers();
 }

@@ -23,7 +23,7 @@ public class RequestService {
         return requestDAO.createRequest(request);
     }
 
-    public Request getRequest(Long id){
+    public Request getRequest(String id){
         return requestDAO.getRequest(id);
     }
 
