@@ -119,7 +119,7 @@ GET /api/v1/request
 ```
 ##### Read all Requests from User:
 ```
-GET /api/v1/request/{email}
+GET /api/v1/request/user/{email}
 ```
 ```JSON
 /api/v1/request/ayuda@unal.edu.co
@@ -194,7 +194,7 @@ GET /api/v1/offer
 ```
 ##### Read all Offers from User:
 ```
-GET /api/v1/offer/{email}
+GET /api/v1/offer/user/{email}
 ```
 ```JSON
 /api/v1/offer/ayuda@unal.edu.co
