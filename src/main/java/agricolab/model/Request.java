@@ -2,10 +2,6 @@ package agricolab.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
-
-import javax.persistence.*;
-import java.util.UUID;
 
 
 public class Request {
