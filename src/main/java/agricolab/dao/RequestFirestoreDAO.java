@@ -1,7 +1,6 @@
 package agricolab.dao;
 
 import agricolab.model.Request;
-import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -65,7 +64,6 @@ public class RequestFirestoreDAO implements RequestDAO {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
                 allRequest.add(a.toObject(Request.class));
-                System.out.println(allRequest.size());
             }
             System.out.println(allRequest);
         } catch (InterruptedException | ExecutionException e) {
