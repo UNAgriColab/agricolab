@@ -16,15 +16,26 @@ public class RequestFirestoreDAO implements RequestDAO {
 
     @Override
     public int createRequest(Request request) {
-        Firestore db=FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         db.collection("request").add(request);
         System.out.println(request);
         return 0;
     }
 
     @Override
+    public int updateRequest(Request r1, Request r2) {
+        return 0;
+    }
+
+    @Override
+    public int deleteRequest(Request r) {
+        return 0;
+    }
+
+    // READ METHODS
+    @Override
     public Request getRequest(String id) {
-        Firestore db=FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         DocumentReference ref = db.collection("request").document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document = null;
@@ -44,25 +55,15 @@ public class RequestFirestoreDAO implements RequestDAO {
     }
 
     @Override
-    public int updateRequest(Request r1, Request r2) {
-        return 0;
-    }
-
-    @Override
-    public int deleteRequest(Request r) {
-        return 0;
-    }
-
-    @Override
-    public ArrayList<Request> getAllRequest() {
-        ArrayList<Request> allRequest= new ArrayList<>();
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("request");
-        ApiFuture<QuerySnapshot> docs= requestRef.get();
-        List<QueryDocumentSnapshot> docList= null;
+    public ArrayList<Request> getAllRequests() {
+        ArrayList<Request> allRequest = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("request");
+        ApiFuture<QuerySnapshot> docs = requestRef.get();
+        List<QueryDocumentSnapshot> docList = null;
         try {
             docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a: docList){
+            for (QueryDocumentSnapshot a : docList) {
                 allRequest.add(a.toObject(Request.class));
                 System.out.println(allRequest.size());
             }
@@ -71,5 +72,25 @@ public class RequestFirestoreDAO implements RequestDAO {
             e.printStackTrace();
         }
         return allRequest;
+    }
+
+    @Override
+    public ArrayList<Request> getUserRequests(String email) {
+        ArrayList<Request> userRequests = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("request");
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("userEmail", email).get();
+        List<QueryDocumentSnapshot> docList = null;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userRequests.add(a.toObject(Request.class));
+                System.out.println(userRequests.size());
+            }
+            System.out.println(userRequests);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userRequests;
     }
 }

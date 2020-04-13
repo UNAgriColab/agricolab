@@ -1,14 +1,17 @@
 package agricolab.dao;
 
-import agricolab.model.Offers;
+import agricolab.model.Offer;
+import agricolab.model.Request;
 
 import java.util.ArrayList;
 
 public interface OfferDAO {
 
-    int createOffer(Offers offer);
+    int createOffer(Offer offer);
 
-    Offers getOffer(String id);
+    Offer getOffer(String id);
 
-    ArrayList<Offers> getAllOffers();
+    ArrayList<Offer> getAllOffers();
+
+    ArrayList<Offer> getUserOffers(String email);
 }
