@@ -16,13 +16,13 @@ public class User {
     public User(@JsonProperty("email") String email,
                 @JsonProperty("name") String name,
                 @JsonProperty("password") String password,
-                @JsonProperty("age")int age) {
+                @JsonProperty("age") int age) {
 
         this.email = email;
         this.name = name;
         this.password = password;
         this.seller = false;
-        this.age =age;
+        this.age = age;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class User {
             "name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
-            "vendor = " + Boolean.toString(seller) +'\'' +
+            "vendor = " + Boolean.toString(seller) + '\'' +
             '}';
     }
 
@@ -51,11 +51,13 @@ public class User {
         return seller;
     }
 
-    public int getAge(){return age;}
+    public int getAge() {
+        return age;
+    }
 
     public User setEmail(String email) {
         this.email = email;
-        return this ;
+        return this;
     }
 
     public User setName(String name) {
@@ -73,7 +75,7 @@ public class User {
         return this;
     }
 
-    public User setAge(int age){
+    public User setAge(int age) {
         this.age = age;
         return this;
     }
