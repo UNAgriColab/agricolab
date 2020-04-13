@@ -3,6 +3,7 @@ package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class Offers {
 
     private String userEmail;
@@ -11,6 +12,7 @@ public class Offers {
     private double pricePresentation;
     private int minQuantity;
     private String description;
+
 
     public Offers(){
 
