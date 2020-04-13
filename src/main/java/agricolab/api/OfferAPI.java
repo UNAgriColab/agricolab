@@ -1,7 +1,6 @@
 package agricolab.api;
 
-import agricolab.model.Offers;
-import agricolab.model.Request;
+import agricolab.model.Offer;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +19,9 @@ public class OfferAPI {
         this.offerService = offerService;
     }
 
-    @GetMapping("/{id}")
-    public Offers getOffer(@PathVariable String id) {
-        return offerService.getOffer(id);
-    }
-
     @PostMapping
-    public void postRequest(@RequestBody Offers o) {
+    public void postRequest(@RequestBody Offer o) {
         offerService.addOffer(o);
-    }
-
-    @GetMapping
-    public ArrayList<Offers> getAllUsers(){
-        return offerService.getAllOffers();
     }
 
     @PutMapping
@@ -41,6 +30,22 @@ public class OfferAPI {
 
     @DeleteMapping
     public void deleteOffer() {
+    }
+
+    // GET METHODS
+    @GetMapping("/{id}")
+    public Offer getOffer(@PathVariable String id) {
+        return offerService.getOffer(id);
+    }
+
+    @GetMapping
+    public ArrayList<Offer> getAllOffers() {
+        return offerService.getAllOffers();
+    }
+
+    @GetMapping("/user/{email}")
+    public ArrayList<Offer> getUserOffers(@PathVariable String email) {
+        return offerService.getUserOffers(email);
     }
 
 }

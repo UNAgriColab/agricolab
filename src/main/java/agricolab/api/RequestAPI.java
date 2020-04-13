@@ -20,20 +20,9 @@ public class RequestAPI {
         this.requestService = requestService;
     }
 
-    @GetMapping("/{id}")
-    public Request getRequest(@PathVariable String id) {
-        return requestService.getRequest(id);
-    }
-
-    @GetMapping
-    public ArrayList<Request> getAllUsers(){
-        return requestService.getAllRequests();
-    }
-
-
     @PostMapping
     public void postRequest(@RequestBody Request r) {
-         requestService.addRequest(r);
+        requestService.addRequest(r);
     }
 
     @PutMapping
@@ -43,4 +32,21 @@ public class RequestAPI {
     @DeleteMapping
     public void deleteRequest() {
     }
+
+    // GET METHODS
+    @GetMapping("/{id}")
+    public Request getRequest(@PathVariable String id) {
+        return requestService.getRequest(id);
+    }
+
+    @GetMapping
+    public ArrayList<Request> getAllRequests() {
+        return requestService.getAllRequests();
+    }
+
+    @GetMapping("/user/{email}")
+    public ArrayList<Request> getUserRequests(@PathVariable String email) {
+        return requestService.getUserRequests(email);
+    }
+
 }
