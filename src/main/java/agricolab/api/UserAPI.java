@@ -22,20 +22,10 @@ public class UserAPI {
         this.userService = userService;
     }
 
-    @GetMapping ("/{email}")
-    public User getUser(@PathVariable String email) {
-        return userService.getUser(email);
-    }
-
     @PostMapping
     public void postUser(@RequestBody User u) {
         userService.addUser(u);
         System.out.println("Successful");
-    }
-
-    @GetMapping
-    public ArrayList<User> getAllUsers(){
-        return userService.getAllUsers();
     }
 
     @PutMapping
@@ -45,4 +35,16 @@ public class UserAPI {
     @DeleteMapping
     public void deleteUser() {
     }
+
+    // GET METHODS
+    @GetMapping ("/{email}")
+    public User getUser(@PathVariable String email) {
+        return userService.getUser(email);
+    }
+
+    @GetMapping
+    public ArrayList<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
 }

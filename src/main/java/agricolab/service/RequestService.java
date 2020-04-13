@@ -28,6 +28,9 @@ public class RequestService {
     }
 
     public ArrayList<Request> getAllRequests(){
-        return requestDAO.getAllRequest();
+        return requestDAO.getAllRequests();
+    }
+    public ArrayList<Request> getUserRequests(String email){
+        return requestDAO.getUserRequests(email);
     }
 }
