@@ -1,7 +1,6 @@
 package agricolab.dao;
 
 import agricolab.model.Offer;
-import agricolab.model.Request;
 
 import java.util.ArrayList;
 
