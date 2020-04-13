@@ -8,7 +8,6 @@ Body:
 	"email":"test@unal.edu.co",
 	"name":"Test",
 	"password":"12345",
-	"seller":true ,
 	"age":18	
 }
 
