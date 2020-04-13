@@ -2,7 +2,6 @@ package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 public class User {
 
     private String email;
