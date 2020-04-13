@@ -3,7 +3,10 @@ package agricolab.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class Request {
+
+
 
     private String userEmail;
     private String productName;

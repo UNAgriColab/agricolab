@@ -31,7 +31,7 @@ public class User {
             "name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
-            "vendedor = " + Boolean.toString(seller) +'\'' +
+            "vendor = " + Boolean.toString(seller) +'\'' +
             '}';
     }
 
