@@ -89,6 +89,7 @@ public class Offer {
         this.minQuantity = minQuantity;
         return this;
     }
+
     public Offer setDescription (String description) {
         this.description = description;
         return this;

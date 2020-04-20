@@ -4,9 +4,10 @@ package agricolab.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class Request {
+public class Order {
 
     private String userEmail;
+    private String offerReference;
     private String productName;
     private int unit;
     private int numberOfUnits;
@@ -14,11 +15,12 @@ public class Request {
     private String description;
 
 
-    public Request(){
+    public Order(){
 
     }
 
-    public Request( @JsonProperty("productName")String productName,
+    public Order(   @JsonProperty("offerReference")String offerReference,
+                    @JsonProperty("productName")String productName,
                     @JsonProperty("userEmail")String userEmail,
                     @JsonProperty("unit")int unit,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
@@ -26,6 +28,7 @@ public class Request {
                     @JsonProperty("description")String description) {
 
         this.userEmail = userEmail;
+        this.offerReference = offerReference;
         this.productName = productName;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
@@ -62,34 +65,39 @@ public class Request {
 
     public String getDescription() {return description;}
 
+    public String getOfferReference(){return offerReference;}
 
-    public Request setUserEmail(String userEmail) {
+    public Order setUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }
 
-    public Request setProductName(String productName) {
+    public Order setProductName(String productName) {
         this.productName = productName;
         return this;
     }
 
-    public Request setUnit(int unit) {
+    public Order setUnit(int unit) {
         this.unit = unit;
         return this;
     }
 
-    public Request setNumberOfUnits(int numberOfUnits) {
+    public Order setNumberOfUnits(int numberOfUnits) {
         this.numberOfUnits = numberOfUnits;
         return this;
     }
 
-    public Request setTotalPrice (double totalPrice){
+    public Order setTotalPrice (double totalPrice){
         this.totalPrice = totalPrice;
         return this;
     }
-    public Request setDescription (String description){
+
+    public Order setDescription (String description){
         this.description = description;
         return this;
     }
-
+    public Order setOfferRefference (String offerReference){
+        this.offerReference = offerReference;
+        return this;
+    }
 }
