@@ -28,9 +28,8 @@ public class OrderAPI {
     public void putOrder() {
     }
 
-    @DeleteMapping
-    public void deleteOrder() {
-    }
+    @GetMapping("del/{id}")
+    public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);    }
 
     // GET METHODS
     @GetMapping("/{id}")

@@ -54,7 +54,6 @@ public class OfferFirestoreDAO implements OfferDAO {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a: docList){
                 allOffers.add(a.toObject(Offer.class));
-                System.out.println(allOffers.size());
             }
             System.out.println(allOffers);
         } catch (InterruptedException | ExecutionException e) {
@@ -68,7 +67,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ArrayList<Offer> getUserOffers(String email){
         ArrayList<Offer> userOffers= new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("request");
+        CollectionReference requestRef=db.collection("offer");
         ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("userEmail", email).get();
         List<QueryDocumentSnapshot> docList= null;
         try {
@@ -82,5 +81,12 @@ public class OfferFirestoreDAO implements OfferDAO {
             e.printStackTrace();
         }
         return userOffers;
+    }
+
+    @Override
+    public void deleteOffer(String id){
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("offer");
+        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
     }
 }

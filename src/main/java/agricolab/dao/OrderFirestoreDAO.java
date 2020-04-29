@@ -27,8 +27,10 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public int deleteOrder(Order r) {
-        return 0;
+    public void deleteOrder(String id) {
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("order");
+        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
     }
 
     // READ METHODS
