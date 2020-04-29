@@ -16,7 +16,7 @@ public interface OrderDAO {
 
     int updateOrder(Order r1, Order r2);
 
-    int deleteOrder(Order r);
+    void deleteOrder(String id);
 
     ArrayList<Order> getOfferOrders(String orderID);
 

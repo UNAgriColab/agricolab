@@ -28,8 +28,9 @@ public class OfferAPI {
     public void putOffer() {
     }
 
-    @DeleteMapping
-    public void deleteOffer() {
+    @GetMapping("del/{id}")
+    public void deleteOffer(@PathVariable String id) {
+        offerService.deleteOffer(id);
     }
 
     // GET METHODS

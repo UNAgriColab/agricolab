@@ -39,4 +39,5 @@ public class OrderService {
         return orderDAO.getOfferOrders(offerId);
     }
 
+    public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 }
