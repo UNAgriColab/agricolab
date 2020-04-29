@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Offer {
 
+    private String id;
     private String userEmail;
     private String productName;
     private double presentation;
