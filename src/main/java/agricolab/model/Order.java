@@ -4,33 +4,29 @@ package agricolab.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class Order {
+public class Request {
 
     private String userEmail;
-    private String offerReference;
     private String productName;
     private int unit;
     private int numberOfUnits;
     private double totalPrice;
     private String description;
-    private Boolean state;
 
 
-    public Order(){
+    public Request(){
 
     }
 
-    public Order(   @JsonProperty("offerReference")String offerReference,
+    public Request( @JsonProperty("productName")String productName,
                     @JsonProperty("userEmail")String userEmail,
                     @JsonProperty("unit")int unit,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
-                    @JsonProperty("description")String description,
-                    @JsonProperty("state") Boolean state) {
+                    @JsonProperty("description")String description) {
 
         this.userEmail = userEmail;
-        this.offerReference = offerReference;
-        this.state = state;
+        this.productName = productName;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
@@ -66,39 +62,34 @@ public class Order {
 
     public String getDescription() {return description;}
 
-    public String getOfferReference(){return offerReference;}
 
-    public Order setUserEmail(String userEmail) {
+    public Request setUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }
 
-    public Order setProductName(String productName) {
+    public Request setProductName(String productName) {
         this.productName = productName;
         return this;
     }
 
-    public Order setUnit(int unit) {
+    public Request setUnit(int unit) {
         this.unit = unit;
         return this;
     }
 
-    public Order setNumberOfUnits(int numberOfUnits) {
+    public Request setNumberOfUnits(int numberOfUnits) {
         this.numberOfUnits = numberOfUnits;
         return this;
     }
 
-    public Order setTotalPrice (double totalPrice){
+    public Request setTotalPrice (double totalPrice){
         this.totalPrice = totalPrice;
         return this;
     }
-
-    public Order setDescription (String description){
+    public Request setDescription (String description){
         this.description = description;
         return this;
     }
-    public Order setOfferRefference (String offerReference){
-        this.offerReference = offerReference;
-        return this;
-    }
+
 }
