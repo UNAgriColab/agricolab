@@ -32,7 +32,6 @@ public class UserFirestoreDAO implements UserDAO {
             document = future.get();
             if (document.exists()) {
                 ret = document.toObject(User.class);
-                System.out.println("Nombre: " + ret.getName());
             } else {
                 System.out.println("No such document!");
             }

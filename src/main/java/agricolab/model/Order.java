@@ -13,6 +13,7 @@ public class Order {
     private int numberOfUnits;
     private double totalPrice;
     private String description;
+    private Boolean state;
 
 
     public Order(){
@@ -20,16 +21,16 @@ public class Order {
     }
 
     public Order(   @JsonProperty("offerReference")String offerReference,
-                    @JsonProperty("productName")String productName,
                     @JsonProperty("userEmail")String userEmail,
                     @JsonProperty("unit")int unit,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
-                    @JsonProperty("description")String description) {
+                    @JsonProperty("description")String description,
+                    @JsonProperty("state") Boolean state) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
-        this.productName = productName;
+        this.state = state;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
