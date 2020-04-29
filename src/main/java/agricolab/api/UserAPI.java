@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/user")
@@ -26,10 +28,12 @@ public class UserAPI {
         System.out.println("Successful");
     }
 
-    @GetMapping("del/{email}")
-    public void deleteUser(@PathVariable String email) {
-        userService.deleteUser(email);
-        System.out.println("Successful delete from user " + email);
+    @PutMapping
+    public void putUser() {
+    }
+
+    @DeleteMapping
+    public void deleteUser() {
     }
 
     // GET METHODS

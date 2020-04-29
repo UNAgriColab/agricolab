@@ -49,4 +49,20 @@ public class OfferAPI {
         return offerService.getUserOffers(email);
     }
 
+    // GET METHODS
+    @GetMapping("/{id}")
+    public Offer getOffer(@PathVariable String id) {
+        return offerService.getOffer(id);
+    }
+
+    @GetMapping
+    public ArrayList<Offer> getAllOffers() {
+        return offerService.getAllOffers();
+    }
+
+    @GetMapping("/user/{email}")
+    public ArrayList<Offer> getUserOffers(@PathVariable String email) {
+        return offerService.getUserOffers(email);
+    }
+
 }
