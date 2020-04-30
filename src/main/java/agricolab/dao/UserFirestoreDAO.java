@@ -32,7 +32,6 @@ public class UserFirestoreDAO implements UserDAO {
             document = future.get();
             if (document.exists()) {
                 ret = document.toObject(User.class);
-                System.out.println("Nombre: " + ret.getName());
             } else {
                 System.out.println("No such document!");
             }
@@ -66,7 +65,9 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public int deleteUser(User u) {
-        return 0;
+    public void deleteUser(String email) {
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("user");
+        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
     }
 }

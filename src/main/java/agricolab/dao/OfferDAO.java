@@ -13,4 +13,6 @@ public interface OfferDAO {
     ArrayList<Offer> getAllOffers();
 
     ArrayList<Offer> getUserOffers(String email);
+
+    void deleteOffer(String id);
 }

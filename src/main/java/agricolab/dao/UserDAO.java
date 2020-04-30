@@ -11,7 +11,8 @@ public interface UserDAO {
 
     int updateUser(User u1, User u2);
 
-    int deleteUser(User u);
+    void deleteUser(String email);
 
     ArrayList<User> getAllUsers();
+
 }

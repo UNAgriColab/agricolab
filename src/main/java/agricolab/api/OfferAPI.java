@@ -28,8 +28,25 @@ public class OfferAPI {
     public void putOffer() {
     }
 
-    @DeleteMapping
-    public void deleteOffer() {
+    @GetMapping("del/{id}")
+    public void deleteOffer(@PathVariable String id) {
+        offerService.deleteOffer(id);
+    }
+
+    // GET METHODS
+    @GetMapping("/{id}")
+    public Offer getOffer(@PathVariable String id) {
+        return offerService.getOffer(id);
+    }
+
+    @GetMapping
+    public ArrayList<Offer> getAllOffers() {
+        return offerService.getAllOffers();
+    }
+
+    @GetMapping("/user/{email}")
+    public ArrayList<Offer> getUserOffers(@PathVariable String email) {
+        return offerService.getUserOffers(email);
     }
 
     // GET METHODS
