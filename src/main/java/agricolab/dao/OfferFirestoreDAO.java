@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.model.ID;
 import agricolab.model.Offer;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -14,9 +15,32 @@ import java.util.concurrent.ExecutionException;
 public class OfferFirestoreDAO implements OfferDAO {
 
     @Override
+    public ID getID(){
+        ID ret = new ID();
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("ids").document("idofer");
+        ApiFuture<DocumentSnapshot> future = ref.get();
+        DocumentSnapshot document = null;
+        try {
+            document = future.get();
+            if (document.exists()) {
+                ret = document.toObject(ID.class);
+            } else {
+                System.out.println("No such document!");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        ret.setId(ret.getId()+1);
+        ref.set(ret);
+        return ret;
+    }
+
+    @Override
     public int createOffer(Offer offer) {
         Firestore db=FirestoreClient.getFirestore();
-        db.collection("offer").add(offer);
+        CollectionReference ref = db.collection("offer");
+        ref.document(getID().toString()).set(offer);
         System.out.println(offer);
         return 0;
     }
