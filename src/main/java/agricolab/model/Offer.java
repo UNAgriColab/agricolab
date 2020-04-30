@@ -6,14 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Offer {
 
-    private String id;
+    private String ID;
     private String userEmail;
     private String productName;
     private double presentation;
     private double pricePresentation;
     private int minQuantity;
     private String description;
-    private String ID;
 
 
     public Offer(){

@@ -1,25 +1,25 @@
 package agricolab.model;
 
 public class ID {
-    private int id;
+    private int ID;
 
     public ID(){
 
     }
-    public ID(int id) {
-        this.id = id;
+    public ID(int ID) {
+        this.ID = ID;
     }
 
     @Override
     public String toString() {
-        return Integer.toString(id);
+        return Integer.toString(ID);
     }
 
     public int getId() {
-        return id;
+        return ID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int ID) {
+        this.ID = ID;
     }
 }
