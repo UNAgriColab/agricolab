@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Offer {
 
+    private String id;
     private String userEmail;
     private String productName;
     private double presentation;
@@ -89,6 +90,7 @@ public class Offer {
         this.minQuantity = minQuantity;
         return this;
     }
+
     public Offer setDescription (String description) {
         this.description = description;
         return this;

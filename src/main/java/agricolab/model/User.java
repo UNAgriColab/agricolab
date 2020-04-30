@@ -13,6 +13,15 @@ public class User {
     public User() {
     }
 
+    public void manual (String email, String name, String password, int age) {
+
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.seller = false;
+        this.age = age;
+    }
+
     public User(@JsonProperty("email") String email,
                 @JsonProperty("name") String name,
                 @JsonProperty("password") String password,
