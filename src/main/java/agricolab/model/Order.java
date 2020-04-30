@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Order {
 
+    private String ID;
     private String userEmail;
     private String offerReference;
     private String productName;
@@ -35,11 +36,12 @@ public class Order {
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
         this.description = description;
+        this.ID=null;
     }
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Order{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
                 ", unit='" + Integer.toString(unit) + '\'' +
