@@ -18,7 +18,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ID getID(){
         ID ret = new ID();
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("ids").document("idofer");
+        DocumentReference ref = db.collection("ids").document("idoffer");
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document = null;
         try {
@@ -40,6 +40,8 @@ public class OfferFirestoreDAO implements OfferDAO {
     public int createOffer(Offer offer) {
         Firestore db=FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
+        ID id = getID();
+        offer.setId(id.toString());
         ref.document(getID().toString()).set(offer);
         System.out.println(offer);
         return 0;
