@@ -39,7 +39,9 @@ public class OrderFirestoreDAO implements OrderDAO {
     public int createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
-        ref.document(getID().toString()).set(order);
+        ID id = getID();
+        order.setId(id.toString());
+        ref.document(id.toString()).set(order);
         System.out.println(order );
         return 0;
     }
@@ -60,15 +62,14 @@ public class OrderFirestoreDAO implements OrderDAO {
     @Override
     public Order getOrder(String id) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("request").document(id);
+        DocumentReference ref = db.collection("order").document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document = null;
         Order ret = null;
         try {
             document = future.get();
             if (document.exists()) {
-                ret = document.toObject(Order.class);
-                System.out.println("Nombre: " + ret.getProductName());
+                ret = document.<Order>toObject(Order.class);
             } else {
                 System.out.println("No such document!");
             }
@@ -78,12 +79,13 @@ public class OrderFirestoreDAO implements OrderDAO {
         return ret;
     }
 
+
     @Override
     public ArrayList<Order> getAllOrders() {
         ArrayList<Order> allRequest = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
 
-        CollectionReference requestRef = db.collection("request");
+        CollectionReference requestRef = db.collection("order");
         ApiFuture<QuerySnapshot> docs = requestRef.get();
         List<QueryDocumentSnapshot> docList = null;
         try {
@@ -121,7 +123,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("userEmail", orderID).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).get();
         List<QueryDocumentSnapshot> docList = null;
         try {
             docList = docs.get().getDocuments();

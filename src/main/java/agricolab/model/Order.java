@@ -9,7 +9,6 @@ public class Order {
     private String ID;
     private String userEmail;
     private String offerReference;
-    private String productName;
     private int unit;
     private int numberOfUnits;
     private double totalPrice;
@@ -27,7 +26,9 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") Boolean state) {
+                    @JsonProperty("state") Boolean state,
+                    @JsonProperty("ID")String ID
+                    ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
@@ -36,14 +37,13 @@ public class Order {
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
         this.description = description;
-        this.ID=null;
+        this.ID=ID;
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 ", userEmail='" + userEmail + '\'' +
-                ", name='" + productName + '\'' +
                 ", unit='" + Integer.toString(unit) + '\'' +
                 ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
                 ", totalPrice='" + Double.toString(totalPrice) + '\'' +
@@ -51,10 +51,6 @@ public class Order {
     }
 
     public String getUserEmail(){return userEmail; }
-
-    public String getProductName() {
-        return productName;
-    }
 
     public int getUnit() {
         return unit;
@@ -70,13 +66,15 @@ public class Order {
 
     public String getOfferReference(){return offerReference;}
 
+    public String getID(){return  ID;}
+
     public Order setUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }
 
-    public Order setProductName(String productName) {
-        this.productName = productName;
+    public Order setId(String ID) {
+        this.ID = ID;
         return this;
     }
 

@@ -23,9 +23,7 @@ public class OrderService {
         return orderDAO.createOrder(order);
     }
 
-    public Order getOrder(String id){
-        return orderDAO.getOrder(id);
-    }
+    public Order getOrder(String id){ return orderDAO.getOrder(id); }
 
     public ArrayList<Order> getAllOrders(){
         return orderDAO.getAllOrders();
