@@ -7,7 +7,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Repository()
@@ -22,11 +24,6 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public int updateOrder(Order r1, Order r2) {
-        return 0;
-    }
-
-    @Override
     public void deleteOrder(String id) {
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference requestRef=db.collection("order");
@@ -37,7 +34,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     @Override
     public Order getOrder(String id) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("request").document(id);
+        DocumentReference ref = db.collection("order").document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document = null;
         Order ret = null;
@@ -45,7 +42,6 @@ public class OrderFirestoreDAO implements OrderDAO {
             document = future.get();
             if (document.exists()) {
                 ret = document.toObject(Order.class);
-                System.out.println("Nombre: " + ret.getProductName());
             } else {
                 System.out.println("No such document!");
             }
@@ -59,7 +55,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     public ArrayList<Order> getAllOrders() {
         ArrayList<Order> allRequest = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("request");
+        CollectionReference requestRef = db.collection("order");
         ApiFuture<QuerySnapshot> docs = requestRef.get();
         List<QueryDocumentSnapshot> docList = null;
         try {
@@ -76,20 +72,26 @@ public class OrderFirestoreDAO implements OrderDAO {
 
     @Override
     public ArrayList<Order> getUserOrders(String email) {
-        ArrayList<Order> userOrder = new ArrayList<>();
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("userEmail", email).get();
-        List<QueryDocumentSnapshot> docList = null;
+        return null;
+    }
+
+    @Override
+    public boolean updateOrder(Order r) {
+        Firestore db= FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("offerReference",r.getOfferReference());
+        updates.put("userEmail",r.getUserEmail());
+        updates.put("unit",r.getUnit());
+        updates.put("totalPrice",r.getTotalPrice());
+        updates.put("description",r.getDescription());
+        ApiFuture<WriteResult> ud= db.collection("order").document(String.valueOf(r.getId())).update(updates);
         try {
-            docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a : docList) {
-                userOrder.add(a.toObject(Order.class));
-            }
+            System.out.println(ud.get().getUpdateTime());
+            return true;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return userOrder;
+        return false;
     }
 
     @Override

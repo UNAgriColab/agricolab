@@ -6,16 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Order {
-
+    private long id;
     private String userEmail;
     private String offerReference;
-    private String productName;
     private int unit;
     private int numberOfUnits;
     private double totalPrice;
     private String description;
-    private Boolean state;
-
+    private boolean state;
 
     public Order(){
 
@@ -27,22 +25,22 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") Boolean state) {
+                    @JsonProperty("id")long id) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
-        this.state = state;
+        this.state = false;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
         this.description = description;
+        this.id=id;
     }
 
     @Override
     public String toString() {
         return "Request{" +
                 ", userEmail='" + userEmail + '\'' +
-                ", name='" + productName + '\'' +
                 ", unit='" + Integer.toString(unit) + '\'' +
                 ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
                 ", totalPrice='" + Double.toString(totalPrice) + '\'' +
@@ -51,9 +49,6 @@ public class Order {
 
     public String getUserEmail(){return userEmail; }
 
-    public String getProductName() {
-        return productName;
-    }
 
     public int getUnit() {
         return unit;
@@ -69,13 +64,12 @@ public class Order {
 
     public String getOfferReference(){return offerReference;}
 
-    public Order setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-        return this;
+    public long getId() {
+        return id;
     }
 
-    public Order setProductName(String productName) {
-        this.productName = productName;
+    public Order setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
         return this;
     }
 
@@ -98,7 +92,7 @@ public class Order {
         this.description = description;
         return this;
     }
-    public Order setOfferRefference (String offerReference){
+    public Order setOfferReference (String offerReference){
         this.offerReference = offerReference;
         return this;
     }
