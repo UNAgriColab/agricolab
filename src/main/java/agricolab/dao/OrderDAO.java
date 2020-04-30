@@ -14,7 +14,7 @@ public interface OrderDAO {
 
     ArrayList<Order> getUserOrders(String email);
 
-    int updateOrder(Order r1, Order r2);
+    boolean updateOrder(Order r);
 
     void deleteOrder(String id);
 

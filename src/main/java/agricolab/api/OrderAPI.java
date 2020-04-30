@@ -24,10 +24,6 @@ public class OrderAPI {
         orderService.addOrder(r);
     }
 
-    @PutMapping
-    public void putOrder() {
-    }
-
     @GetMapping("del/{id}")
     public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);    }
 
@@ -36,7 +32,10 @@ public class OrderAPI {
     public Order getOrder(@PathVariable String id) {
         return orderService.getOrder(id);
     }
-
+    @PutMapping
+    public boolean updateOrder(@RequestBody Order r){
+        return orderService.updateOrder(r);
+    }
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
