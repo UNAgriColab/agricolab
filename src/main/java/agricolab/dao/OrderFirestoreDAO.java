@@ -1,6 +1,7 @@
 package agricolab.dao;
 
 import agricolab.model.Order;
+import agricolab.model.ID;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -16,10 +17,34 @@ import java.util.concurrent.ExecutionException;
 public class OrderFirestoreDAO implements OrderDAO {
 
     @Override
-    public int createOrder(Order request) {
+    public  ID getID(){
+        ID ret = new ID();
         Firestore db = FirestoreClient.getFirestore();
-        db.collection("order").add(request);
-        System.out.println(request);
+        DocumentReference ref = db.collection("ids").document("idorder");
+        ApiFuture<DocumentSnapshot> future = ref.get();
+        DocumentSnapshot document = null;
+        try {
+            document = future.get();
+            if (document.exists()) {
+                ret = document.toObject(ID.class);
+            } else {
+                System.out.println("No such document!");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        ret.setId(ret.getId()+1);
+        ref.set(ret);
+        return ret;
+    }
+    @Override
+    public int createOrder(Order order) {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference ref = db.collection("order");
+        ID id = getID();
+        order.setId(id.toString());
+        ref.document(id.toString()).set(order);
+        System.out.println(order );
         return 0;
     }
 
@@ -41,7 +66,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         try {
             document = future.get();
             if (document.exists()) {
-                ret = document.toObject(Order.class);
+                ret = document.<Order>toObject(Order.class);
             } else {
                 System.out.println("No such document!");
             }
@@ -50,6 +75,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return ret;
     }
+
 
     @Override
     public ArrayList<Order> getAllOrders() {
@@ -99,7 +125,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("userEmail", orderID).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).get();
         List<QueryDocumentSnapshot> docList = null;
         try {
             docList = docs.get().getDocuments();

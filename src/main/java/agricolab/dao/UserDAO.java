@@ -1,9 +1,14 @@
 package agricolab.dao;
 
 import agricolab.model.User;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.cloud.FirestoreClient;
+
 import java.util.ArrayList;
 
 public interface UserDAO {
+
 
     int createUser(User u);
 

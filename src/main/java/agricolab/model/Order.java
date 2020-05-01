@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Order {
-    private long id;
+    private String id;
     private String userEmail;
     private String offerReference;
     private int unit;
@@ -15,9 +15,7 @@ public class Order {
     private String description;
     private boolean state;
 
-    public Order(){
-
-    }
+    public Order(){}
 
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("userEmail")String userEmail,
@@ -25,7 +23,8 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("id")long id) {
+                    @JsonProperty("id")String id
+                    ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
@@ -39,7 +38,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Order{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", unit='" + Integer.toString(unit) + '\'' +
                 ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
@@ -49,14 +48,9 @@ public class Order {
 
     public String getUserEmail(){return userEmail; }
 
+    public int getUnit() {return unit;}
 
-    public int getUnit() {
-        return unit;
-    }
-
-    public int getNumberOfUnits() {
-        return numberOfUnits;
-    }
+    public int getNumberOfUnits() {return numberOfUnits;}
 
     public double getTotalPrice() { return totalPrice; }
 
@@ -64,12 +58,10 @@ public class Order {
 
     public String getOfferReference(){return offerReference;}
 
-    public long getId() {
-        return id;
-    }
+    public String getId(){return  id;}
 
-    public Order setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public Order setId(String ID) {
+        this.id = ID;
         return this;
     }
 
