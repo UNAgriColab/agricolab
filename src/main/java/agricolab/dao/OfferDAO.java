@@ -1,11 +1,13 @@
 package agricolab.dao;
 
+import agricolab.model.ID;
 import agricolab.model.Offer;
 
 import java.util.ArrayList;
 
 public interface OfferDAO {
 
+    ID getID ();
     int createOffer(Offer offer);
 
     Offer getOffer(String id);

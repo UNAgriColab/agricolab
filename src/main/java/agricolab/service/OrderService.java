@@ -19,13 +19,11 @@ public class OrderService {
         this.orderDAO = orderDAO;
     }
 
-    public int addOrder(Order request){
-        return orderDAO.createOrder(request);
+    public int addOrder(Order order){
+        return orderDAO.createOrder(order);
     }
 
-    public Order getOrder(String id){
-        return orderDAO.getOrder(id);
-    }
+    public Order getOrder(String id){ return orderDAO.getOrder(id); }
 
     public ArrayList<Order> getAllOrders(){
         return orderDAO.getAllOrders();
