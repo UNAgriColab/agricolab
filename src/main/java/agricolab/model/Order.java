@@ -4,8 +4,8 @@ package agricolab.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class Order {
+
     private String id;
     private String userEmail;
     private String offerReference;
@@ -59,6 +59,11 @@ public class Order {
     public String getOfferReference(){return offerReference;}
 
     public String getId(){return  id;}
+
+    public Order setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+        return this;
+    }
 
     public Order setId(String ID) {
         this.id = ID;
