@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Offer {
 
-    private String ID;
+    private String id;
     private String userEmail;
     private String productName;
     private double presentation;
@@ -25,7 +25,7 @@ public class Offer {
                  @JsonProperty("pricePresentation")double pricePresentation,
                  @JsonProperty("minQuantity")int minQuantity,
                  @JsonProperty("description")String description,
-                 @JsonProperty("ID")String ID
+                 @JsonProperty("id")String id
     ){
         this.productName = productName;
         this.userEmail = userEmail;
@@ -33,7 +33,7 @@ public class Offer {
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
         this.description = description;
-        this.ID = ID;
+        this.id = id;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Offer {
                 '}';
     }
 
-    public String getID(){return  ID;}
+    public String getID(){return  id;}
 
     public String getUserEmail() {
         return userEmail;
@@ -81,8 +81,8 @@ public class Offer {
         return this;
     }
 
-    public Offer setId(String ID) {
-        this.ID = ID;
+    public Offer setId(String id) {
+        this.id = id;
         return this;
     }
 
