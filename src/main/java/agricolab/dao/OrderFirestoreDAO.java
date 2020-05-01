@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.ID;
 import com.google.api.core.ApiFuture;
@@ -134,4 +135,33 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return offerOrders;
     }
+
+    @Override
+    public ArrayList<Order> getOrderBySeller(String email){
+        ArrayList<String> userOffers= new ArrayList<>();
+        ArrayList<Order> orders = new ArrayList<>();
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference offerRef=db.collection("offer");
+        CollectionReference orderRef = db.collection("order");
+        //buscar todas los ofertas del vendedor
+        ApiFuture<QuerySnapshot> docs= offerRef.whereEqualTo("userEmail", email).get();
+        List<QueryDocumentSnapshot> docList= null;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a: docList){
+                userOffers.add(a.toObject(Offer.class).getID());
+            }
+            System.out.println(userOffers);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        //para todas las ofertas buscar las ordenes con ese id
+        for(String offer: userOffers){
+            for (Order o:getOfferOrders(offer)){
+                orders.add(o);
+            }
+        }
+        return orders;
+    };
 }

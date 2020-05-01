@@ -16,6 +16,8 @@ public interface OrderDAO {
 
     ArrayList<Order> getAllOrders();
 
+    ArrayList<Order> getOrderBySeller(String email);
+
     ArrayList<Order> getUserOrders(String email);
 
     int updateOrder(Order r1, Order r2);
