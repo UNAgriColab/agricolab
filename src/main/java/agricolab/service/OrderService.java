@@ -37,5 +37,7 @@ public class OrderService {
         return orderDAO.getOfferOrders(offerId);
     }
 
+    public ArrayList<Order> getOrderBySeller (String email) { return orderDAO.getOrderBySeller(email); }
+
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 }

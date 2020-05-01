@@ -52,4 +52,9 @@ public class OrderAPI {
         return orderService.getOfferOrders(offerId);
     }
 
+    @GetMapping("/seller/{email}")
+    public ArrayList<Order> getOrderBySeller(@PathVariable String email){
+        return orderService.getOrderBySeller(email);
+    }
+
 }
