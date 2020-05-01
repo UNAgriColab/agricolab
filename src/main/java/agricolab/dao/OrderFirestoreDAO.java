@@ -37,6 +37,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ref.set(ret);
         return ret;
     }
+
     @Override
     public int createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
@@ -61,12 +62,11 @@ public class OrderFirestoreDAO implements OrderDAO {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference ref = db.collection("order").document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
-        DocumentSnapshot document = null;
         Order ret = null;
         try {
-            document = future.get();
+            DocumentSnapshot document = future.get();
             if (document.exists()) {
-                ret = document.<Order>toObject(Order.class);
+                ret = document.toObject(Order.class);
             } else {
                 System.out.println("No such document!");
             }
@@ -75,7 +75,6 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return ret;
     }
-
 
     @Override
     public ArrayList<Order> getAllOrders() {

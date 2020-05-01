@@ -42,7 +42,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         CollectionReference ref = db.collection("offer");
         ID id = getID();
         offer.setId(id.toString());
-        ref.document(getID().toString()).set(offer);
+        ref.document(id.toString()).set(offer);
         System.out.println(offer);
         return 0;
     }

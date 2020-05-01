@@ -25,8 +25,7 @@ public class UserTest {
         User u = new User();
         u.manual("test1@test.com","test1","12345", 13);
         userService.addUser(u);
-        String name = "";
-        name = userService.getUser("test1@test.com").getName();
+        String name = userService.getUser("test1@test.com").getName();
         System.out.print(name + "expected test1");
         assertEquals(name,"test1");
     }
