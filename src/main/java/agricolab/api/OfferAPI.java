@@ -20,12 +20,8 @@ public class OfferAPI {
     }
 
     @PostMapping
-    public void postRequest(@RequestBody Offer o) {
+    public void createOffer(@RequestBody Offer o) {
         offerService.addOffer(o);
-    }
-
-    @PutMapping
-    public void putOffer() {
     }
 
     @GetMapping("del/{id}")
@@ -33,7 +29,6 @@ public class OfferAPI {
         offerService.deleteOffer(id);
     }
 
-    // GET METHODS
     @GetMapping("/{id}")
     public Offer getOffer(@PathVariable String id) {
         return offerService.getOffer(id);
@@ -46,7 +41,7 @@ public class OfferAPI {
 
     @GetMapping("/user/{email}")
     public ArrayList<Offer> getUserOffers(@PathVariable String email) {
-        return offerService.getUserOffers(email);
+        return offerService.gerOffersByUser(email);
     }
 
 

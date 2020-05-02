@@ -16,7 +16,7 @@ public interface OrderDAO {
 
     ArrayList<Order> getAllOrders();
 
-    ArrayList<Order> getUserOrders(String email);
+    ArrayList<Order> getOrdersByUser(String email);
 
     boolean updateOrder(Order r);
 

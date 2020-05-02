@@ -30,7 +30,7 @@ public class OrderService {
     }
 
     public ArrayList<Order> getUserOrders(String email){
-        return orderDAO.getUserOrders(email);
+        return orderDAO.getOrdersByUser(email);
     }
 
     public ArrayList<Order> getOfferOrders(String offerId){
