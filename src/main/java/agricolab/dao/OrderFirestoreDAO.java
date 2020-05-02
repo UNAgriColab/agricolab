@@ -143,14 +143,13 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> orders = new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference offerRef=db.collection("offer");
-        CollectionReference orderRef = db.collection("order");
         //buscar todas los ofertas del vendedor
         ApiFuture<QuerySnapshot> docs= offerRef.whereEqualTo("userEmail", email).get();
         List<QueryDocumentSnapshot> docList= null;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a: docList){
-                userOffers.add(a.toObject(Offer.class).getID());
+                userOffers.add(a.toObject(Offer.class).getId());
             }
             System.out.println(userOffers);
         } catch (InterruptedException | ExecutionException e) {

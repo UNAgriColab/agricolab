@@ -26,7 +26,7 @@ public class UserAPI {
         System.out.println("Successful");
     }
 
-    @GetMapping("del/{email}")
+    @DeleteMapping("del/{email}")
     public void deleteUser(@PathVariable String email) {
         userService.deleteUser(email);
         System.out.println("Successful delete from user " + email);
