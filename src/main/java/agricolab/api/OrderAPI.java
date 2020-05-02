@@ -42,18 +42,18 @@ public class OrderAPI {
     }
 
     @GetMapping("/user/{email}")
-    public ArrayList<Order> getOrdersByUser(@PathVariable String email) {
-        return orderService.getUserOrders(email);
+    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email) {
+        return orderService.getOrdersByBuyer(email);
     }
 
     @GetMapping("/offer/{offerId}")
-    public ArrayList<Order> getOfferOrders(@PathVariable String offerId) {
-        return orderService.getOfferOrders(offerId);
+    public ArrayList<Order> getOrdersByOffer(@PathVariable String offerId) {
+        return orderService.getOrdersByOffer(offerId);
     }
 
     @GetMapping("/seller/{email}")
-    public ArrayList<Order> getOrderBySeller(@PathVariable String email){
-        return orderService.getOrderBySeller(email);
+    public ArrayList<Order> getOrdersBySeller(@PathVariable String email){
+        return orderService.getOrdersBySeller(email);
     }
 
 }
