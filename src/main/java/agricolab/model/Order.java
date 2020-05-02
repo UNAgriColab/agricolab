@@ -13,7 +13,7 @@ public class Order {
     private int numberOfUnits;
     private double totalPrice;
     private String description;
-    private String state;
+    private int state;
 
 
     public Order(){
@@ -26,7 +26,7 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") String state,
+                    @JsonProperty("state") int state,
                     @JsonProperty("id")String id
                     ) {
 
@@ -50,7 +50,7 @@ public class Order {
                 '}';
     }
 
-    public String getState(){ return state;    }
+    public int getState(){ return state;    }
 
     public String getUserEmail(){return userEmail; }
 
@@ -75,7 +75,7 @@ public class Order {
         return this;
     }
 
-    public Order setState (String state){
+    public Order setState (int state){
         this.state = state;
         return this;
     }
