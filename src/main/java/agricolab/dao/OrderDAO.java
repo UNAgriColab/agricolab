@@ -10,6 +10,8 @@ public interface OrderDAO {
 
     ID setOrderId();
 
+    int getLastOrderId();
+
     int createOrder(Order request);
 
     Order getOrder(String id);
@@ -19,7 +21,6 @@ public interface OrderDAO {
     ArrayList<Order> getOrdersByBuyer(String email);
 
     ArrayList<Order> getOrdersBySeller(String email);
-
 
     boolean updateOrder(Order r);
 

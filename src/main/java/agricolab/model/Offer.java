@@ -19,13 +19,22 @@ public class Offer {
 
     }
 
+    public void manual (String userEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
+
+        this.productName = productName;
+        this.userEmail = userEmail;
+        this.presentation = presentation;
+        this.pricePresentation = pricePresentation;
+        this.minQuantity = minQuantity;
+        this.description = description;
+    }
+
     public Offer(@JsonProperty("productName")String productName,
                  @JsonProperty("userEmail")String userEmail,
                  @JsonProperty("presentation")double presentation,
                  @JsonProperty("pricePresentation")double pricePresentation,
                  @JsonProperty("minQuantity")int minQuantity,
-                 @JsonProperty("description")String description,
-                 @JsonProperty("id")String id
+                 @JsonProperty("description")String description
     ){
         this.productName = productName;
         this.userEmail = userEmail;
@@ -33,7 +42,6 @@ public class Offer {
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
         this.description = description;
-        this.id = id;
     }
 
     @Override
@@ -41,9 +49,9 @@ public class Offer {
         return "Offer{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
-                ", presentation='" + Double.toString(presentation) + '\'' +
-                ", pricePresentation='" + Double.toString(pricePresentation) + '\'' +
-                ", minQuantity='" + Integer.toString(minQuantity) + '\'' +
+                ", presentation='" + presentation + '\'' +
+                ", pricePresentation='" + pricePresentation + '\'' +
+                ", minQuantity='" + minQuantity + '\'' +
                 '}';
     }
 

@@ -41,5 +41,7 @@ public class OrderService {
 
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 
-    public boolean updateOrder(Order r){return orderDAO.updateOrder(r);}
+    public boolean updateOrder(Order r){ return orderDAO.updateOrder(r); }
+
+    public int getLastOrderId (){ return orderDAO.getLastOrderId(); }
 }
