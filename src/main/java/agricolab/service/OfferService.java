@@ -16,7 +16,7 @@ public class OfferService {
 
     @Autowired
     public OfferService(OfferDAO offerdao) {
-        this.offerDAO = offerdao;
+        offerDAO = offerdao;
     }
 
     public int addOffer(Offer offer){return offerDAO.createOffer(offer);}
@@ -36,5 +36,7 @@ public class OfferService {
     }
 
     public void deleteOffer(String id){offerDAO.deleteOffer(id);}
+
+    public int getLastOfferId (){ return offerDAO.getLastOfferId(); }
 
 }

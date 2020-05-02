@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @SpringBootTest
@@ -23,17 +24,31 @@ public class UserTest {
     @Test
     public void creationTest(){
         User u = new User();
-        u.manual("test1@test.com","test1","12345", 13);
-        userService.addUser(u);
-        String name = userService.getUser("test1@test.com").getName();
-        System.out.print(name + "expected test1");
+        u.manual("test1@test.com","test1","12345", 21);
+        String name = null;
+        try {
+            userService.addUser(u);
+            Thread.sleep(5000);
+            name = userService.getUser("test1@test.com").getName();
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         assertEquals(name,"test1");
     }
 
     @Test
     public void deleteTest(){
-        userService.deleteUser("test1@test.com");
+
+        try {
+            userService.deleteUser("test1@test.com");
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         User u = userService.getUser("test1@test.com");
-        assertEquals(u, null);
+        assertNull(u);
     }
 }

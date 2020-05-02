@@ -20,6 +20,17 @@ public class Order {
 
     }
 
+    public void manual (String userEmail, String offerReference, int numberOfUnits, int unit , double totalPrice , String description) {
+
+        this.userEmail = userEmail;
+        this.offerReference = offerReference;
+        this.state = 0;
+        this.unit = unit;
+        this.numberOfUnits = numberOfUnits;
+        this.totalPrice = totalPrice;
+        this.description = description;
+    }
+
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("userEmail")String userEmail,
                     @JsonProperty("unit")int unit,
@@ -41,11 +52,11 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Order{" + "id "+ id +
                 ", userEmail='" + userEmail + '\'' +
-                ", unit='" + Integer.toString(unit) + '\'' +
-                ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
-                ", totalPrice='" + Double.toString(totalPrice) + '\'' +
+                ", unit='" + unit + '\'' +
+                ", numberOfUnits='" + numberOfUnits + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
                 '}';
     }
 

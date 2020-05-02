@@ -10,6 +10,8 @@ public interface OfferDAO {
 
     ID setOfferId ();
 
+    int getLastOfferId();
+
     int createOffer(Offer offer);
 
     Offer getOffer(String id);
