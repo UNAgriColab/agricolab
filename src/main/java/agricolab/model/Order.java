@@ -15,7 +15,10 @@ public class Order {
     private String description;
     private int state;
 
-    public Order(){}
+
+    public Order(){
+
+    }
 
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("userEmail")String userEmail,
@@ -23,13 +26,13 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") String state,
+                    @JsonProperty("state") int state,
                     @JsonProperty("id")String id
                     ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
-        this.state = 0;
+        this.state = state;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
@@ -47,13 +50,17 @@ public class Order {
                 '}';
     }
 
-    public int getState(){ return state;}
+    public int getState(){ return state;    }
 
     public String getUserEmail(){return userEmail; }
 
-    public int getUnit() {return unit;}
+    public int getUnit() {
+        return unit;
+    }
 
-    public int getNumberOfUnits() {return numberOfUnits;}
+    public int getNumberOfUnits() {
+        return numberOfUnits;
+    }
 
     public double getTotalPrice() { return totalPrice; }
 
@@ -61,7 +68,7 @@ public class Order {
 
     public String getOfferReference(){return offerReference;}
 
-    public String getId(){return  id;}
+    public String getID(){return  id;}
 
     public Order setUserEmail(String userEmail) {
         this.userEmail = userEmail;
@@ -97,7 +104,8 @@ public class Order {
         this.description = description;
         return this;
     }
-    public Order setOfferReference (String offerReference){
+
+    public Order setOfferRefference (String offerReference){
         this.offerReference = offerReference;
         return this;
     }
