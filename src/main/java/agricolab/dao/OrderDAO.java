@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface OrderDAO {
 
-    ID getID();
+    ID setOrderId();
 
     int createOrder(Order request);
 
@@ -16,16 +16,16 @@ public interface OrderDAO {
 
     ArrayList<Order> getAllOrders();
 
-    ArrayList<Order> getOrdersByUser(String email);
+    ArrayList<Order> getOrdersByBuyer(String email);
 
-    ArrayList<Order> getOrderBySeller(String email);
+    ArrayList<Order> getOrdersBySeller(String email);
 
 
     boolean updateOrder(Order r);
 
     void deleteOrder(String id);
 
-    ArrayList<Order> getOfferOrders(String orderID);
+    ArrayList<Order> getOrdersByOffer(String orderID);
 
 
 }

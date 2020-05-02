@@ -21,7 +21,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     public int createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
-        ID id = getID();
+        ID id = setOrderId();
         order.setId(id.toString());
         ref.document(id.toString()).set(order);
         System.out.println(order);
@@ -74,7 +74,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
     //AUXILIARY METHODS
     @Override
-    public  ID getID(){
+    public  ID setOrderId(){
         ID ret = new ID();
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference ref = db.collection("ids").document("idorder");
@@ -115,12 +115,12 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
     //
     @Override
-    public ArrayList<Order> getOrdersByUser(String email) {
+    public ArrayList<Order> getOrdersByBuyer(String email) {
         return null;
     }
 
     @Override
-    public ArrayList<Order> getOfferOrders(String orderID) {
+    public ArrayList<Order> getOrdersByOffer(String orderID) {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
@@ -138,7 +138,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getOrderBySeller(String email){
+    public ArrayList<Order> getOrdersBySeller(String email){
         ArrayList<String> userOffers= new ArrayList<>();
         ArrayList<Order> orders = new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
@@ -159,7 +159,7 @@ public class OrderFirestoreDAO implements OrderDAO {
 
         //para todas las ofertas buscar las ordenes con ese id
         for(String offer: userOffers){
-            for (Order o:getOfferOrders(offer)){
+            for (Order o:getOrdersByOffer(offer)){
                 orders.add(o);
             }
         }

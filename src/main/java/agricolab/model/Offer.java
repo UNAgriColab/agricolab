@@ -81,6 +81,10 @@ public class Offer {
         return this;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public Offer setId(String id) {
         this.id = id;
         return this;

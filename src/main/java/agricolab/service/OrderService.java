@@ -29,15 +29,15 @@ public class OrderService {
         return orderDAO.getAllOrders();
     }
 
-    public ArrayList<Order> getUserOrders(String email){
-        return orderDAO.getOrdersByUser(email);
+    public ArrayList<Order> getOrdersByBuyer(String email){
+        return orderDAO.getOrdersByBuyer(email);
     }
 
-    public ArrayList<Order> getOfferOrders(String offerId){
-        return orderDAO.getOfferOrders(offerId);
+    public ArrayList<Order> getOrdersByOffer(String offerId){
+        return orderDAO.getOrdersByOffer(offerId);
     }
 
-    public ArrayList<Order> getOrderBySeller (String email) { return orderDAO.getOrderBySeller(email); }
+    public ArrayList<Order> getOrdersBySeller (String email) { return orderDAO.getOrdersBySeller(email); }
 
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 
