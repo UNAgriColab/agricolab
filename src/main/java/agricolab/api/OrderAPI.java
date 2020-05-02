@@ -24,8 +24,8 @@ public class OrderAPI {
         orderService.addOrder(r);
     }
 
-    @GetMapping("del/{id}")
-    public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);    }
+    @DeleteMapping("del/{id}")
+    public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);}
 
     // GET METHODS
     @GetMapping("/{id}")

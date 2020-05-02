@@ -24,7 +24,7 @@ public class OfferAPI {
         offerService.addOffer(o);
     }
 
-    @GetMapping("del/{id}")
+    @DeleteMapping("del/{id}")
     public void deleteOffer(@PathVariable String id) {
         offerService.deleteOffer(id);
     }

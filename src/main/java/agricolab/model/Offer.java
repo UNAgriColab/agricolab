@@ -47,7 +47,7 @@ public class Offer {
                 '}';
     }
 
-    public String getID(){return  id;}
+    public String getId(){return  id;}
 
     public String getUserEmail() {
         return userEmail;
@@ -71,6 +71,10 @@ public class Offer {
 
     public String getDescription(){return description;}
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Offer setUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
@@ -78,15 +82,6 @@ public class Offer {
 
     public Offer setProductName(String productName) {
         this.productName = productName;
-        return this;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Offer setId(String id) {
-        this.id = id;
         return this;
     }
 

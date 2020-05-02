@@ -33,4 +33,5 @@ public class OfferService {
     }
 
     public void deleteOffer(String id){offerDAO.deleteOffer(id);}
+
 }
