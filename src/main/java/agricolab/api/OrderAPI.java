@@ -42,7 +42,7 @@ public class OrderAPI {
     }
 
     @GetMapping("/user/{email}")
-    public ArrayList<Order> getUserOrders(@PathVariable String email) {
+    public ArrayList<Order> getOrdersByUser(@PathVariable String email) {
         return orderService.getUserOrders(email);
     }
 

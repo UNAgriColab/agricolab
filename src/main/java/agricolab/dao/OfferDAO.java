@@ -7,14 +7,15 @@ import java.util.ArrayList;
 
 public interface OfferDAO {
 
-    ID getID ();
+    ID getOfferById ();
+
     int createOffer(Offer offer);
 
     Offer getOffer(String id);
 
     ArrayList<Offer> getAllOffers();
 
-    ArrayList<Offer> getUserOffers(String email);
+    ArrayList<Offer> gerOffersByUser(String email);
 
     void deleteOffer(String id);
 }

@@ -18,9 +18,7 @@ public class OfferService {
         this.offerDAO = offerdao;
     }
 
-    public int addOffer(Offer offer){
-        return offerDAO.createOffer(offer);
-    }
+    public int addOffer(Offer offer){return offerDAO.createOffer(offer);}
 
     public Offer getOffer(String id){
         return offerDAO.getOffer(id);
@@ -30,8 +28,8 @@ public class OfferService {
         return offerDAO.getAllOffers();
     }
 
-    public ArrayList<Offer> getUserOffers(String email){
-        return offerDAO.getUserOffers(email);
+    public ArrayList<Offer> gerOffersByUser(String email){
+        return offerDAO.gerOffersByUser(email);
     }
 
     public void deleteOffer(String id){offerDAO.deleteOffer(id);}

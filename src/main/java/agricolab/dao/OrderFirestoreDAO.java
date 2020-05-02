@@ -15,7 +15,63 @@ import java.util.concurrent.ExecutionException;
 
 @Repository()
 public class OrderFirestoreDAO implements OrderDAO {
-
+    //Basic CRUD(CREATE READ UPDATE DELETE)
+    @Override
+    public int createOrder(Order order) {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference ref = db.collection("order");
+        ID id = getID();
+        order.setId(id.toString());
+        ref.document(id.toString()).set(order);
+        System.out.println(order);
+        return 0;
+    }
+    // READ
+    @Override
+    public Order getOrder(String id) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(id);
+        ApiFuture<DocumentSnapshot> future = ref.get();
+        Order ret = null;
+        try {
+            DocumentSnapshot document = future.get();
+            if (document.exists()) {
+                ret = document.toObject(Order.class);
+            } else {
+                System.out.println("No such document!");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+    // UPDATE
+    @Override
+    public boolean updateOrder(Order r) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("offerReference", r.getOfferReference());
+        updates.put("userEmail", r.getUserEmail());
+        updates.put("unit", r.getUnit());
+        updates.put("totalPrice", r.getTotalPrice());
+        updates.put("description", r.getDescription());
+        ApiFuture<WriteResult> ud = db.collection("order").document(String.valueOf(r.getId())).update(updates);
+        try {
+            System.out.println(ud.get().getUpdateTime());
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    // DELETE
+    @Override
+    public void deleteOrder(String id) {
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("order");
+        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
+    }
+    //AUXILIARY METHODS
     @Override
     public  ID getID(){
         ID ret = new ID();
@@ -37,45 +93,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ref.set(ret);
         return ret;
     }
-
-    @Override
-    public int createOrder(Order order) {
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference ref = db.collection("order");
-        ID id = getID();
-        order.setId(id.toString());
-        ref.document(id.toString()).set(order);
-        System.out.println(order );
-        return 0;
-    }
-
-    @Override
-    public void deleteOrder(String id) {
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("order");
-        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
-    }
-
-    // READ METHODS
-    @Override
-    public Order getOrder(String id) {
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("order").document(id);
-        ApiFuture<DocumentSnapshot> future = ref.get();
-        Order ret = null;
-        try {
-            DocumentSnapshot document = future.get();
-            if (document.exists()) {
-                ret = document.toObject(Order.class);
-            } else {
-                System.out.println("No such document!");
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return ret;
-    }
-
+    //RETRIEVES ALL ORDERS FROM ORDER COLLECTION
     @Override
     public ArrayList<Order> getAllOrders() {
         ArrayList<Order> allRequest = new ArrayList<>();
@@ -94,29 +112,10 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return allRequest;
     }
-
+    //
     @Override
-    public ArrayList<Order> getUserOrders(String email) {
+    public ArrayList<Order> getOrdersByUser(String email) {
         return null;
-    }
-
-    @Override
-    public boolean updateOrder(Order r) {
-        Firestore db= FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("offerReference",r.getOfferReference());
-        updates.put("userEmail",r.getUserEmail());
-        updates.put("unit",r.getUnit());
-        updates.put("totalPrice",r.getTotalPrice());
-        updates.put("description",r.getDescription());
-        ApiFuture<WriteResult> ud= db.collection("order").document(String.valueOf(r.getId())).update(updates);
-        try {
-            System.out.println(ud.get().getUpdateTime());
-            return true;
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     @Override
