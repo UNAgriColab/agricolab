@@ -26,13 +26,12 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") int state,
                     @JsonProperty("id")String id
                     ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
-        this.state = state;
+        this.state = 0;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
@@ -54,13 +53,9 @@ public class Order {
 
     public String getUserEmail(){return userEmail; }
 
-    public int getUnit() {
-        return unit;
-    }
+    public int getUnit() { return unit; }
 
-    public int getNumberOfUnits() {
-        return numberOfUnits;
-    }
+    public int getNumberOfUnits() { return numberOfUnits; }
 
     public double getTotalPrice() { return totalPrice; }
 
