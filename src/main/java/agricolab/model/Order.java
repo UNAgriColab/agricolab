@@ -63,7 +63,7 @@ public class Order {
 
     public String getOfferReference(){return offerReference;}
 
-    public String getID(){return  id;}
+    public String getId(){return  id;}
 
     public Order setUserEmail(String userEmail) {
         this.userEmail = userEmail;
@@ -75,8 +75,8 @@ public class Order {
         return this;
     }
 
-    public Order setId(String ID) {
-        this.id = ID;
+    public Order setId(String id) {
+        this.id = id;
         return this;
     }
 
