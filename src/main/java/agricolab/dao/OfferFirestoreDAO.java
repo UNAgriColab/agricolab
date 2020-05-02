@@ -60,7 +60,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         updates.put("pricePresentation", r.getPricePresentation());
         updates.put("minQuantity", r.getMinQuantity());
         updates.put("description", r.getDescription());
-        ApiFuture<WriteResult> ud = db.collection("order").document(String.valueOf(id)).update(updates);
+        ApiFuture<WriteResult> ud = db.collection("offer").document(String.valueOf(id)).update(updates);
         try {
             System.out.println(ud.get().getUpdateTime());
             return true;
@@ -142,5 +142,4 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return userOffers;
     }
-
 }
