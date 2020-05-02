@@ -2,6 +2,7 @@ package agricolab.service;
 
 import agricolab.dao.OfferDAO;
 import agricolab.model.Offer;
+import agricolab.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class OfferService {
     public Offer getOffer(String id){
         return offerDAO.getOffer(id);
     }
+
+    public boolean updateOrder(int id, Offer offer){return offerDAO.updateOffer(id, offer);}
 
     public ArrayList<Offer> getAllOffers(){
         return offerDAO.getAllOffers();

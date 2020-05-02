@@ -24,6 +24,12 @@ public class OfferAPI {
         offerService.addOffer(o);
     }
 
+    @PutMapping("/{id}")
+    public void updateOffer(@PathVariable int id, @RequestBody Offer o) {
+        offerService.updateOrder(id, o);
+    }
+
+
     @DeleteMapping("del/{id}")
     public void deleteOffer(@PathVariable String id) {
         offerService.deleteOffer(id);

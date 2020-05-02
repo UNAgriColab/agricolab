@@ -14,7 +14,7 @@ public interface OfferDAO {
 
     Offer getOffer(String id);
 
-    boolean updateOffer(Offer r);
+    boolean updateOffer(int id, Offer r);
 
     ArrayList<Offer> getAllOffers();
 
