@@ -23,7 +23,6 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") String state,
                     @JsonProperty("id")String id
                     ) {
 
