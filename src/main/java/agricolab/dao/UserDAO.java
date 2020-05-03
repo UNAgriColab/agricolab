@@ -4,13 +4,13 @@ import agricolab.model.User;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 
 public interface UserDAO {
 
-
-    int createUser(User u);
+    boolean createUser(User u);
 
     User getUser(String email);
 
