@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class OrderService {
 
 
-    private  OrderDAO orderDAO;
+    private OrderDAO orderDAO;
 
     @Autowired
     public OrderService(OrderDAO orderDAO){

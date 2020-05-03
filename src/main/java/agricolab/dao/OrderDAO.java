@@ -20,7 +20,6 @@ public interface OrderDAO {
 
     ArrayList<Order> getOrdersBySeller(String email);
 
-
     boolean updateOrder(Order r);
 
     void deleteOrder(String id);

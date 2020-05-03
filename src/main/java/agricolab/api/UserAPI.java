@@ -59,7 +59,9 @@ public class UserAPI {
         }catch (Exception e){
             throw new Exception("invalid username/password");
         }
-        return jwtUtil.generateToken(user.getEmail());
+        String tt= jwtUtil.generateToken(user.getEmail());
+        System.out.println(tt);
+        return tt;
     }
 
 }
