@@ -33,20 +33,16 @@ public class Order {
 
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("userEmail")String userEmail,
-                    @JsonProperty("unit")int unit,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
-                    @JsonProperty("description")String description,
-                    @JsonProperty("id")String id
+                    @JsonProperty("description")String description
                     ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
         this.state = 0;
-        this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = numberOfUnits;
         this.description = description;
-        this.id=id;
     }
 
     @Override
