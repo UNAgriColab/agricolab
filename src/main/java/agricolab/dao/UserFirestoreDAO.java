@@ -4,6 +4,8 @@ import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +15,12 @@ import java.util.concurrent.ExecutionException;
 public class UserFirestoreDAO implements UserDAO {
 
     @Override
-    public int createUser(User user) {
+    public boolean createUser(User user) {
         Firestore db=FirestoreClient.getFirestore();
         System.out.println(user.getEmail());
         db.collection("user").document(user.getEmail()).set(user);
         System.out.println(user);
-        return 1;
+        return true;
     }
 
     @Override
