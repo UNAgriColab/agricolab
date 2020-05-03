@@ -2,11 +2,13 @@ package agricolab.dao;
 
 import agricolab.model.ID;
 import agricolab.model.Order;
+import agricolab.service.OfferService;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public interface OrderDAO {
+
 
     ID setOrderId();
 

@@ -9,7 +9,7 @@ public class Offer {
     private String id;
     private String userEmail;
     private String productName;
-    private double presentation;
+    private int presentation;
     private double pricePresentation;
     private int minQuantity;
     private String description;
@@ -31,7 +31,7 @@ public class Offer {
 
     public Offer(@JsonProperty("productName")String productName,
                  @JsonProperty("userEmail")String userEmail,
-                 @JsonProperty("presentation")double presentation,
+                 @JsonProperty("presentation")int presentation,
                  @JsonProperty("pricePresentation")double pricePresentation,
                  @JsonProperty("minQuantity")int minQuantity,
                  @JsonProperty("description")String description
@@ -65,7 +65,7 @@ public class Offer {
         return productName;
     }
 
-    public double getPresentation() {
+    public int getPresentation() {
         return presentation;
     }
 
@@ -93,7 +93,7 @@ public class Offer {
         return this;
     }
 
-    public Offer setPresentation(double presentation) {
+    public Offer setPresentation(int presentation) {
         this.presentation = presentation;
         return this;
     }

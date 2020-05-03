@@ -35,7 +35,6 @@ public class Order {
                     @JsonProperty("userEmail")String userEmail,
                     @JsonProperty("unit")int unit,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
-                    @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
                     @JsonProperty("id")String id
                     ) {
@@ -45,7 +44,7 @@ public class Order {
         this.state = 0;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
-        this.totalPrice = totalPrice;
+        this.totalPrice = numberOfUnits;
         this.description = description;
         this.id=id;
     }

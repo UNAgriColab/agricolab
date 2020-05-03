@@ -50,7 +50,6 @@ public class UserFirestoreDAO implements UserDAO {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a: docList){
                 allUsers.add(a.toObject(User.class));
-                System.out.println(allUsers.size());
             }
             System.out.println(allUsers);
         } catch (InterruptedException | ExecutionException e) {
