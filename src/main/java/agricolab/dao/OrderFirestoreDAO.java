@@ -8,7 +8,6 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import agricolab.dao.OfferDAO;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -16,12 +15,12 @@ import java.util.concurrent.ExecutionException;
 public class OrderFirestoreDAO implements OrderDAO {
 
 
-    private static OfferDAO offerDAO;
-
-    @Autowired
-    public OrderFirestoreDAO(OfferDAO offerdao) {
-        offerDAO = offerdao;
+    public OrderFirestoreDAO(OfferDAO offerDAO) {
+        this.offerDAO = offerDAO;
     }
+
+    private final OfferDAO offerDAO;
+
 
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
@@ -30,7 +29,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         CollectionReference ref = db.collection("order");
         ID id = setOrderId();
         order.setId(id.toString());
-        Offer offer = offerDAO.getOffer(order.getId());
+        Offer offer = offerDAO.getOffer(order.getOfferReference());
         order.setUnit(offer.getPresentation());
         order.setTotalPrice(offer.getPricePresentation()*order.getNumberOfUnits());
         ref.document(id.toString()).set(order);

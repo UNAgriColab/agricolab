@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Service
 public class OfferService {
 
-    private static OfferDAO offerDAO;
+    private OfferDAO offerDAO;
 
     @Autowired
     public OfferService(OfferDAO offerdao) {

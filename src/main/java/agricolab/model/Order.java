@@ -40,8 +40,9 @@ public class Order {
         this.userEmail = userEmail;
         this.offerReference = offerReference;
         this.state = 0;
+        this.unit = 0;
         this.numberOfUnits = numberOfUnits;
-        this.totalPrice = numberOfUnits;
+        this.totalPrice = 0;
         this.description = description;
     }
 
