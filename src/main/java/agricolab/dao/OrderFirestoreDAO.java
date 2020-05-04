@@ -83,27 +83,22 @@ public class OrderFirestoreDAO implements OrderDAO {
         ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
         try {
             Order temp = actual.get().toObject(Order.class);
-            String newState;
             if (!changes.isCanceled()){
                 updates.put("state", 0);
                 ud= db.collection("order").document(changes.getOrderId()).update(updates);
                 return true;
             }
-            newState = Objects.requireNonNull(temp).getId();
-            if(newState!= null){
-                int stateTemp=Integer.parseInt(newState);
-                if(stateTemp!=0){
-                    stateTemp++;
-                    updates.put("state", stateTemp);
-                    ud= db.collection("order").document(changes.getOrderId()).update(updates);
-                    return true;
-                }
-                else{
-                    return false;
-                }
+            int stateTemp=temp.getState();
+            if(stateTemp!=0){
+                stateTemp++;
+                updates.put("state", stateTemp);
+                ud= db.collection("order").document(changes.getOrderId()).update(updates);
+                System.out.println(ud.get().getUpdateTime());
+                return true;
             }
-            System.out.println((ud).get().getUpdateTime());
-            return true;
+            else{
+                return false;
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
