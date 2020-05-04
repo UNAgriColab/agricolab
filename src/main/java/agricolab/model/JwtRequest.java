@@ -1,13 +1,13 @@
 package agricolab.model;
 
-public class Login {
+public class JwtRequest {
     String email;
     String password;
 
-    public Login() {
+    public JwtRequest() {
     }
 
-    public Login(String email, String password) {
+    public JwtRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

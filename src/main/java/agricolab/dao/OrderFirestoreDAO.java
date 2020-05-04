@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.JsonModel.Update;
 import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.ID;
@@ -27,6 +28,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         System.out.println(order);
         return 0;
     }
+
     // READ
     @Override
     public Order getOrder(String id) {
@@ -46,17 +48,14 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return ret;
     }
+
     // UPDATE
     @Override
-    public boolean updateOrder(Order r) {
+    public boolean updateOrderByBuyer(String orderId) {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
-        updates.put("offerReference", r.getOfferReference());
-        updates.put("userEmail", r.getUserEmail());
-        updates.put("unit", r.getUnit());
-        updates.put("totalPrice", r.getTotalPrice());
-        updates.put("description", r.getDescription());
-        ApiFuture<WriteResult> ud = db.collection("order").document(String.valueOf(r.getId())).update(updates);
+        updates.put("state", 0);
+        ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
         try {
             System.out.println(ud.get().getUpdateTime());
             return true;
@@ -65,16 +64,51 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean updateOrderBySeller(Update changes) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        ApiFuture<WriteResult> ud = null;
+        ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
+        try {
+            Order temp = actual.get().toObject(Order.class);
+            if (!changes.isCanceled()){
+                updates.put("state", 0);
+                db.collection("order").document(changes.getOrderId()).update(updates);
+                return true;
+            }
+                if(temp == null){
+                    return false;
+                }
+                int stateTemp=temp.getState();
+                if(stateTemp!=0){
+                    stateTemp++;
+                    updates.put("state", stateTemp);
+                    ud= db.collection("order").document(changes.getOrderId()).update(updates);
+                    System.out.println(ud.get().getUpdateTime());
+                    return true;
+                }
+                else{
+                    return false;
+                }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     // DELETE
     @Override
     public void deleteOrder(String id) {
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("order");
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("order");
         ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
     }
+
     //AUXILIARY METHODS
     @Override
-    public  ID setOrderId(){
+    public ID setOrderId() {
         ID ret = new ID();
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference ref = db.collection("ids").document("idorder");
@@ -90,10 +124,11 @@ public class OrderFirestoreDAO implements OrderDAO {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        ret.setId(ret.getId()+1);
+        ret.setId(ret.getId() + 1);
         ref.set(ret);
         return ret;
     }
+
     //RETRIEVES ALL ORDERS FROM ORDER COLLECTION
     @Override
     public ArrayList<Order> getAllOrders() {
@@ -113,6 +148,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return allRequest;
     }
+
     //
     @Override
     public ArrayList<Order> getOrdersByBuyer(String email) {
@@ -151,17 +187,17 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getOrdersBySeller(String email){
-        ArrayList<String> userOffers= new ArrayList<>();
+    public ArrayList<Order> getOrdersBySeller(String email) {
+        ArrayList<String> userOffers = new ArrayList<>();
         ArrayList<Order> orders = new ArrayList<>();
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference offerRef=db.collection("offer");
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference offerRef = db.collection("offer");
         //buscar todas los ofertas del vendedor
-        ApiFuture<QuerySnapshot> docs= offerRef.whereEqualTo("userEmail", email).get();
-        List<QueryDocumentSnapshot> docList= null;
+        ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("userEmail", email).get();
+        List<QueryDocumentSnapshot> docList = null;
         try {
             docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a: docList){
+            for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class).getId());
             }
             System.out.println(userOffers);
@@ -170,11 +206,10 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
 
         //para todas las ofertas buscar las ordenes con ese id
-        for(String offer: userOffers){
-            for (Order o:getOrdersByOffer(offer)){
-                orders.add(o);
-            }
+        for (String offer : userOffers) {
+            orders.addAll(getOrdersByOffer(offer));
         }
         return orders;
-    };
+    }
+
 }

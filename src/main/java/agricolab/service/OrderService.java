@@ -1,5 +1,6 @@
 package agricolab.service;
 
+import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
 import agricolab.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,7 @@ public class OrderService {
 
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 
-    public boolean updateOrder(Order r){return orderDAO.updateOrder(r);}
+    public boolean updateOrderByBuyer(Update changes){return orderDAO.updateOrderByBuyer(changes.getOrderId());}
+
+    public boolean updateOrderBySeller(Update changes) {return orderDAO.updateOrderBySeller(changes);}
 }

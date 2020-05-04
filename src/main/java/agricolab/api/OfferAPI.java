@@ -26,7 +26,7 @@ public class OfferAPI {
 
     @PutMapping("/{id}")
     public void updateOffer(@PathVariable int id, @RequestBody Offer o) {
-        offerService.updateOrder(id, o);
+        offerService.updateOffer(id, o);
     }
 
 

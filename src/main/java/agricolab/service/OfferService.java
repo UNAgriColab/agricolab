@@ -25,7 +25,7 @@ public class OfferService {
         return offerDAO.getOffer(id);
     }
 
-    public boolean updateOrder(int id, Offer offer){return offerDAO.updateOffer(id, offer);}
+    public boolean updateOffer(int id, Offer offer){return offerDAO.updateOffer(id, offer);}
 
     public ArrayList<Offer> getAllOffers(){
         return offerDAO.getAllOffers();
