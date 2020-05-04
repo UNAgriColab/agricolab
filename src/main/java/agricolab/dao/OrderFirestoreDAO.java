@@ -55,16 +55,13 @@ public class OrderFirestoreDAO implements OrderDAO {
         return ret;
     }
     // UPDATE
+    // UPDATE
     @Override
-    public boolean updateOrder(Order r) {
+    public boolean updateOrder(String orderId) {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
-        updates.put("offerReference", r.getOfferReference());
-        updates.put("userEmail", r.getUserEmail());
-        updates.put("unit", r.getUnit());
-        updates.put("totalPrice", r.getTotalPrice());
-        updates.put("description", r.getDescription());
-        ApiFuture<WriteResult> ud = db.collection("order").document(String.valueOf(r.getId())).update(updates);
+        updates.put("state", true);
+        ApiFuture<WriteResult> ud = db.collection("order").document(String.valueOf(orderId)).update(updates);
         try {
             System.out.println(ud.get().getUpdateTime());
             return true;
@@ -73,6 +70,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return false;
     }
+
     // DELETE
     @Override
     public void deleteOrder(String id) {
