@@ -1,5 +1,6 @@
 package agricolab.api;
 
+import agricolab.JsonModel.Update;
 import agricolab.model.Order;
 import agricolab.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,9 @@ public class OrderAPI {
     }
 
     @PutMapping
-    public boolean updateOrder(@RequestBody String orderId){ return orderService.updateOrder(orderId); }
-
+    public boolean updateOrderByBuyer(@RequestBody Update changes){
+        return orderService.updateOrderByBuyer(changes);
+    }
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
