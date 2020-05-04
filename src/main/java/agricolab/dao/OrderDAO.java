@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.JsonModel.Update;
 import agricolab.model.ID;
 import agricolab.model.Order;
 
@@ -20,11 +21,11 @@ public interface OrderDAO {
 
     ArrayList<Order> getOrdersBySeller(String email);
 
-    boolean updateOrder(Order r);
+    boolean updateOrderByBuyer(String orderId);
 
     void deleteOrder(String id);
 
     ArrayList<Order> getOrdersByOffer(String orderID);
 
-
+    boolean updateOrderBySeller(Update changes);
 }

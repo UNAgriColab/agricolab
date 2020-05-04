@@ -1,13 +1,11 @@
 package agricolab.api;
 
 
-import agricolab.model.Login;
 import agricolab.model.User;
-import agricolab.security.JWTUtil;
+import agricolab.security.JwtUtil;
 import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,11 +16,11 @@ import java.util.ArrayList;
 public class UserAPI {
 
     private final UserService userService;
-    private JWTUtil jwtUtil;
+    private JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public UserAPI(UserService userService, JWTUtil jwtUtil, AuthenticationManager authenticationManager) {
+    public UserAPI(UserService userService, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.jwtUtil =jwtUtil;
         this.authenticationManager = authenticationManager;
@@ -48,20 +46,6 @@ public class UserAPI {
     @GetMapping
     public ArrayList<User> getAllUsers(){
         return userService.getAllUsers();
-    }
-
-    @PostMapping("/auth")
-    public String generateToken(@RequestBody Login user) throws Exception{
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword())
-            );
-        }catch (Exception e){
-            throw new Exception("invalid username/password");
-        }
-        String tt= jwtUtil.generateToken(user.getEmail());
-        System.out.println(tt);
-        return tt;
     }
 
 }

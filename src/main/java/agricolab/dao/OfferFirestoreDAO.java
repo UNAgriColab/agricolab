@@ -54,8 +54,6 @@ public class OfferFirestoreDAO implements OfferDAO {
     public boolean updateOffer(int id, Offer r) {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
-        updates.put("userEmail", r.getUserEmail());
-        updates.put("productName", r.getProductName());
         updates.put("presentation", r.getPresentation());
         updates.put("pricePresentation", r.getPricePresentation());
         updates.put("minQuantity", r.getMinQuantity());
@@ -122,7 +120,6 @@ public class OfferFirestoreDAO implements OfferDAO {
         return allOffers;
     }
     ////////////////////////////////////////////////////////////////////////////////////
-    //NO TENGO NI PUTA IDEA
     @Override
     public ArrayList<Offer> gerOffersByUser(String email){
         ArrayList<Offer> userOffers= new ArrayList<>();
