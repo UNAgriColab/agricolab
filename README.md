@@ -9,11 +9,17 @@ Each entity has it's own endpoint to send or retrieve instances.
 - [User](#user)
   - [Create User](#create-user)
   - [Read User](#read-user)
+  - [Update User](#update-user)
+  - [Delete User](#delete-user)
   - [Read all Users](#read-all-users)
-- [Request](#request)
-  - [Create Request](#create-request)
-  - [Read all Requests](#read-all-requests)
-  - [Read all Requests from User](#read-all-requests-from-user)
+- [Order](#order)
+  - [Create Order](#create-order)
+  - [Read order](#read-order)
+  - [Read all orders](#read-all-orders)
+  - [Read all orders from an offerReference](#read-all-orders-from-an-offerreference)
+  - [Update order as Buyer](#update-order-for-buyer)
+  - [Update order as Seller](#update-order-for-seller)
+
 - [Offer](#offer)
   - [Create Offer](#create-offer)
   - [Read all Offers](#read-all-offers)
@@ -29,7 +35,6 @@ Entity classes:
 ### API endpoints:
 Each entity has it's own API to send or retrieve instances.
 
-----
 #### User
 ##### Create User:
 ```
@@ -48,7 +53,7 @@ POST /api/v1/user
 ```
 GET /api/v1/user/{email}
 ```
-```JSON
+```
 GET /api/v1/user/samoralespu@unal.edu.co
 ```
 ```JSON
@@ -60,7 +65,18 @@ GET /api/v1/user/samoralespu@unal.edu.co
     "seller":false
 }
 ```
+##### Update User:
+```JSON
+{
 
+}
+```
+##### Delete User:
+```JSON
+{
+
+}
+```
 ##### Read all Users:
 ```
 GET /api/v1/user
@@ -102,8 +118,8 @@ GET /api/v1/user
 
 
 ----
-#### Request
-##### Create Request:
+#### Order
+##### Create Order:
 ```
 POST /api/v1/request
 ```
@@ -118,162 +134,197 @@ POST /api/v1/request
     "description":"Arroz común y corriente."
 }
 ```
-
-##### Read all Requests:
+##### Read Order:
 ```
-GET /api/v1/request
+GET /api/v1/order/3
+```
+```JSON
+//Sample Response
+{
+    "offerReference": "s2naUii68eBbMjxikNfZ",
+    "userEmail": "test2@unal.edu.co",
+    "unit": 4,
+    "numberOfUnits": 18,
+    "totalPrice": 345.7,
+    "description": "segunda prueba de crear un order",
+    "id": "3",
+    "state": 0
+}
+```
+##### Read all Orders:
+```
+GET /api/v1/order
 ```
 ```JSON
 [
     {
-        "productName": "Papa",
-        "userEmail": "sanhmon@unal.edu.co",
+        "offerReference": "s2naUii68eBbMjxikNfZ",
+        "userEmail": "test2@unal.edu.co",
         "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "segunda prueba de crear un order",
+        "id": "1",
+        "state": 0
     },
     {
-        "productName": "Pitaya",
-        "userEmail": "1@unal.edu.co",
+        "offerReference": "12",
+        "userEmail": "test3@unal.edu.co",
         "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
+        "numberOfUnits": 18,
+        "totalPrice": 246.024,
+        "description": "state",
+        "id": "12",
+        "state": 0
+    },
+    {
+        "offerReference": "7",
+        "userEmail": "qwerty",
+        "unit": 3,
+        "numberOfUnits": 20,
+        "totalPrice": 273.36,
+        "description": "holii",
+        "id": "14",
+        "state": 15
+    },
+    {
+        "offerReference": "3",
+        "userEmail": "test2@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "pidiendo oferta 3",
+        "id": "5",
+        "state": 0
+    },
+    {
+        "offerReference": "4",
+        "userEmail": "test3@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "state",
+        "id": "9",
+        "state": 0
     }
 ]
 ```
-##### Read all Requests from User:
+##### Read all Orders from Buyer:
 ```
-GET /api/v1/request/user/{email}
+GET /api/v1/order/user/{email}
 ```
-```JSON
+```$xslt
 GET /api/v1/request/user/ayuda@unal.edu.co
 ```
 ```JSON
- [
+[
     {
-        "productName": "Yuca",
-        "userEmail": "ayuda@unal.edu.co",
+        "offerReference": "s2naUii68eBbMjxikNfZ",
+        "userEmail": "test2@unal.edu.co",
         "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "segunda prueba de crear un order",
+        "id": "1",
+        "state": 0
     },
     {
-        "productName": "Platano",
-        "userEmail": "ayuda@unal.edu.co",
+        "offerReference": "s2naUii68eBbMjxikNfZ",
+        "userEmail": "test2@unal.edu.co",
         "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "segunda prueba de crear un order",
+        "id": "3",
+        "state": 0
     },
     {
-        "productName": "Papa",
-        "userEmail": "ayuda@unal.edu.co",
+        "offerReference": "3",
+        "userEmail": "test2@unal.edu.co",
         "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "pidiendo oferta 3",
+        "id": "5",
+        "state": 0
     }
 ]
 ```
-
+##### Read all Orders from Seller:
 ```
-POST /api/v1/request
+GET /api/v1/order/seller/{email}
+```
+```$xslt
+GET /api/v1/request/user/ayuda@unal.edu.co
 ```
 ```JSON
-// Sample Request object:
+[
+    {
+        "offerReference": "12",
+        "userEmail": "test3@unal.edu.co",
+        "unit": 10,
+        "numberOfUnits": 18,
+        "totalPrice": 246.024,
+        "description": "state",
+        "id": "11",
+        "state": 6
+    },
+    {
+        "offerReference": "3",
+        "userEmail": "test3@unal.edu.co",
+        "unit": 4,
+        "numberOfUnits": 18,
+        "totalPrice": 345.7,
+        "description": "pidiendo oferta 3",
+        "id": "6",
+        "state": 0
+    },
+    {
+        "offerReference": "7",
+        "userEmail": "qwerty",
+        "unit": 3,
+        "numberOfUnits": 14,
+        "totalPrice": 191.35199999999998,
+        "description": "qweyutrusfn qiuweguiybf",
+        "id": "13",
+        "state": 0
+    }
+]
+```
+#####Read all orders from an OfferReference
+```
+GET /api/v1/order/offer/{offerId}
+```
+```JSON
 {
-    "productName":"Arroz",
-    "userEmail":"sanhernandezmon@unal.edu.co",
-    "presentation":4,
-    "pricePresentation":1342,
-    "minQuantity":2,
-    "description":"Arroz común y corriente."
+
+}
+```
+#####Update Order for Buyer:
+```
+PUT /api/v1/order/buyer
+```
+```JSON
+// Sample Update request:
+{
+    "canceled": false,
+    "orderId": "9"
+}
+```
+#####Update Order for Seller:
+```
+PUT /api/v1/order/buyer
+true = Update order
+false = Cancel order
+```
+```JSON
+// Sample Update request:
+{
+    "canceled": false,
+    "orderId": "9"
 }
 ```
 
-##### Read all Requests:
-```
-GET /api/v1/request
-```
-```JSON
-// Sample response
-[
-    {
-        "productName": "Papa",
-        "userEmail": "sanhmon@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Yuca",
-        "userEmail": "ayuda@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Arandano",
-        "userEmail": "3@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Platano",
-        "userEmail": "ayuda@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Yuca",
-        "userEmail": "saduquebe@unal.edu.co",
-        "unit": 6,
-        "numberOfUnits": 0,
-        "totalPrice": 24.5,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Guayaba",
-        "userEmail": "2@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Papa",
-        "userEmail": "ayuda@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    },
-    {
-        "productName": "Pitaya",
-        "userEmail": "1@unal.edu.co",
-        "unit": 4,
-        "numberOfUnits": 0,
-        "totalPrice": 13.668,
-        "description": "el mejor arroz de la sabana de bogotá"
-    }
-]
-```
-##### Read all Requests from User:
-```
-GET /api/v1/request/{email}
-```
-```JSON
-// Sample response
-```
 ----
 #### Offer
 ##### Create Offer:
@@ -283,12 +334,12 @@ POST /api/v1/offer
 ```JSON
 // Sample Offer object:
 {
-    "productName" : "Papa",
-    "userEmail" : "sanhmon@unal.edu.co",
-    "unit" : 4,
-    "numeberOfUnits": 10,
-    "totalPrice":13.668,
-    "description": "El mejor arroz de la sabana de bogotá."
+    "userEmail" : "samoralespu@unal.edu.co",
+    "productName" : "recien subido",
+    "presentation": 10,
+    "pricePresentation":13.668,
+    "minQuantity": 2,
+    "description":"Aun no ha cambiado"
 }
 ```
 ##### Read all Offers:
@@ -299,60 +350,76 @@ GET /api/v1/offer
 // Sample Response
 [
     {
-        "productName": "Yuca",
-        "userEmail": "ayuda@unal.edu.co",
-        "presentation": 4,
-        "pricePresentation": 1342.0,
-        "minQuantity": 2,
-        "description": "esto es arroz"
-    },
-    {
-        "productName": "Arroz",
-        "userEmail": "ayuda@unal.edu.co",
-        "presentation": 4,
-        "pricePresentation": 1342.0,
-        "minQuantity": 2,
-        "description": "esto es arroz"
-    },
-    {
-        "productName": "Banano",
-        "userEmail": "2@unal.edu.co",
-        "presentation": 4,
-        "pricePresentation": 1342.0,
-        "minQuantity": 2,
-        "description": "esto es arroz"
-    },
-    {
         "productName": "Papa",
-        "userEmail": "ayuda@unal.edu.co",
-        "presentation": 4,
-        "pricePresentation": 1342.0,
-        "minQuantity": 2,
-        "description": "esto es arroz"
+        "userEmail": "sanhmon@unal.edu.co",
+        "presentation": 0.0,
+        "pricePresentation": 0.0,
+        "minQuantity": 0,
+        "description": "El mejor arroz de la sabana de bogotá.",
+        "id": "1"
     },
     {
-        "productName": "Arracacha",
-        "userEmail": "1@unal.edu.co",
-        "presentation": 4,
-        "pricePresentation": 1342.0,
+        "productName": "recien subido",
+        "userEmail": "samoralespu@unal.edu.co",
+        "presentation": 10.0,
+        "pricePresentation": 13.668,
         "minQuantity": 2,
-        "description": "esto es arroz"
+        "description": "Aun no ha cambiado",
+        "id": "10"
     },
     {
-        "productName": "Papaya",
-        "userEmail": "3@unal.edu.co",
-        "presentation": 4,
-        "pricePresentation": 1342.0,
+        "productName": "recien subido",
+        "userEmail": "samoralespu@unal.edu.co",
+        "presentation": 10.0,
+        "pricePresentation": 13.668,
         "minQuantity": 2,
-        "description": "esto es arroz"
+        "description": "Aun no ha cambiado",
+        "id": "11"
     },
     {
-        "productName": "Papa",
-        "userEmail": "saduquebe@unal.edu.co",
-        "presentation": 5,
-        "pricePresentation": 500.0,
-        "minQuantity": 5,
-        "description": "Se vende papa por bulto WAOOOO"
+        "productName": "recien subido",
+        "userEmail": "samoralespu@unal.edu.co",
+        "presentation": 4.0,
+        "pricePresentation": 13.668,
+        "minQuantity": 2,
+        "description": "Aun no ha cambiado",
+        "id": "12"
+    },
+    {
+        "productName": "ACELGA",
+        "userEmail": "luis@unal.edu.co",
+        "presentation": 1.0,
+        "pricePresentation": 3500.0,
+        "minQuantity": 14,
+        "description": "descripcion producto",
+        "id": "13"
+    },
+    {
+        "productName": "AGUACATE HASS",
+        "userEmail": "qweuqwrtry",
+        "presentation": 4.0,
+        "pricePresentation": 3800.0,
+        "minQuantity": 2,
+        "description": "hola soy un aguacate",
+        "id": "14"
+    },
+    {
+        "productName": "AGUACATE HASS",
+        "userEmail": "qweuqwrtry",
+        "presentation": 4.0,
+        "pricePresentation": 3800.0,
+        "minQuantity": 2,
+        "description": "hola soy un aguacate",
+        "id": "15"
+    },
+    {
+        "productName": "AGUACATE HASS",
+        "userEmail": "qweuqwrtry",
+        "presentation": 4.0,
+        "pricePresentation": 3800.0,
+        "minQuantity": 2,
+        "description": "hola soy un aguacate",
+        "id": "16"
     }
 ]
 ```
@@ -395,3 +462,14 @@ GET /api/v1/offer/user/{email}
 ```
 ----
 #### dev notes:
+```
+Authentication Method: JWT Token
+Path: /auth
+POST Method
+```
+```JSON
+{
+	"email": "test@test.edu.co",
+	"password": "12345"
+}
+```
