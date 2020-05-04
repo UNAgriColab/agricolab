@@ -19,7 +19,7 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public int addUser(User user){
+    public String addUser(User user){
         return userDAO.createUser(user);
     }
 

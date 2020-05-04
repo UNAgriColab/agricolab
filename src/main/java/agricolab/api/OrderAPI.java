@@ -25,6 +25,7 @@ public class OrderAPI {
         orderService.addOrder(r);
     }
 
+
     @DeleteMapping("del/{id}")
     public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);}
 
@@ -34,10 +35,16 @@ public class OrderAPI {
         return orderService.getOrder(id);
     }
 
-    @PutMapping
+    @PutMapping("/buyer")
     public boolean updateOrderByBuyer(@RequestBody Update changes){
         return orderService.updateOrderByBuyer(changes);
     }
+
+    @PutMapping("/seller")
+    public boolean updateOrderBySeller(@RequestBody Update changes){
+        return orderService.updateOrderBySeller(changes);
+    }
+
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();

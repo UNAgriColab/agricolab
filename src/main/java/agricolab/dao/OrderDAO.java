@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.JsonModel.Update;
 import agricolab.model.ID;
 import agricolab.model.Order;
 
@@ -13,7 +14,7 @@ public interface OrderDAO {
 
     int getLastOrderId();
 
-    int createOrder(Order request);
+    String createOrder(Order request);
 
     Order getOrder(String id);
 
@@ -24,6 +25,8 @@ public interface OrderDAO {
     ArrayList<Order> getOrdersBySeller(String email);
 
     boolean updateOrderByBuyer(String r);
+
+    boolean updateOrderBySeller(Update changes);
 
     void deleteOrder(String id);
 

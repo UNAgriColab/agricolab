@@ -18,7 +18,7 @@ public class OfferService {
         offerDAO = offerdao;
     }
 
-    public int addOffer(Offer offer){return offerDAO.createOffer(offer);}
+    public String addOffer(Offer offer){return offerDAO.createOffer(offer);}
 
     public Offer getOffer(String id){
         return offerDAO.getOffer(id);

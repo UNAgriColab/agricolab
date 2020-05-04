@@ -23,7 +23,6 @@ public class UserAPI {
     @PostMapping
     public void postUser(@RequestBody User u) {
         userService.addUser(u);
-        System.out.println("Successful");
     }
 
     @DeleteMapping("del/{email}")
