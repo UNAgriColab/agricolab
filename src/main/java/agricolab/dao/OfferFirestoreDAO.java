@@ -124,7 +124,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         return allOffers;
     }
     ////////////////////////////////////////////////////////////////////////////////////
-    //NO TENGO NI PUTA IDEA
+    //DEVUELVE OFFERS DE UN USUARIO DADO SU EMAIL
     @Override
     public ArrayList<Offer> gerOffersByUser(String email){
         ArrayList<Offer> userOffers= new ArrayList<>();
