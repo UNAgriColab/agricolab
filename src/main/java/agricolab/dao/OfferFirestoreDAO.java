@@ -15,21 +15,20 @@ public class OfferFirestoreDAO implements OfferDAO {
     ////////////////////////////////////////////////////////////////////////////////////
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
-    public int createOffer(Offer offer) {
+    public String createOffer(Offer offer) {
         Firestore db=FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
         String name = offer.getProductName();
         for (Offer o : gerOffersByUser(offer.getUserEmail())){
             if (o.getProductName().equals(name)){
-                System.out.println("exite ya una oferta para este producto, no puedes crear una nueva");
-                return 0;
+                return "exite ya una oferta para este producto, no puedes crear una nueva";
             }
         }
         ID id = setOfferId();
         offer.setId(id.toString());
         ref.document(id.toString()).set(offer);
         System.out.println(offer);
-        return 0;
+        return "Succesfully";
     }
     // READ
     @Override
@@ -43,7 +42,6 @@ public class OfferFirestoreDAO implements OfferDAO {
             document = future.get();
             if (document.exists()) {
                 ret = document.toObject(Offer.class);
-                System.out.println("Nombre: " + Objects.requireNonNull(ret).getProductName());
             } else {
                 System.out.println("No such document!");
             }

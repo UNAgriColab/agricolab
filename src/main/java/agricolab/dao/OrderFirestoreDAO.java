@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.JsonModel.Update;
 import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.ID;
@@ -23,13 +24,12 @@ public class OrderFirestoreDAO implements OrderDAO {
 
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
-    public int createOrder(Order order) {
+    public String createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
         Offer offer = offerDAO.getOffer(order.getOfferReference());
         if(offer.getUserEmail().equals(order.getUserEmail())) {
-            System.out.println("lamentablemente no permitimos la autocompra de producos");
-            return 0;
+            return "lamentablemente no permitimos la autocompra de producos";
         }
         ID id = setOrderId();
         order.setId(id.toString());
@@ -37,7 +37,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         order.setTotalPrice(offer.getPricePresentation()*order.getNumberOfUnits());
         ref.document(id.toString()).set(order);
         System.out.println(order);
-        return 0;
+        return "successfully";
     }
     // READ
     @Override
@@ -68,6 +68,38 @@ public class OrderFirestoreDAO implements OrderDAO {
         ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
         try {
             System.out.println(ud.get().getUpdateTime());
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateOrderBySeller(Update changes) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        ApiFuture<WriteResult> ud = null;
+        ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
+        try {
+            Order temp = actual.get().toObject(Order.class);
+            String newState = null;
+            if (changes.isCanceled()) {
+                newState = Objects.requireNonNull(temp).getId();
+            }
+            if(newState!= null){
+                int stateTemp=Integer.parseInt(newState);
+                if(stateTemp!=0){
+                    stateTemp++;
+                    updates.put("state", stateTemp);
+                    ud= db.collection("order").document(changes.getOrderId()).update(updates);
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            System.out.println(Objects.requireNonNull(ud).get().getUpdateTime());
             return true;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

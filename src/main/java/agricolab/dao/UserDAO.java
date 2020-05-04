@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface UserDAO {
 
 
-    int createUser(User u);
+    String createUser(User u);
 
     User getUser(String email);
 
