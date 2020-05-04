@@ -83,10 +83,13 @@ public class OrderFirestoreDAO implements OrderDAO {
         ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
         try {
             Order temp = actual.get().toObject(Order.class);
-            String newState = null;
-            if (changes.isCanceled()) {
-                newState = Objects.requireNonNull(temp).getId();
+            String newState;
+            if (!changes.isCanceled()){
+                updates.put("state", 0);
+                ud= db.collection("order").document(changes.getOrderId()).update(updates);
+                return true;
             }
+            newState = Objects.requireNonNull(temp).getId();
             if(newState!= null){
                 int stateTemp=Integer.parseInt(newState);
                 if(stateTemp!=0){
@@ -99,7 +102,7 @@ public class OrderFirestoreDAO implements OrderDAO {
                     return false;
                 }
             }
-            System.out.println(Objects.requireNonNull(ud).get().getUpdateTime());
+            System.out.println((ud).get().getUpdateTime());
             return true;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -112,7 +115,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     public void deleteOrder(String id) {
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference requestRef=db.collection("order");
-        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
+        requestRef.document(id).delete();
     }
     //AUXILIARY METHODS
     @Override
