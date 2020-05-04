@@ -15,6 +15,13 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public String createUser(User user) {
 
+
+        for (User u : getAllUsers()){
+            if(u.getEmail().equals(user.getEmail())){
+                System.out.println("ya existe un usuario registrado con este correo, por favor intenta te nuevo");
+                return "no aproved";
+            }
+        }
         if (user.getAge()<(18)){
             System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
             return "no aproved";
