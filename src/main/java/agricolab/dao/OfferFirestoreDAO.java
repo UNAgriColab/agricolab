@@ -20,7 +20,8 @@ public class OfferFirestoreDAO implements OfferDAO {
         CollectionReference ref = db.collection("offer");
         String name = offer.getProductName();
         for (Offer o : gerOffersByUser(offer.getUserEmail())){
-            if (name == o.getProductName()){
+            if (o.getProductName().equals(name)){
+                System.out.println("exite ya una oferta para este producto, no puedes crear una nueva");
                 return 0;
             }
         }

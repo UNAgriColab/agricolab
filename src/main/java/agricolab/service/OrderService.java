@@ -19,9 +19,7 @@ public class OrderService {
         this.orderDAO = orderDAO;
     }
 
-    public int addOrder(Order order){
-        return orderDAO.createOrder(order);
-    }
+    public int addOrder(Order order){ return orderDAO.createOrder(order); }
 
     public Order getOrder(String id){ return orderDAO.getOrder(id); }
 
@@ -41,7 +39,7 @@ public class OrderService {
 
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 
-    public boolean updateOrder(Order r){ return orderDAO.updateOrder(r); }
+    public boolean updateOrder(String r){ return orderDAO.updateOrder(r); }
 
     public int getLastOrderId (){ return orderDAO.getLastOrderId(); }
 }

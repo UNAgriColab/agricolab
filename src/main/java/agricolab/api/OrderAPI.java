@@ -32,10 +32,10 @@ public class OrderAPI {
     public Order getOrder(@PathVariable String id) {
         return orderService.getOrder(id);
     }
+
     @PutMapping
-    public boolean updateOrder(@RequestBody Order r){
-        return orderService.updateOrder(r);
-    }
+    public boolean updateOrder(@RequestBody String orderId){ return orderService.updateOrder(orderId); }
+
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
