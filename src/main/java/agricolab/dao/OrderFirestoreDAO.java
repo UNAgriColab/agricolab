@@ -26,9 +26,13 @@ public class OrderFirestoreDAO implements OrderDAO {
     public int createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
+        Offer offer = offerDAO.getOffer(order.getOfferReference());
+        if(offer.getUserEmail().equals(order.getUserEmail())) {
+            System.out.println("lamentablemente no permitimos la autocompra de producos");
+            return 0;
+        }
         ID id = setOrderId();
         order.setId(id.toString());
-        Offer offer = offerDAO.getOffer(order.getOfferReference());
         order.setUnit(offer.getPresentation());
         order.setTotalPrice(offer.getPricePresentation()*order.getNumberOfUnits());
         ref.document(id.toString()).set(order);
@@ -54,14 +58,14 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return ret;
     }
-    // UPDATE
+
     // UPDATE
     @Override
-    public boolean updateOrder(String orderId) {
+    public boolean updateOrderByBuyer(String orderId) {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
-        updates.put("state", true);
-        ApiFuture<WriteResult> ud = db.collection("order").document(String.valueOf(orderId)).update(updates);
+        updates.put("state", 0);
+        ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
         try {
             System.out.println(ud.get().getUpdateTime());
             return true;

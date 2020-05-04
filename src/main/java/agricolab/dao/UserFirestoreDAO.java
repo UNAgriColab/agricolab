@@ -15,7 +15,10 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public int createUser(User user) {
         Firestore db=FirestoreClient.getFirestore();
-        System.out.println(user.getEmail());
+        if (user.getAge()<(18)){
+            System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
+            return 0;
+        }
         db.collection("user").document(user.getEmail()).set(user);
         System.out.println(user);
         return 1;
