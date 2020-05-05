@@ -50,14 +50,12 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return ret;
     }
+
     //UPDATE
-    //
     @Override
     public boolean updateOffer(int id, Offer r) {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
-        updates.put("userEmail", r.getUserEmail());
-        updates.put("productName", r.getProductName());
         updates.put("presentation", r.getPresentation());
         updates.put("pricePresentation", r.getPricePresentation());
         updates.put("minQuantity", r.getMinQuantity());
@@ -71,6 +69,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return false;
     }
+
     //DELETE
     @Override
     public void deleteOffer(String id){

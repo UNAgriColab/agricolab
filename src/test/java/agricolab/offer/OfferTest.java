@@ -64,7 +64,7 @@ public class OfferTest {
             offers = offerService.gerOffersByUser("samoralespu@unal.edu.co");
             Thread.sleep(5000);
             for (Offer o : offers){
-                if(email.equals("samoralespu@unal.edu.co"))
+                if(!email.equals("samoralespu@unal.edu.co"))
                     email = o.getUserEmail();
             }
             Thread.sleep(5000);

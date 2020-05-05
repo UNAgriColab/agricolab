@@ -26,9 +26,8 @@ public class OfferAPI {
 
     @PutMapping("/{id}")
     public void updateOffer(@PathVariable int id, @RequestBody Offer o) {
-        offerService.updateOrder(id, o);
+        offerService.updateOffer(id, o);
     }
-
 
     @DeleteMapping("del/{id}")
     public void deleteOffer(@PathVariable String id) {
@@ -49,6 +48,5 @@ public class OfferAPI {
     public ArrayList<Offer> getUserOffers(@PathVariable String email) {
         return offerService.gerOffersByUser(email);
     }
-
 
 }
