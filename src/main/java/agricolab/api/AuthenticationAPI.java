@@ -31,7 +31,7 @@ public class AuthenticationAPI {
         this.userService= userService;
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/api/auth")
     public String generateToken(@RequestBody JwtRequest user) throws Exception{
         try {
             authenticationManager.authenticate(
