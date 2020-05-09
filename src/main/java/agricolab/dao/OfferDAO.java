@@ -24,5 +24,7 @@ public interface OfferDAO {
 
     ArrayList<Offer> getActiveOffers();
 
+    ArrayList<Offer> getOffersByProduct(String productName);
+
     void deleteOffer(String id);
 }

@@ -40,6 +40,8 @@ public class OrderService {
 
     public ArrayList<Order> getActiveOrders(){ return orderDAO.getActiveOrders();    }
 
+    public ArrayList<Order> getOrdersByProduct(String productName) { return orderDAO.getOrdersByProduct(productName) ;}
+
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 
     public boolean updateOrderByBuyer(Update changes){return orderDAO.updateOrderByBuyer(changes.getOrderId());}
