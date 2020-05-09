@@ -234,4 +234,22 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return ret;
     }
+
+    @Override
+    public ArrayList<Order> getActiveOrders(){
+        ArrayList<Order> activeOrders = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereGreaterThan("state", 0).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOrders.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOrders;
+    }
 }
