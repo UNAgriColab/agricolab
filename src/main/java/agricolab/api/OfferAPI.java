@@ -44,6 +44,11 @@ public class OfferAPI {
         return offerService.getAllOffers();
     }
 
+    @GetMapping("/actives")
+    public ArrayList<Offer> getActiveOffers() {
+        return offerService.getActiveOffers();
+    }
+
     @GetMapping("/user/{email}")
     public ArrayList<Offer> getUserOffers(@PathVariable String email) {
         return offerService.gerOffersByUser(email);

@@ -161,4 +161,22 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return ret;
     }
+
+    @Override
+    public ArrayList<Offer> getActiveOffers(){
+        ArrayList<Offer> activeOffers= new ArrayList<>();
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("offer");
+        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("state", true).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a: docList){
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
 }

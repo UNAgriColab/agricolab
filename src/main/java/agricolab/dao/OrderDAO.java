@@ -24,6 +24,7 @@ public interface OrderDAO {
 
     ArrayList<Order> getOrdersBySeller(String email);
 
+    ArrayList<Order> getActiveOrders ();
     boolean updateOrderByBuyer(String r);
 
     boolean updateOrderBySeller(Update changes);

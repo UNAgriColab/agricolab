@@ -26,6 +26,7 @@ public class OrderAPI {
     }
 
 
+
     @DeleteMapping("del/{id}")
     public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);}
 
@@ -48,6 +49,11 @@ public class OrderAPI {
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
+    }
+
+    @GetMapping("/actives")
+    public ArrayList<Order> getActiveOrders(){
+        return orderService.getActiveOrders();
     }
 
     @GetMapping("/user/{email}")

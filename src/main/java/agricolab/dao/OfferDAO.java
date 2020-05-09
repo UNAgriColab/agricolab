@@ -22,5 +22,7 @@ public interface OfferDAO {
 
     ArrayList<Offer> gerOffersByUser(String email);
 
+    ArrayList<Offer> getActiveOffers();
+
     void deleteOffer(String id);
 }

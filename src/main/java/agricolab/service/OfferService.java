@@ -34,6 +34,8 @@ public class OfferService {
         return offerDAO.gerOffersByUser(email);
     }
 
+    public  ArrayList<Offer> getActiveOffers(){ return offerDAO.getActiveOffers(); }
+
     public void deleteOffer(String id){offerDAO.deleteOffer(id);}
 
     public int getLastOfferId (){ return offerDAO.getLastOfferId(); }
