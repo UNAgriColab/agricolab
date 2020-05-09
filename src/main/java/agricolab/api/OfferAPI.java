@@ -50,8 +50,10 @@ public class OfferAPI {
     }
 
     @GetMapping("/user/{email}")
-    public ArrayList<Offer> getUserOffers(@PathVariable String email) {
+    public ArrayList<Offer> getOffersByUser(@PathVariable String email) {
         return offerService.gerOffersByUser(email);
     }
 
+    @GetMapping("product/{productName}")
+    public ArrayList<Offer> getOffersByProduct(@PathVariable String productName){return offerService.getOffersByProduct(productName) ; }
 }

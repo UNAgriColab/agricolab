@@ -36,6 +36,8 @@ public class OfferService {
 
     public  ArrayList<Offer> getActiveOffers(){ return offerDAO.getActiveOffers(); }
 
+    public ArrayList<Offer> getOffersByProduct(String productName) { return  offerDAO.getOffersByProduct(productName); }
+
     public void deleteOffer(String id){offerDAO.deleteOffer(id);}
 
     public int getLastOfferId (){ return offerDAO.getLastOfferId(); }

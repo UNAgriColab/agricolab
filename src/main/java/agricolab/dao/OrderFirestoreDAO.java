@@ -252,4 +252,30 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return activeOrders;
     }
+
+    @Override
+    public ArrayList<Order> getOrdersByProduct(String productName){
+        ArrayList<String> userOffers= new ArrayList<>();
+        ArrayList<Order> orders = new ArrayList<>();
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference offerRef=db.collection("offer");
+        //buscar todas los ofertas del vendedor
+        ApiFuture<QuerySnapshot> docs= offerRef.whereEqualTo("productName", productName).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a: docList){
+                userOffers.add(a.toObject(Offer.class).getId());
+            }
+            System.out.println(userOffers);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        //para todas las ofertas buscar las ordenes con ese id
+        for(String offer: userOffers){
+            orders.addAll(getOrdersByOffer(offer));
+        }
+        return orders;
+    }
 }
