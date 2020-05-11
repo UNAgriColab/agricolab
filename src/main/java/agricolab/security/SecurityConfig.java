@@ -27,11 +27,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
     private JwtRequestFilter filter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
-    public SecurityConfig(UserService userService, JwtRequestFilter filter) {
+    public SecurityConfig(UserService userService, JwtRequestFilter filter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
         this.userService = userService;
         this.filter = filter;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
     //   @Override
@@ -51,10 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/api/auth").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
-                .and().httpBasic()
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.cors().disable();
+        http.headers().cacheControl();
+        //http.cors().disable();
     }
 
     @Bean
