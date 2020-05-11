@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+@CrossOrigin (origins = "*")
 @RestController
 @RequestMapping(value = "/api/v1/offer")
 public class OfferAPI {
