@@ -15,18 +15,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-@Repository()
+@Repository
 public class OrderFirestoreDAO implements OrderDAO {
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
-    public int createOrder(Order order) {
+    public boolean createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
-        ID id = setOrderId();
-        order.setId(id.toString());
-        ref.document(id.toString()).set(order);
-        System.out.println(order);
-        return 0;
+        try {
+            Offer offer= db.collection("offer").document(order.getOfferReference()).get().get().toObject(Offer.class);
+            ID id = setOrderId();
+            order.setId(id.toString());
+            order.setTotalPrice(offer.getPricePresentation()*order.getNumberOfUnits());
+            ref.document(id.toString()).set(order);
+            System.out.println(order);
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // READ
