@@ -23,9 +23,9 @@ public class OfferAPI {
         offerService.addOffer(o);
     }
 
-    @PutMapping("/{id}")
-    public void updateOffer(@PathVariable int id, @RequestBody Offer o) {
-        offerService.updateOffer(id, o);
+    @PutMapping
+    public void updateOffer(@RequestBody Offer o) {
+        offerService.updateOffer(o);
     }
 
 
