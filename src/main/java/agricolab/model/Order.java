@@ -28,7 +28,7 @@ public class Order {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
-        this.state = 0;
+        this.state = 1;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;

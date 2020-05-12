@@ -20,7 +20,7 @@ public class OrderService {
         this.orderDAO = orderDAO;
     }
 
-    public int addOrder(Order order){
+    public boolean addOrder(Order order){
         return orderDAO.createOrder(order);
     }
 

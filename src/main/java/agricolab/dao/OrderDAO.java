@@ -11,7 +11,7 @@ public interface OrderDAO {
 
     ID setOrderId();
 
-    int createOrder(Order request);
+    boolean createOrder(Order request);
 
     Order getOrder(String id);
 
