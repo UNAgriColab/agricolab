@@ -4,26 +4,27 @@ package agricolab.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-public class Offers {
+public class Offer {
 
+    private String id;
     private String userEmail;
     private String productName;
-    private int presentation;
+    private double presentation;
     private double pricePresentation;
     private int minQuantity;
     private String description;
 
 
-    public Offers(){
+    public Offer(){
 
     }
 
-    public Offers( @JsonProperty("productName")String productName,
-                   @JsonProperty("userEmail")String userEmail,
-                   @JsonProperty("presentation")int presentation,
-                   @JsonProperty("pricePresentation")double pricePresentation,
-                   @JsonProperty("minQuantity")int minQuantity,
-                   @JsonProperty("description")String description){
+    public Offer(@JsonProperty("productName")String productName,
+                 @JsonProperty("userEmail")String userEmail,
+                 @JsonProperty("presentation")double presentation,
+                 @JsonProperty("pricePresentation")double pricePresentation,
+                 @JsonProperty("minQuantity")int minQuantity,
+                 @JsonProperty("description")String description){
         this.productName = productName;
         this.userEmail = userEmail;
         this.presentation = presentation;
@@ -37,7 +38,7 @@ public class Offers {
         return "Offer{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
-                ", presentation='" + Integer.toString(presentation) + '\'' +
+                ", presentation='" + Double.toString(presentation) + '\'' +
                 ", pricePresentation='" + Double.toString(pricePresentation) + '\'' +
                 ", minQuantity='" + Integer.toString(minQuantity) + '\'' +
                 '}';
@@ -51,7 +52,7 @@ public class Offers {
         return productName;
     }
 
-    public int getPresentation() {
+    public double getPresentation() {
         return presentation;
     }
 
@@ -65,31 +66,35 @@ public class Offers {
 
     public String getDescription(){return description;}
 
-    public Offers setUserEmail(String userEmail) {
+    public Offer setUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }
 
-    public Offers setProductName(String productName) {
+    public Offer setProductName(String productName) {
         this.productName = productName;
         return this;
     }
 
-    public Offers setPresentation(int presentation) {
+    public Offer setPresentation(double presentation) {
         this.presentation = presentation;
         return this;
     }
 
-    public Offers setPricePresentation(double pricePresentation) {
+    public Offer setPricePresentation(double pricePresentation) {
         this.pricePresentation = pricePresentation;
         return this;
     }
 
-    public Offers setMinQuantity(int minQuantity) {
+    public Offer setMinQuantity(int minQuantity) {
         this.minQuantity = minQuantity;
         return this;
     }
-    public Offers setDescription (String description) {
+<<<<<<<<< Temporary merge branch 1:src/main/java/agricolab/model/Offer.java
+=========
+
+>>>>>>>>> Temporary merge branch 2:src/main/java/agricolab/model/Offers.java
+    public Offer setDescription (String description) {
         this.description = description;
         return this;
     }

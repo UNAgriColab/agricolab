@@ -33,4 +33,6 @@ public class OfferService {
     public ArrayList<Offer> getUserOffers(String email){
         return offerDAO.getUserOffers(email);
     }
+
+    public void deleteOffer(String id){offerDAO.deleteOffer(id);}
 }
