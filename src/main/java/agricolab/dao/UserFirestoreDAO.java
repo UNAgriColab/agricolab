@@ -13,12 +13,12 @@ import java.util.concurrent.ExecutionException;
 public class UserFirestoreDAO implements UserDAO {
 
     @Override
-    public int createUser(User user) {
+    public boolean createUser(User user) {
         Firestore db=FirestoreClient.getFirestore();
         System.out.println(user.getEmail());
         db.collection("user").document(user.getEmail()).set(user);
         System.out.println(user);
-        return 1;
+        return true;
     }
 
     @Override

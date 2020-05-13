@@ -1,5 +1,6 @@
 package agricolab.service;
 
+import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
 import agricolab.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +13,36 @@ import java.util.ArrayList;
 public class OrderService {
 
 
-    private  OrderDAO orderDAO;
+    private OrderDAO orderDAO;
 
     @Autowired
     public OrderService(OrderDAO orderDAO){
         this.orderDAO = orderDAO;
     }
 
-    public int addOrder(Order request){
-        return orderDAO.createOrder(request);
+    public boolean addOrder(Order order){
+        return orderDAO.createOrder(order);
     }
 
-    public Order getOrder(String id){
-        return orderDAO.getOrder(id);
-    }
+    public Order getOrder(String id){ return orderDAO.getOrder(id); }
 
     public ArrayList<Order> getAllOrders(){
         return orderDAO.getAllOrders();
     }
 
-    public ArrayList<Order> getUserOrders(String email){
-        return orderDAO.getUserOrders(email);
+    public ArrayList<Order> getOrdersByBuyer(String email){
+        return orderDAO.getOrdersByBuyer(email);
     }
 
-    public ArrayList<Order> getOfferOrders(String offerId){
-        return orderDAO.getOfferOrders(offerId);
+    public ArrayList<Order> getOrdersByOffer(String offerId){
+        return orderDAO.getOrdersByOffer(offerId);
     }
+
+    public ArrayList<Order> getOrdersBySeller (String email) { return orderDAO.getOrdersBySeller(email); }
 
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
+
+    public boolean updateOrderByBuyer(Update changes){return orderDAO.updateOrderByBuyer(changes.getOrderId());}
+
+    public boolean updateOrderBySeller(Update changes) {return orderDAO.updateOrderBySeller(changes);}
 }
