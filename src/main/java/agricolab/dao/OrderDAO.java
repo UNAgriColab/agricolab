@@ -1,24 +1,31 @@
 package agricolab.dao;
 
+import agricolab.JsonModel.Update;
+import agricolab.model.ID;
 import agricolab.model.Order;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public interface OrderDAO {
 
-    int createOrder(Order request);
+    ID setOrderId();
+
+    boolean createOrder(Order request);
 
     Order getOrder(String id);
 
     ArrayList<Order> getAllOrders();
 
-    ArrayList<Order> getUserOrders(String email);
+    ArrayList<Order> getOrdersByBuyer(String email);
 
-    int updateOrder(Order r1, Order r2);
+    ArrayList<Order> getOrdersBySeller(String email);
+
+    boolean updateOrderByBuyer(String orderId);
 
     void deleteOrder(String id);
 
-    ArrayList<Order> getOfferOrders(String orderID);
+    ArrayList<Order> getOrdersByOffer(String orderID);
 
-
+    boolean updateOrderBySeller(Update changes);
 }

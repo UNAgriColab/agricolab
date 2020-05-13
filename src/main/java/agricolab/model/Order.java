@@ -4,22 +4,18 @@ package agricolab.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
 public class Order {
 
+    private String id;
     private String userEmail;
     private String offerReference;
-    private String productName;
     private int unit;
     private int numberOfUnits;
     private double totalPrice;
     private String description;
-    private Boolean state;
+    private int state;
 
-
-    public Order(){
-
-    }
+    public Order(){}
 
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("userEmail")String userEmail,
@@ -27,41 +23,36 @@ public class Order {
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("totalPrice")double totalPrice,
                     @JsonProperty("description")String description,
-                    @JsonProperty("state") Boolean state) {
+                    @JsonProperty("id")String id
+                    ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
-        this.state = state;
+        this.state = 1;
         this.unit = unit;
         this.numberOfUnits = numberOfUnits;
         this.totalPrice = totalPrice;
         this.description = description;
+        this.id=id;
     }
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Order{" +
                 ", userEmail='" + userEmail + '\'' +
-                ", name='" + productName + '\'' +
                 ", unit='" + Integer.toString(unit) + '\'' +
                 ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
                 ", totalPrice='" + Double.toString(totalPrice) + '\'' +
                 '}';
     }
 
+    public int getState(){ return state;}
+
     public String getUserEmail(){return userEmail; }
 
-    public String getProductName() {
-        return productName;
-    }
+    public int getUnit() {return unit;}
 
-    public int getUnit() {
-        return unit;
-    }
-
-    public int getNumberOfUnits() {
-        return numberOfUnits;
-    }
+    public int getNumberOfUnits() {return numberOfUnits;}
 
     public double getTotalPrice() { return totalPrice; }
 
@@ -69,13 +60,20 @@ public class Order {
 
     public String getOfferReference(){return offerReference;}
 
+    public String getId(){return  id;}
+
     public Order setUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }
 
-    public Order setProductName(String productName) {
-        this.productName = productName;
+    public Order setState (int state){
+        this.state = state;
+        return this;
+    }
+
+    public Order setId(String ID) {
+        this.id = ID;
         return this;
     }
 
@@ -98,8 +96,9 @@ public class Order {
         this.description = description;
         return this;
     }
-    public Order setOfferRefference (String offerReference){
+    public Order setOfferReference (String offerReference){
         this.offerReference = offerReference;
         return this;
     }
+
 }
