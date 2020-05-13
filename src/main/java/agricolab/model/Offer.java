@@ -41,9 +41,9 @@ public class Offer {
         return "Offer{" +
                 ", userEmail='" + userEmail + '\'' +
                 ", name='" + productName + '\'' +
-                ", presentation='" + Double.toString(presentation) + '\'' +
-                ", pricePresentation='" + Double.toString(pricePresentation) + '\'' +
-                ", minQuantity='" + Integer.toString(minQuantity) + '\'' +
+                ", presentation='" + presentation + '\'' +
+                ", pricePresentation='" + pricePresentation + '\'' +
+                ", minQuantity='" + minQuantity + '\'' +
                 '}';
     }
 
@@ -99,10 +99,7 @@ public class Offer {
         this.minQuantity = minQuantity;
         return this;
     }
-<<<<<<<<< Temporary merge branch 1:src/main/java/agricolab/model/Offer.java
-=========
 
->>>>>>>>> Temporary merge branch 2:src/main/java/agricolab/model/Offers.java
     public Offer setDescription (String description) {
         this.description = description;
         return this;
