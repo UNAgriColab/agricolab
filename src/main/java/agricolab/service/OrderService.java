@@ -40,9 +40,15 @@ public class OrderService {
 
     public ArrayList<Order> getOrdersBySeller (String email) { return orderDAO.getOrdersBySeller(email); }
 
+    public ArrayList<Order> getActiveOrders(){ return orderDAO.getActiveOrders();    }
+
+    public ArrayList<Order> getOrdersByProduct(String productName) { return orderDAO.getOrdersByProduct(productName) ;}
+
     public void deleteOrder(String id){orderDAO.deleteOrder(id); }
 
     public boolean updateOrderByBuyer(Update changes){return orderDAO.updateOrderByBuyer(changes.getOrderId());}
 
     public boolean updateOrderBySeller(Update changes) {return orderDAO.updateOrderBySeller(changes);}
+
+    public int getLastOrderId (){ return orderDAO.getLastOrderId(); }
 }
