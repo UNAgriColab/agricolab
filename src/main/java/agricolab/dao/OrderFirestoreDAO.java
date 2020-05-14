@@ -32,7 +32,7 @@ public class OrderFirestoreDAO implements OrderDAO {
             Offer offer= db.collection("offer").document(order.getOfferReference()).get().get().toObject(Offer.class);
             ID id = setOrderId();
             order.setId(id.toString());
-            order.setTotalPrice(offer.getPricePresentation()*order.getNumberOfUnits());
+            order.setTotalPrice(Objects.requireNonNull(offer).getPricePresentation()*order.getNumberOfUnits());
             ref.document(id.toString()).set(order);
             System.out.println(order);
             return true;
@@ -40,6 +40,11 @@ public class OrderFirestoreDAO implements OrderDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public int getLastOrderId() {
+        return 0;
     }
 
     // READ
@@ -82,7 +87,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     public boolean updateOrderBySeller(Update changes) {
         Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
-        ApiFuture<WriteResult> ud = null;
+        ApiFuture<WriteResult> ud;
         ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
         try {
             Order temp = actual.get().toObject(Order.class);
@@ -202,6 +207,16 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
+    public ArrayList<Order> getActiveOrders() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Order> getOrdersByProduct(String productName) {
+        return null;
+    }
+
+    @Override
     public ArrayList<Order> getOrdersBySeller(String email) {
         ArrayList<String> userOffers = new ArrayList<>();
         ArrayList<Order> orders = new ArrayList<>();
@@ -209,7 +224,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         CollectionReference offerRef = db.collection("offer");
         //buscar todas los ofertas del vendedor
         ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("userEmail", email).get();
-        List<QueryDocumentSnapshot> docList = null;
+        List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
