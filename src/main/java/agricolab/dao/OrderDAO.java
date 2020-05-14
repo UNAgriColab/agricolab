@@ -9,9 +9,13 @@ import java.util.concurrent.ExecutionException;
 
 public interface OrderDAO {
 
+
+
     ID setOrderId();
 
     boolean createOrder(Order request);
+
+    int getLastOrderId();
 
     Order getOrder(String id);
 
@@ -26,6 +30,10 @@ public interface OrderDAO {
     void deleteOrder(String id);
 
     ArrayList<Order> getOrdersByOffer(String orderID);
+
+    ArrayList<Order> getActiveOrders ();
+
+    ArrayList<Order> getOrdersByProduct(String productName);
 
     boolean updateOrderBySeller(Update changes);
 }

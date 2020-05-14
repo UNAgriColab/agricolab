@@ -19,40 +19,36 @@ public class Order {
 
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("userEmail")String userEmail,
-                    @JsonProperty("unit")int unit,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
-                    @JsonProperty("totalPrice")double totalPrice,
-                    @JsonProperty("description")String description,
-                    @JsonProperty("id")String id
+                    @JsonProperty("description")String description
                     ) {
 
         this.userEmail = userEmail;
         this.offerReference = offerReference;
         this.state = 1;
-        this.unit = unit;
+        this.unit = 0;
         this.numberOfUnits = numberOfUnits;
-        this.totalPrice = totalPrice;
+        this.totalPrice = 0;
         this.description = description;
-        this.id=id;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Order{" + "id "+ id +
                 ", userEmail='" + userEmail + '\'' +
-                ", unit='" + Integer.toString(unit) + '\'' +
-                ", numberOfUnits='" + Integer.toString(numberOfUnits)  + '\'' +
-                ", totalPrice='" + Double.toString(totalPrice) + '\'' +
+                ", unit='" + unit + '\'' +
+                ", numberOfUnits='" + numberOfUnits + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
                 '}';
     }
 
-    public int getState(){ return state;}
+    public int getState(){ return state;    }
 
     public String getUserEmail(){return userEmail; }
 
-    public int getUnit() {return unit;}
+    public int getUnit() { return unit; }
 
-    public int getNumberOfUnits() {return numberOfUnits;}
+    public int getNumberOfUnits() { return numberOfUnits; }
 
     public double getTotalPrice() { return totalPrice; }
 
@@ -72,8 +68,8 @@ public class Order {
         return this;
     }
 
-    public Order setId(String ID) {
-        this.id = ID;
+    public Order setId(String id) {
+        this.id = id;
         return this;
     }
 
@@ -96,7 +92,8 @@ public class Order {
         this.description = description;
         return this;
     }
-    public Order setOfferReference (String offerReference){
+
+    public Order setOfferRefference (String offerReference){
         this.offerReference = offerReference;
         return this;
     }

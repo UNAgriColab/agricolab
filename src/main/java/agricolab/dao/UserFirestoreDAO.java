@@ -14,11 +14,23 @@ public class UserFirestoreDAO implements UserDAO {
 
     @Override
     public boolean createUser(User user) {
-        Firestore db=FirestoreClient.getFirestore();
-        System.out.println(user.getEmail());
-        db.collection("user").document(user.getEmail()).set(user);
-        System.out.println(user);
-        return true;
+
+
+        for (User u : getAllUsers()){
+            if(u.getEmail().equals(user.getEmail())){
+                System.out.println("ya existe un usuario registrado con este correo, por favor intenta te nuevo");
+                return false;
+            }
+        }
+        if (user.getAge()<(18)){
+            System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
+            return false;
+        }else{
+            Firestore db=FirestoreClient.getFirestore();
+            db.collection("user").document(user.getEmail()).set(user);
+            System.out.println(user);
+            return true;
+        }
     }
 
     @Override
@@ -26,7 +38,7 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db=FirestoreClient.getFirestore();
         DocumentReference ref = db.collection("user").document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
-        DocumentSnapshot document = null;
+        DocumentSnapshot document;
         User ret = null;
         try {
             document = future.get();
@@ -41,16 +53,15 @@ public class UserFirestoreDAO implements UserDAO {
         return ret;
     }
     public ArrayList<User> getAllUsers(){
-        ArrayList<User> allUsers= new ArrayList<User>();
+        ArrayList<User> allUsers= new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference userRef=db.collection("user");
         ApiFuture<QuerySnapshot> docs= userRef.get();
-        List<QueryDocumentSnapshot> docList= null;
+        List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a: docList){
                 allUsers.add(a.toObject(User.class));
-                System.out.println(allUsers.size());
             }
             System.out.println(allUsers);
         } catch (InterruptedException | ExecutionException e) {

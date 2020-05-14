@@ -9,23 +9,34 @@ public class Offer {
     private String id;
     private String userEmail;
     private String productName;
-    private double presentation;
+    private int presentation;
     private double pricePresentation;
     private int minQuantity;
     private String description;
+    private Boolean state;
 
 
     public Offer(){
 
     }
 
+    public void manual (String userEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
+
+        this.productName = productName;
+        this.userEmail = userEmail;
+        this.presentation = presentation;
+        this.pricePresentation = pricePresentation;
+        this.minQuantity = minQuantity;
+        this.description = description;
+        this.state = true;
+    }
+
     public Offer(@JsonProperty("productName")String productName,
                  @JsonProperty("userEmail")String userEmail,
-                 @JsonProperty("presentation")double presentation,
+                 @JsonProperty("presentation")int presentation,
                  @JsonProperty("pricePresentation")double pricePresentation,
                  @JsonProperty("minQuantity")int minQuantity,
-                 @JsonProperty("description")String description,
-                 @JsonProperty("id")String id
+                 @JsonProperty("description")String description
     ){
         this.productName = productName;
         this.userEmail = userEmail;
@@ -33,7 +44,7 @@ public class Offer {
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
         this.description = description;
-        this.id = id;
+        this.state = true;
     }
 
     @Override
@@ -47,6 +58,7 @@ public class Offer {
                 '}';
     }
 
+
     public String getId(){return  id;}
 
     public String getUserEmail() {
@@ -57,7 +69,7 @@ public class Offer {
         return productName;
     }
 
-    public double getPresentation() {
+    public int getPresentation() {
         return presentation;
     }
 
@@ -71,8 +83,16 @@ public class Offer {
 
     public String getDescription(){return description;}
 
-    public void setId(String id) {
+    public Boolean getState(){ return state; }
+
+    public Offer setState(Boolean state){
+        this.state = state;
+        return this;
+    }
+
+    public Offer setId(String id) {
         this.id = id;
+        return this;
     }
 
     public Offer setUserEmail(String userEmail) {
@@ -85,7 +105,7 @@ public class Offer {
         return this;
     }
 
-    public Offer setPresentation(double presentation) {
+    public Offer setPresentation(int presentation) {
         this.presentation = presentation;
         return this;
     }

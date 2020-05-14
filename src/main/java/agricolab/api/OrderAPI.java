@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/v1/order")
 public class OrderAPI {
@@ -46,6 +47,11 @@ public class OrderAPI {
         return orderService.getAllOrders();
     }
 
+    @GetMapping("/actives")
+    public ArrayList<Order> getActiveOrders(){
+        return orderService.getActiveOrders();
+    }
+
     @GetMapping("/user/{email}")
     public ArrayList<Order> getOrdersByBuyer(@PathVariable String email) {
         return orderService.getOrdersByBuyer(email);
@@ -60,5 +66,11 @@ public class OrderAPI {
     public ArrayList<Order> getOrdersBySeller(@PathVariable String email){
         return orderService.getOrdersBySeller(email);
     }
+
+    @GetMapping("/product/{productName}")
+    public ArrayList<Order> getOrdersByProduct(@PathVariable String productName){
+        return orderService.getOrdersByProduct(productName);
+    }
+
 
 }

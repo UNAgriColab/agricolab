@@ -1,6 +1,5 @@
 package agricolab.JsonModel;
 
-
 public class Update {
     private boolean canceled;
     private String orderId;

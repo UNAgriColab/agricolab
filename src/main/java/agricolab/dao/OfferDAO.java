@@ -10,7 +10,9 @@ public interface OfferDAO {
 
     ID setOfferId ();
 
-    int createOffer(Offer offer);
+    int getLastOfferId();
+
+    String createOffer(Offer offer);
 
     Offer getOffer(String id);
 
@@ -19,6 +21,10 @@ public interface OfferDAO {
     ArrayList<Offer> getAllOffers();
 
     ArrayList<Offer> gerOffersByUser(String email);
+
+    ArrayList<Offer> getActiveOffers();
+
+    ArrayList<Offer> getOffersByProduct(String productName);
 
     void deleteOffer(String id);
 }
