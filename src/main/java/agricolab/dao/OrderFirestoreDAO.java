@@ -4,6 +4,7 @@ import agricolab.JsonModel.Update;
 import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.ID;
+import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -31,11 +32,13 @@ public class OrderFirestoreDAO implements OrderDAO {
         try {
             Offer offer= db.collection("offer").document(order.getOfferReference()).get().get().toObject(Offer.class);
             ID id = setOrderId();
+            User user = db.collection("user").document(order.getBuyerEmail()).get().get().toObject(User.class);
             order.setId(id.toString());
             order.setTotalPrice(Objects.requireNonNull(offer).getPricePresentation()*order.getNumberOfUnits());
             order.setUnit(Objects.requireNonNull(offer).getPresentation());
             order.setSellerEmail(Objects.requireNonNull(offer).getUserEmail());
             order.setProductName(Objects.requireNonNull(offer).getProductName());
+            order.setDeliveryAdd(Objects.requireNonNull(user).getDeliveryAdd());
             ref.document(id.toString()).set(order);
             System.out.println(order);
             return true;
