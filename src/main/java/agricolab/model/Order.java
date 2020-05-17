@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Order {
 
     private String id;
-    private String userEmail;
+    private String sellerEmail;
+    private String buyerEmail;
+    private String productName;
     private String offerReference;
     private int unit;
     private int numberOfUnits;
@@ -18,24 +20,22 @@ public class Order {
     public Order(){}
 
     public Order(   @JsonProperty("offerReference")String offerReference,
-                    @JsonProperty("userEmail")String userEmail,
+                    @JsonProperty("buyerEmail")String buyerEmail,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
                     @JsonProperty("description")String description
                     ) {
 
-        this.userEmail = userEmail;
+        this.buyerEmail = buyerEmail;
         this.offerReference = offerReference;
-        this.state = 1;
-        this.unit = 0;
         this.numberOfUnits = numberOfUnits;
-        this.totalPrice = 0;
         this.description = description;
+        this.state = 1;
     }
 
     @Override
     public String toString() {
         return "Order{" + "id "+ id +
-                ", userEmail='" + userEmail + '\'' +
+                ", userEmail='" + buyerEmail + '\'' +
                 ", unit='" + unit + '\'' +
                 ", numberOfUnits='" + numberOfUnits + '\'' +
                 ", totalPrice='" + totalPrice + '\'' +
@@ -44,9 +44,13 @@ public class Order {
 
     public int getState(){ return state;    }
 
-    public String getUserEmail(){return userEmail; }
+    public String getBuyerEmail(){return buyerEmail; }
 
     public int getUnit() { return unit; }
+
+    public String getSellerEmail() { return sellerEmail;    }
+
+    public String getProductName() { return productName;    }
 
     public int getNumberOfUnits() { return numberOfUnits; }
 
@@ -58,9 +62,21 @@ public class Order {
 
     public String getId(){return  id;}
 
-    public Order setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public Order setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
         return this;
+    }
+
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setOfferReference(String offerReference) {
+        this.offerReference = offerReference;
     }
 
     public Order setState (int state){
