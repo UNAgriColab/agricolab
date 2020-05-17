@@ -16,6 +16,7 @@ public class Order {
     private double totalPrice;
     private String description;
     private int state;
+    private String deliveryAdd;
 
     public Order(){}
 
@@ -42,76 +43,91 @@ public class Order {
                 '}';
     }
 
-    public int getState(){ return state;    }
+    public String getId() {
+        return id;
+    }
 
-    public String getBuyerEmail(){return buyerEmail; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public int getUnit() { return unit; }
-
-    public String getSellerEmail() { return sellerEmail;    }
-
-    public String getProductName() { return productName;    }
-
-    public int getNumberOfUnits() { return numberOfUnits; }
-
-    public double getTotalPrice() { return totalPrice; }
-
-    public String getDescription() {return description;}
-
-    public String getOfferReference(){return offerReference;}
-
-    public String getId(){return  id;}
-
-    public Order setBuyerEmail(String buyerEmail) {
-        this.buyerEmail = buyerEmail;
-        return this;
+    public String getSellerEmail() {
+        return sellerEmail;
     }
 
     public void setSellerEmail(String sellerEmail) {
         this.sellerEmail = sellerEmail;
     }
 
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getOfferReference() {
+        return offerReference;
     }
 
     public void setOfferReference(String offerReference) {
         this.offerReference = offerReference;
     }
 
-    public Order setState (int state){
-        this.state = state;
-        return this;
+    public int getUnit() {
+        return unit;
     }
 
-    public Order setId(String id) {
-        this.id = id;
-        return this;
-    }
-
-    public Order setUnit(int unit) {
+    public void setUnit(int unit) {
         this.unit = unit;
-        return this;
     }
 
-    public Order setNumberOfUnits(int numberOfUnits) {
+    public int getNumberOfUnits() {
+        return numberOfUnits;
+    }
+
+    public void setNumberOfUnits(int numberOfUnits) {
         this.numberOfUnits = numberOfUnits;
-        return this;
     }
 
-    public Order setTotalPrice (double totalPrice){
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-        return this;
     }
 
-    public Order setDescription (String description){
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
-    public Order setOfferRefference (String offerReference){
-        this.offerReference = offerReference;
-        return this;
+    public int getState() {
+        return state;
     }
 
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getDeliveryAdd() {
+        return deliveryAdd;
+    }
+
+    public void setDeliveryAdd(String deliveryAdd) {
+        this.deliveryAdd = deliveryAdd;
+    }
 }
