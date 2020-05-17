@@ -1,6 +1,7 @@
 package agricolab.security;
 
 import agricolab.service.UserService;
+import com.google.api.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/auth").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement()
