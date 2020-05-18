@@ -15,20 +15,21 @@ public class OfferFirestoreDAO implements OfferDAO {
     ////////////////////////////////////////////////////////////////////////////////////
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
-    public String createOffer(Offer offer) {
+    public boolean createOffer(Offer offer) {
         Firestore db=FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
         String name = offer.getProductName();
         for (Offer o : gerOffersByUser(offer.getUserEmail())){
             if (o.getProductName().equals(name)){
-                return "exite ya una oferta para este producto, no puedes crear una nueva";
+                System.out.println( "exite ya una oferta para este producto, no puedes crear una nueva");
+                return false;
             }
         }
         ID id = setOfferId();
         offer.setId(id.toString());
         ref.document(id.toString()).set(offer);
         System.out.println(offer);
-        return "Succesfully";
+        return true;
     }
     // READ
     @Override

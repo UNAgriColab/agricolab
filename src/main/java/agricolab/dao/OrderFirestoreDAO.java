@@ -29,6 +29,14 @@ public class OrderFirestoreDAO implements OrderDAO {
     public boolean createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
+        for(Order o: getOrdersByBuyer(order.getBuyerEmail())){
+            if(o.getOfferReference().equals(order.getOfferReference()) && o.getState()>=1){
+                System.out.println("ya hiciste una orden a este pedido y sigue activa, debes esperar a su" +
+                        " fin o cancelarla antes de crear otra");
+                return false;
+            }
+        }
+
         try {
             Offer offer= db.collection("offer").document(order.getOfferReference()).get().get().toObject(Offer.class);
             ID id = setOrderId();
@@ -39,6 +47,10 @@ public class OrderFirestoreDAO implements OrderDAO {
             order.setSellerEmail(Objects.requireNonNull(offer).getUserEmail());
             order.setProductName(Objects.requireNonNull(offer).getProductName());
             order.setDeliveryAdd(Objects.requireNonNull(user).getDeliveryAdd());
+            if(Objects.equals(order.getSellerEmail(), order.getBuyerEmail())){
+                System.out.println("no puede comprarse un producto a si mismo");
+                return false;
+            }
             ref.document(id.toString()).set(order);
             System.out.println(order);
             return true;

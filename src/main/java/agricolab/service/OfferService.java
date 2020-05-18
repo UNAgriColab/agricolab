@@ -15,10 +15,10 @@ public class OfferService {
 
     @Autowired
     public OfferService(OfferDAO offerdao) {
-        this.offerDAO = offerdao;
+        offerDAO = offerdao;
     }
 
-    public String addOffer(Offer offer){return offerDAO.createOffer(offer);}
+    public boolean addOffer(Offer offer){return offerDAO.createOffer(offer);}
 
     public Offer getOffer(String id) {
         return offerDAO.getOffer(id);
