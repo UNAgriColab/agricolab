@@ -12,7 +12,7 @@ public interface OfferDAO {
 
     int getLastOfferId();
 
-    String createOffer(Offer offer);
+    boolean createOffer(Offer offer);
 
     Offer getOffer(String id);
 
