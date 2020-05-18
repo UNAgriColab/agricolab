@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/auth").permitAll()
+                .antMatchers("/","/public/**", "/resources/**","/resources/public/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                 .anyRequest().authenticated()
