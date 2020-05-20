@@ -12,7 +12,6 @@ import java.util.ArrayList;
 @Service
 public class OrderService {
 
-
     private OrderDAO orderDAO;
 
     @Autowired
@@ -21,6 +20,16 @@ public class OrderService {
     }
 
     public boolean addOrder(Order order){
+        // Check for different buyer and seller (return false)
+        if(order.getBuyerEmail().equalsIgnoreCase(order.getSellerEmail())){
+            return false;
+        }
+        // Check for minimum order quantity
+        if(order.getNumberOfUnits() < OfferService.getOffer(order.getOfferReference()).getMinQuantity()){
+            return false;
+        }
+
+        // No inconsistencies, delegate return to DAO status
         return orderDAO.createOrder(order);
     }
 

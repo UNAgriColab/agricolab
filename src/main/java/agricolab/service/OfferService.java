@@ -20,7 +20,7 @@ public class OfferService {
 
     public boolean addOffer(Offer offer){return offerDAO.createOffer(offer);}
 
-    public Offer getOffer(String id) {
+    public static Offer getOffer(String id) {
         return offerDAO.getOffer(id);
     }
 
