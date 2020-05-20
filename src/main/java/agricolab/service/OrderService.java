@@ -25,7 +25,7 @@ public class OrderService {
             return false;
         }
         // Check for minimum order quantity
-        if(order.getNumberOfUnits() < OfferService.getOffer(order.getOfferReference()).getMinQuantity()){
+        if(order.getNumberOfUnits() >= OfferService.getOffer(order.getOfferReference()).getMinQuantity()){
             return false;
         }
 
