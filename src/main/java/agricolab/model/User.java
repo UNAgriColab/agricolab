@@ -9,8 +9,8 @@ public class User {
     private String password;
     private Boolean seller;
     private int age;
-    private String deliveryAdd;
     private long phoneNumber;
+    private Mailing mailing;
 
     public User() {
     }
@@ -21,7 +21,8 @@ public class User {
                 @JsonProperty("password") String password,
                 @JsonProperty("age") int age,
                 @JsonProperty("deliveryAdd") String deliveryAdd,
-                @JsonProperty("phoneNumber") long phoneNumber
+                @JsonProperty("phoneNumber") long phoneNumber,
+                @JsonProperty("mailing") Mailing mailing
                 ) {
 
         this.email = email;
@@ -30,7 +31,7 @@ public class User {
         this.seller = false;
         this.age = age;
         this.phoneNumber=phoneNumber;
-        this.deliveryAdd = deliveryAdd;
+        this.mailing= mailing;
     }
 
     @Override
@@ -47,9 +48,6 @@ public class User {
         return email;
     }
 
-    public String getDeliveryAdd() {
-        return deliveryAdd;
-    }
 
     public long getPhoneNumber() {
         return phoneNumber;
@@ -71,13 +69,16 @@ public class User {
         return age;
     }
 
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
+    public Mailing getMailing() {
+        return mailing;
     }
 
-    public User setDeliveryAdd(String deliveryAdd) {
-        this.deliveryAdd = deliveryAdd;
+    public void setMailing(Mailing mailing) {
+        this.mailing = mailing;
+    }
+
+    public User setEmail(String email) {
+        this.email = email;
         return this;
     }
 

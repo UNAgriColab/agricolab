@@ -1,5 +1,6 @@
 package agricolab.dao;
 
+import agricolab.model.Mailing;
 import agricolab.model.User;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
@@ -7,6 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public interface UserDAO {
 
@@ -20,4 +22,5 @@ public interface UserDAO {
 
     ArrayList<User> getAllUsers();
 
+    Mailing getMailingByUser(String email) throws ExecutionException, InterruptedException;
 }

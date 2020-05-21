@@ -1,6 +1,7 @@
 package agricolab.service;
 
 import agricolab.dao.UserDAO;
+import agricolab.model.Mailing;
 import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 @Service
@@ -44,4 +46,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 
+    public Mailing getMailingByUser(String email) throws ExecutionException, InterruptedException {
+        return userDAO.getMailingByUser(email);
+    }
 }
