@@ -11,12 +11,12 @@ public class Order {
     private String buyerEmail;
     private String productName;
     private String offerReference;
-    private int unit;
+    private int presentation;
     private int numberOfUnits;
     private double totalPrice;
     private String description;
     private int state;
-    private String deliveryAdd;
+    private Mailing mailing;
 
     public Order(){}
 
@@ -37,7 +37,7 @@ public class Order {
     public String toString() {
         return "Order{" + "id "+ id +
                 ", userEmail='" + buyerEmail + '\'' +
-                ", unit='" + unit + '\'' +
+                ", unit='" + presentation + '\'' +
                 ", numberOfUnits='" + numberOfUnits + '\'' +
                 ", totalPrice='" + totalPrice + '\'' +
                 '}';
@@ -83,12 +83,12 @@ public class Order {
         this.offerReference = offerReference;
     }
 
-    public int getUnit() {
-        return unit;
+    public int getPresentation() {
+        return presentation;
     }
 
-    public void setUnit(int unit) {
-        this.unit = unit;
+    public void setPresentation(int presentation) {
+        this.presentation = presentation;
     }
 
     public int getNumberOfUnits() {
@@ -123,11 +123,11 @@ public class Order {
         this.state = state;
     }
 
-    public String getDeliveryAdd() {
-        return deliveryAdd;
+    public Mailing getMailing() {
+        return mailing;
     }
 
-    public void setDeliveryAdd(String deliveryAdd) {
-        this.deliveryAdd = deliveryAdd;
+    public void setMailing(Mailing mailing) {
+        this.mailing = mailing;
     }
 }
