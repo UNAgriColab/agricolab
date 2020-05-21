@@ -15,17 +15,17 @@ public class OrderService {
     private OrderDAO orderDAO;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO){
+    public OrderService(OrderDAO orderDAO) {
         this.orderDAO = orderDAO;
     }
 
-    public boolean addOrder(Order order){
+    public boolean addOrder(Order order) {
         // Check for different buyer and seller (return false)
-        if(order.getBuyerEmail().equalsIgnoreCase(order.getSellerEmail())){
+        if (order.getBuyerEmail().equalsIgnoreCase(order.getSellerEmail())) {
             return false;
         }
         // Check for minimum order quantity
-        if(order.getNumberOfUnits() >= OfferService.getOffer(order.getOfferReference()).getMinQuantity()){
+        if (order.getNumberOfUnits() < OfferService.getOffer(order.getOfferReference()).getMinQuantity()) {
             return false;
         }
 
@@ -33,31 +33,47 @@ public class OrderService {
         return orderDAO.createOrder(order);
     }
 
-    public Order getOrder(String id){ return orderDAO.getOrder(id); }
+    public Order getOrder(String id) {
+        return orderDAO.getOrder(id);
+    }
 
-    public ArrayList<Order> getAllOrders(){
+    public ArrayList<Order> getAllOrders() {
         return orderDAO.getAllOrders();
     }
 
-    public ArrayList<Order> getOrdersByBuyer(String email){
+    public ArrayList<Order> getOrdersByBuyer(String email) {
         return orderDAO.getOrdersByBuyer(email);
     }
 
-    public ArrayList<Order> getOrdersByOffer(String offerId){
+    public ArrayList<Order> getOrdersByOffer(String offerId) {
         return orderDAO.getOrdersByOffer(offerId);
     }
 
-    public ArrayList<Order> getOrdersBySeller (String email) { return orderDAO.getOrdersBySeller(email); }
+    public ArrayList<Order> getOrdersBySeller(String email) {
+        return orderDAO.getOrdersBySeller(email);
+    }
 
-    public ArrayList<Order> getActiveOrders(){ return orderDAO.getActiveOrders();    }
+    public ArrayList<Order> getActiveOrders() {
+        return orderDAO.getActiveOrders();
+    }
 
-    public ArrayList<Order> getOrdersByProduct(String productName) { return orderDAO.getOrdersByProduct(productName) ;}
+    public ArrayList<Order> getOrdersByProduct(String productName) {
+        return orderDAO.getOrdersByProduct(productName);
+    }
 
-    public void deleteOrder(String id){orderDAO.deleteOrder(id); }
+    public void deleteOrder(String id) {
+        orderDAO.deleteOrder(id);
+    }
 
-    public boolean updateOrderByBuyer(Update changes){return orderDAO.updateOrderByBuyer(changes.getOrderId());}
+    public boolean updateOrderByBuyer(Update changes) {
+        return orderDAO.updateOrderByBuyer(changes.getOrderId());
+    }
 
-    public boolean updateOrderBySeller(Update changes) {return orderDAO.updateOrderBySeller(changes);}
+    public boolean updateOrderBySeller(Update changes) {
+        return orderDAO.updateOrderBySeller(changes);
+    }
 
-    public int getLastOrderId (){ return orderDAO.getLastOrderId(); }
+    public int getLastOrderId() {
+        return orderDAO.getLastOrderId();
+    }
 }

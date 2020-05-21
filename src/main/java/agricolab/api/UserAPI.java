@@ -1,6 +1,7 @@
 package agricolab.api;
 
 
+import agricolab.model.Mailing;
 import agricolab.model.User;
 import agricolab.security.JwtUtil;
 import agricolab.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/user")
@@ -22,7 +24,7 @@ public class UserAPI {
     @Autowired
     public UserAPI(UserService userService, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
         this.userService = userService;
-        this.jwtUtil =jwtUtil;
+        this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
     }
 
@@ -38,13 +40,19 @@ public class UserAPI {
     }
 
     // GET METHODS
-    @GetMapping ("/{email}")
+    @GetMapping("/{email}")
     public User getUser(@PathVariable String email) {
         return userService.getUser(email);
     }
 
+    @GetMapping("/address/{email}")
+    public Mailing getMailingByUser(@PathVariable String email) throws ExecutionException, InterruptedException {
+        return userService.getMailingByUser(email);
+
+    }
+
     @GetMapping
-    public ArrayList<User> getAllUsers(){
+    public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
     }
 

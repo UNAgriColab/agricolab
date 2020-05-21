@@ -43,10 +43,9 @@ public class OrderFirestoreDAO implements OrderDAO {
             User user = db.collection("user").document(order.getBuyerEmail()).get().get().toObject(User.class);
             order.setId(id.toString());
             order.setTotalPrice(Objects.requireNonNull(offer).getPricePresentation()*order.getNumberOfUnits());
-            order.setUnit(Objects.requireNonNull(offer).getPresentation());
+            order.setPresentation(Objects.requireNonNull(offer).getPresentation());
             order.setSellerEmail(Objects.requireNonNull(offer).getUserEmail());
             order.setProductName(Objects.requireNonNull(offer).getProductName());
-            order.setDeliveryAdd(Objects.requireNonNull(user).getDeliveryAdd());
             if(Objects.equals(order.getSellerEmail(), order.getBuyerEmail())){
                 System.out.println("no puede comprarse un producto a si mismo");
                 return false;
