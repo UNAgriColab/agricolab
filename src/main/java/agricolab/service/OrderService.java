@@ -2,15 +2,11 @@ package agricolab.service;
 
 import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
-import agricolab.model.ID;
-import agricolab.model.Offer;
 import agricolab.model.Order;
-import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 @Service
@@ -24,29 +20,12 @@ public class OrderService {
     }
 
     public boolean addOrder(Order order) {
-        // Check for orders on the same product
-        if (!orderDAO.getActiveOrdersByBuyerAndOffer(order.getBuyerEmail(), order.getOfferReference()).isEmpty()) {
-            System.out.println("ya hiciste una orden a este pedido y sigue activa, debes esperar a su" +
-                " fin o cancelarla antes de crear otra");
-            return false;
-        }
-
-        // Now we populate the order fields with the product data
-        Offer offerFromRef = OfferService.getOffer(order.getOfferReference());
-        order.setSellerEmail(Objects.requireNonNull(offerFromRef).getUserEmail());
-        order.setProductName(Objects.requireNonNull(offerFromRef).getProductName());
-        order.setPresentation(Objects.requireNonNull(offerFromRef).getPresentation());
-        order.setTotalPrice(Objects.requireNonNull(offerFromRef).getPricePresentation() * order.getNumberOfUnits());
-
         // Check for different buyer and seller (return false)
         if (order.getBuyerEmail().equalsIgnoreCase(order.getSellerEmail())) {
-            System.out.println("You can't create an order request from yourself.");
             return false;
         }
-
         // Check for minimum order quantity
         if (order.getNumberOfUnits() < OfferService.getOffer(order.getOfferReference()).getMinQuantity()) {
-            System.out.println("You are attempting to buy less units than the minimum.");
             return false;
         }
 
