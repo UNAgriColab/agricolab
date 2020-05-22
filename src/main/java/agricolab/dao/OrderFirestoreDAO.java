@@ -269,7 +269,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> activeOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereGreaterThan("state", 0).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereGreaterThan("state", 1).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -287,7 +287,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> activeOrders= new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference requestRef=db.collection("order");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("productName", productName).whereGreaterThan("state" , 0).get();
+        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("productName", productName).whereGreaterThan("state" , 1).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
