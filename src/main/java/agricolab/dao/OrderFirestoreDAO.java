@@ -188,7 +188,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereGreaterThan("state", 1).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereEqualTo("state", 2).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
