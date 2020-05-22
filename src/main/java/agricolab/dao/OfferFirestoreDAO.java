@@ -19,7 +19,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         Firestore db=FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
         String name = offer.getProductName();
-        for (Offer o : gerOffersByUser(offer.getUserEmail())){
+        for (Offer o : getOffersByUser(offer.getUserEmail())){ // TODO: Fix this for loop with a composite query
             if (o.getProductName().equals(name)){
                 System.out.println( "exite ya una oferta para este producto, no puedes crear una nueva");
                 return false;
@@ -125,8 +125,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
     ////////////////////////////////////////////////////////////////////////////////////
     //DEVUELVE OFFERS DE UN USUARIO DADO SU EMAIL
-    @Override
-    public ArrayList<Offer> gerOffersByUser(String email){
+    public ArrayList<Offer> getOffersByUser(String email){
         ArrayList<Offer> userOffers= new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference requestRef=db.collection("offer");
@@ -143,6 +142,27 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return userOffers;
     }
+
+    /* TODO
+    public ArrayList<Offer> getOffersByUserAndProduct(String email){
+        ArrayList<Offer> userOffers= new ArrayList<>();
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("offer");
+        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("userEmail", email).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a: docList){
+                userOffers.add(a.toObject(Offer.class));
+            }
+            System.out.println(userOffers);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOffers;
+    }
+    */
+
 
     @Override
     public int getLastOfferId(){

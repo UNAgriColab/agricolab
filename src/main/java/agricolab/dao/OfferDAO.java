@@ -20,7 +20,7 @@ public interface OfferDAO {
 
     ArrayList<Offer> getAllOffers();
 
-    ArrayList<Offer> gerOffersByUser(String email);
+    ArrayList<Offer> getOffersByUser(String email);
 
     ArrayList<Offer> getActiveOffers();
 
