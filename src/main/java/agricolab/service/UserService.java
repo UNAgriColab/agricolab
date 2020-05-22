@@ -19,6 +19,7 @@ public class UserService implements UserDetailsService {
 
     private UserDAO userDAO;
 
+
     @Autowired
     public UserService(@Qualifier("Firestore") UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -48,5 +49,12 @@ public class UserService implements UserDetailsService {
 
     public Mailing getMailingByUser(String email) throws ExecutionException, InterruptedException {
         return userDAO.getMailingByUser(email);
+    }
+
+    public boolean createMailing(String email, Mailing mailing) {
+        User user= getUser(email);
+        user.setMailing(mailing);
+        System.out.println(mailing);
+        return userDAO.createMailing(user);//, mailing);
     }
 }
