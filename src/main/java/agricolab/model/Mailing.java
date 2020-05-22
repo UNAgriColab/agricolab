@@ -1,5 +1,7 @@
 package agricolab.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Mailing {
     private String city;
     private String department;
@@ -10,7 +12,11 @@ public class Mailing {
     public Mailing() {
     }
 
-    public Mailing(String city, String department, String address, String details, String neighbourhood) {
+    public Mailing(@JsonProperty("city") String city,
+                   @JsonProperty("department") String department,
+                   @JsonProperty("address") String address,
+                   @JsonProperty("details") String details,
+                   @JsonProperty("neighbourhood") String neighbourhood) {
         this.city = city;
         this.department = department;
         this.address = address;
@@ -55,6 +61,17 @@ public class Mailing {
     }
 
     public void setNeighbourhood(String neighbourhood) {
-        neighbourhood = neighbourhood;
+        this.neighbourhood = neighbourhood;
+    }
+
+    @Override
+    public String toString() {
+        return "Mailing{" +
+                "city='" + city + '\'' +
+                ", department='" + department + '\'' +
+                ", address='" + address + '\'' +
+                ", details='" + details + '\'' +
+                ", neighbourhood='" + neighbourhood + '\'' +
+                '}';
     }
 }
