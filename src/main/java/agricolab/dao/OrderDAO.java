@@ -29,6 +29,8 @@ public interface OrderDAO {
 
     void deleteOrder(String id);
 
+    ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offer);
+
     ArrayList<Order> getOrdersByOffer(String orderID);
 
     ArrayList<Order> getActiveOrders ();
