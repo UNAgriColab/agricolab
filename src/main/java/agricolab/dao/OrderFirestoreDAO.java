@@ -29,28 +29,11 @@ public class OrderFirestoreDAO implements OrderDAO {
     public boolean createOrder(Order order) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("order");
-        for(Order o: getOrdersByBuyer(order.getBuyerEmail())){
-            if(o.getOfferReference().equals(order.getOfferReference()) && o.getState()>=1){
-                System.out.println("ya hiciste una orden a este pedido y sigue activa, debes esperar a su" +
-                        " fin o cancelarla antes de crear otra");
-                return false;
-            }
-        }
 
         try {
-            Offer offer= db.collection("offer").document(order.getOfferReference()).get().get().toObject(Offer.class);
-            ID id = setOrderId();
-            User user = db.collection("user").document(order.getBuyerEmail()).get().get().toObject(User.class);
-            order.setId(id.toString());
-            order.setTotalPrice(Objects.requireNonNull(offer).getPricePresentation()*order.getNumberOfUnits());
-            order.setPresentation(Objects.requireNonNull(offer).getPresentation());
-            order.setSellerEmail(Objects.requireNonNull(offer).getUserEmail());
-            order.setProductName(Objects.requireNonNull(offer).getProductName());
-            if(Objects.equals(order.getSellerEmail(), order.getBuyerEmail())){
-                System.out.println("no puede comprarse un producto a si mismo");
-                return false;
-            }
-            ref.document(id.toString()).set(order);
+            //ref.document(id.toString()).set(order);
+            order.setId(setOrderId().toString());
+            ref.document(order.getId()).set(order).get();
             System.out.println(order);
             return true;
         } catch (InterruptedException | ExecutionException e) {
@@ -199,6 +182,25 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return userOrder;
     }
+
+    @Override
+    public ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offerRef) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereGreaterThanOrEqualTo("state", 1).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
+
 
     @Override
     public ArrayList<Order> getOrdersByOffer(String orderID) {
