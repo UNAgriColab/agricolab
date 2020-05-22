@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserAPI {
@@ -49,6 +49,10 @@ public class UserAPI {
     public Mailing getMailingByUser(@PathVariable String email) throws ExecutionException, InterruptedException {
         return userService.getMailingByUser(email);
 
+    }
+    @PostMapping("/address/{email}")
+    public boolean createMailing(@PathVariable String email, @RequestBody Mailing mailing){
+        return userService.createMailing(email, mailing);
     }
 
     @GetMapping

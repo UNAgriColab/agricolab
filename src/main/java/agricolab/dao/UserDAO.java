@@ -23,4 +23,6 @@ public interface UserDAO {
     ArrayList<User> getAllUsers();
 
     Mailing getMailingByUser(String email) throws ExecutionException, InterruptedException;
+
+    boolean createMailing(User user);//, Mailing mailing);
 }

@@ -20,9 +20,7 @@ public class User {
                 @JsonProperty("name") String name,
                 @JsonProperty("password") String password,
                 @JsonProperty("age") int age,
-                @JsonProperty("deliveryAdd") String deliveryAdd,
-                @JsonProperty("phoneNumber") long phoneNumber,
-                @JsonProperty("mailing") Mailing mailing
+                @JsonProperty("phoneNumber") long phoneNumber
                 ) {
 
         this.email = email;
@@ -31,7 +29,7 @@ public class User {
         this.seller = false;
         this.age = age;
         this.phoneNumber=phoneNumber;
-        this.mailing= mailing;
+        this.mailing= new Mailing();
     }
 
     @Override
@@ -41,6 +39,7 @@ public class User {
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             "vendor = " + seller + '\'' +
+                "phone-number= " + phoneNumber + '\'' +
             '}';
     }
 

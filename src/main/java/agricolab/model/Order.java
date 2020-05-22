@@ -23,7 +23,8 @@ public class Order {
     public Order(   @JsonProperty("offerReference")String offerReference,
                     @JsonProperty("buyerEmail")String buyerEmail,
                     @JsonProperty("numberOfUnits")int numberOfUnits,
-                    @JsonProperty("description")String description
+                    @JsonProperty("description")String description,
+                    @JsonProperty("mailing") Mailing mailing
                     ) {
 
         this.buyerEmail = buyerEmail;
@@ -31,6 +32,7 @@ public class Order {
         this.numberOfUnits = numberOfUnits;
         this.description = description;
         this.state = 1;
+        this.mailing=mailing;
     }
 
     @Override
