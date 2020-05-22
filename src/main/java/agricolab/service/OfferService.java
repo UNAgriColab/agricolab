@@ -33,7 +33,7 @@ public class OfferService {
     }
 
     public ArrayList<Offer> gerOffersByUser(String email) {
-        return offerDAO.gerOffersByUser(email);
+        return offerDAO.getOffersByUser(email);
     }
 
     public  ArrayList<Offer> getActiveOffers(){ return offerDAO.getActiveOffers(); }
