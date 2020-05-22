@@ -19,7 +19,7 @@ public class OfferAPI {
     }
 
     @PostMapping
-    public boolean createOffer(@RequestBody Offer o) {
+    public boolean postOffer(@RequestBody Offer o) {
         return offerService.addOffer(o);
     }
 
