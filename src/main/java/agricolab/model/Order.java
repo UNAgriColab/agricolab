@@ -31,7 +31,7 @@ public class Order {
         this.offerReference = offerReference;
         this.numberOfUnits = numberOfUnits;
         this.description = description;
-        this.state = 1;
+        this.state = 2;
         this.mailing=mailing;
     }
 
