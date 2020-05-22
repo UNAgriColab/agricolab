@@ -21,8 +21,8 @@ public class OrderAPI {
     }
 
     @PostMapping
-    public void postOrder(@RequestBody Order r) {
-        orderService.addOrder(r);
+    public boolean postOrder(@RequestBody Order r) {
+        return orderService.addOrder(r);
     }
 
     @DeleteMapping("del/{id}")
