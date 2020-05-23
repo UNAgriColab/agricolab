@@ -18,31 +18,32 @@ public class Order {
     private int state;
     private Mailing mailing;
 
-    public Order(){}
+    public Order() {
+    }
 
-    public Order(   @JsonProperty("offerReference")String offerReference,
-                    @JsonProperty("buyerEmail")String buyerEmail,
-                    @JsonProperty("numberOfUnits")int numberOfUnits,
-                    @JsonProperty("description")String description,
-                    @JsonProperty("mailing") Mailing mailing
-                    ) {
+    public Order(@JsonProperty("offerReference") String offerReference,
+                 @JsonProperty("buyerEmail") String buyerEmail,
+                 @JsonProperty("numberOfUnits") int numberOfUnits,
+                 @JsonProperty("description") String description,
+                 @JsonProperty("mailing") Mailing mailing
+    ) {
 
         this.buyerEmail = buyerEmail;
         this.offerReference = offerReference;
         this.numberOfUnits = numberOfUnits;
         this.description = description;
         this.state = 2;
-        this.mailing=mailing;
+        this.mailing = mailing;
     }
 
     @Override
     public String toString() {
-        return "Order{" + "id "+ id +
-                ", userEmail='" + buyerEmail + '\'' +
-                ", unit='" + presentation + '\'' +
-                ", numberOfUnits='" + numberOfUnits + '\'' +
-                ", totalPrice='" + totalPrice + '\'' +
-                '}';
+        return "Order{" + "id " + id +
+            ", userEmail='" + buyerEmail + '\'' +
+            ", unit='" + presentation + '\'' +
+            ", numberOfUnits='" + numberOfUnits + '\'' +
+            ", totalPrice='" + totalPrice + '\'' +
+            '}';
     }
 
     public String getId() {
