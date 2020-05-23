@@ -2,13 +2,12 @@ package agricolab.dao;
 
 import agricolab.model.ID;
 import agricolab.model.Offer;
-import agricolab.model.Order;
 
 import java.util.ArrayList;
 
 public interface OfferDAO {
 
-    ID setOfferId ();
+    ID setOfferId();
 
     int getLastOfferId();
 

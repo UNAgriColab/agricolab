@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserAPI {
 
     private final UserService userService;
-    private JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private JwtUtil jwtUtil;
 
     @Autowired
     public UserAPI(UserService userService, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
@@ -50,8 +50,9 @@ public class UserAPI {
         return userService.getMailingByUser(email);
 
     }
+
     @PostMapping("/address/{email}")
-    public boolean createMailing(@PathVariable String email, @RequestBody Mailing mailing){
+    public boolean createMailing(@PathVariable String email, @RequestBody Mailing mailing) {
         return userService.createMailing(email, mailing);
     }
 

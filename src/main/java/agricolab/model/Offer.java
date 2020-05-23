@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Offer {
 
     private String id;
-    private String SellerEmail;
+    private String userEmail;
     private String productName;
     private int presentation;
     private double pricePresentation;
@@ -16,14 +16,19 @@ public class Offer {
     private Boolean state;
 
 
-    public Offer(){
+    public Offer() {
 
     }
 
-    public void manual (String userEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
-
+    public Offer(@JsonProperty("productName") String productName,
+                 @JsonProperty("userEmail") String userEmail,
+                 @JsonProperty("presentation") int presentation,
+                 @JsonProperty("pricePresentation") double pricePresentation,
+                 @JsonProperty("minQuantity") int minQuantity,
+                 @JsonProperty("description") String description
+    ) {
         this.productName = productName;
-        this.SellerEmail = userEmail;
+        this.userEmail = userEmail;
         this.presentation = presentation;
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
@@ -31,15 +36,10 @@ public class Offer {
         this.state = true;
     }
 
-    public Offer(@JsonProperty("productName")String productName,
-                 @JsonProperty("userEmail")String userEmail,
-                 @JsonProperty("presentation")int presentation,
-                 @JsonProperty("pricePresentation")double pricePresentation,
-                 @JsonProperty("minQuantity")int minQuantity,
-                 @JsonProperty("description")String description
-    ){
+    public void manual(String userEmail, String productName, int presentation, double pricePresentation, int minQuantity, String description) {
+
         this.productName = productName;
-        this.SellerEmail = userEmail;
+        this.userEmail = userEmail;
         this.presentation = presentation;
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
@@ -50,44 +50,17 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-                ", userEmail='" + SellerEmail + '\'' +
-                ", name='" + productName + '\'' +
-                ", presentation='" + presentation + '\'' +
-                ", pricePresentation='" + pricePresentation + '\'' +
-                ", minQuantity='" + minQuantity + '\'' +
-                '}';
+            ", userEmail='" + userEmail + '\'' +
+            ", name='" + productName + '\'' +
+            ", presentation='" + presentation + '\'' +
+            ", pricePresentation='" + pricePresentation + '\'' +
+            ", minQuantity='" + minQuantity + '\'' +
+            '}';
     }
 
 
-    public String getId(){return  id;}
-
-    public String getSellerEmail() {
-        return SellerEmail;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public int getPresentation() {
-        return presentation;
-    }
-
-    public double getPricePresentation() {
-        return pricePresentation;
-    }
-
-    public int getMinQuantity() {
-        return minQuantity;
-    }
-
-    public String getDescription(){return description;}
-
-    public Boolean getState(){ return state; }
-
-    public Offer setState(Boolean state){
-        this.state = state;
-        return this;
+    public String getId() {
+        return id;
     }
 
     public Offer setId(String id) {
@@ -95,9 +68,17 @@ public class Offer {
         return this;
     }
 
-    public Offer setSellerEmail(String sellerEmail) {
-        this.SellerEmail = sellerEmail;
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public Offer setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
         return this;
+    }
+
+    public String getProductName() {
+        return productName;
     }
 
     public Offer setProductName(String productName) {
@@ -105,9 +86,17 @@ public class Offer {
         return this;
     }
 
+    public int getPresentation() {
+        return presentation;
+    }
+
     public Offer setPresentation(int presentation) {
         this.presentation = presentation;
         return this;
+    }
+
+    public double getPricePresentation() {
+        return pricePresentation;
     }
 
     public Offer setPricePresentation(double pricePresentation) {
@@ -115,13 +104,30 @@ public class Offer {
         return this;
     }
 
+    public int getMinQuantity() {
+        return minQuantity;
+    }
+
     public Offer setMinQuantity(int minQuantity) {
         this.minQuantity = minQuantity;
         return this;
     }
 
-    public Offer setDescription (String description) {
+    public String getDescription() {
+        return description;
+    }
+
+    public Offer setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public Offer setState(Boolean state) {
+        this.state = state;
         return this;
     }
 

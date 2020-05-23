@@ -5,10 +5,8 @@ import agricolab.model.ID;
 import agricolab.model.Order;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public interface OrderDAO {
-
 
 
     ID setOrderId();
@@ -33,7 +31,7 @@ public interface OrderDAO {
 
     ArrayList<Order> getOrdersByOffer(String orderID);
 
-    ArrayList<Order> getActiveOrders ();
+    ArrayList<Order> getActiveOrders();
 
     ArrayList<Order> getOrdersByProduct(String productName);
 

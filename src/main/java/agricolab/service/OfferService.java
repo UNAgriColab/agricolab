@@ -11,16 +11,18 @@ import java.util.ArrayList;
 @Service
 public class OfferService {
 
-    private static OfferDAO offerDAO;
+    private OfferDAO offerDAO;
 
     @Autowired
     public OfferService(OfferDAO offerdao) {
         offerDAO = offerdao;
     }
 
-    public boolean addOffer(Offer offer){return offerDAO.createOffer(offer);}
+    public boolean addOffer(Offer offer) {
+        return offerDAO.createOffer(offer);
+    }
 
-    public static Offer getOffer(String id) {
+    public Offer getOffer(String id) {
         return offerDAO.getOffer(id);
     }
 
@@ -36,12 +38,20 @@ public class OfferService {
         return offerDAO.getOffersByUser(email);
     }
 
-    public  ArrayList<Offer> getActiveOffers(){ return offerDAO.getActiveOffers(); }
+    public ArrayList<Offer> getActiveOffers() {
+        return offerDAO.getActiveOffers();
+    }
 
-    public ArrayList<Offer> getOffersByProduct(String productName) { return  offerDAO.getOffersByProduct(productName); }
+    public ArrayList<Offer> getOffersByProduct(String productName) {
+        return offerDAO.getOffersByProduct(productName);
+    }
 
-    public void deleteOffer(String id){offerDAO.deleteOffer(id);}
+    public void deleteOffer(String id) {
+        offerDAO.deleteOffer(id);
+    }
 
-    public int getLastOfferId (){ return offerDAO.getLastOfferId(); }
+    public int getLastOfferId() {
+        return offerDAO.getLastOfferId();
+    }
 
 }

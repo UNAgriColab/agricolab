@@ -3,7 +3,6 @@ package agricolab.security;
 import agricolab.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +31,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
         System.out.println(requestTokenHeader);
         String username = null;
@@ -58,9 +57,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 // authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+                    userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 // After setting the Authentication in the context, we specify
 // that the current user is authenticated. So it passes the
 // Spring Security Configurations successfully.

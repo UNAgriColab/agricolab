@@ -7,7 +7,9 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Repository("Firestore")
@@ -81,7 +83,7 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public boolean createMailing(User user){//, Mailing mailing) {
+    public boolean createMailing(User user) {//, Mailing mailing) {
         Firestore db = FirestoreClient.getFirestore();
         //Map<String, Object> updates = new HashMap<>();
         //updates.put("mailing", mailing);
