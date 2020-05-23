@@ -55,7 +55,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     //UPDATE
     @Override
     public boolean updateOffer(Offer r) {
-        Firestore db = FirestoreClient.getFirestore();
+            Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
         updates.put("presentation", r.getPresentation());
         updates.put("pricePresentation", r.getPricePresentation());

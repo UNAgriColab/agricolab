@@ -19,6 +19,6 @@ public class AgriColabAppApplication {
 	}
 	@GetMapping("/")
 	public String hello() {
-		return "hello world!";
+		return "working";
 	}
 }
