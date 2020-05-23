@@ -2,29 +2,40 @@ package agricolab.service;
 
 import com.google.auth.oauth2.GoogleCredentials;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
+import java.io.IOException;
 
 @Service
 public class FirebaseInit {
 
     @PostConstruct
     public void init() {
+        // Use the application default credentials
+        GoogleCredentials credentials = null;
         try {
-            FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/agricolab-un-firebase-adminsdk.json");
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://agricolab-un.firebaseio.com")
-                    .build();
-
-            FirebaseApp.initializeApp(options);
-        } catch (Exception e) {
+            credentials = GoogleCredentials.getApplicationDefault();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(credentials)
+                .setProjectId("functionaltest-0103")
+                .build();
+        FirebaseApp.initializeApp(options);
+
+        Firestore db = FirestoreClient.getFirestore();
     }
 }
+
+
