@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-@CrossOrigin (origins = "*")
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/offer")
 @RestController
-@RequestMapping(value = "/api/v1/offer")
 public class OfferAPI {
 
     private final OfferService offerService;
@@ -27,7 +28,6 @@ public class OfferAPI {
     public void updateOffer(@RequestBody Offer o) {
         offerService.updateOffer(o);
     }
-
 
     @DeleteMapping("del/{id}")
     public void deleteOffer(@PathVariable String id) {
@@ -55,5 +55,7 @@ public class OfferAPI {
     }
 
     @GetMapping("product/{productName}")
-    public ArrayList<Offer> getOffersByProduct(@PathVariable String productName){return offerService.getOffersByProduct(productName) ; }
+    public ArrayList<Offer> getOffersByProduct(@PathVariable String productName) {
+        return offerService.getOffersByProduct(productName);
+    }
 }

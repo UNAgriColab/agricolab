@@ -15,10 +15,12 @@ import java.util.Objects;
 public class OrderService {
 
     private OrderDAO orderDAO;
+    private OfferService offerService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO) {
+    public OrderService(OrderDAO orderDAO, OfferService offerService) {
         this.orderDAO = orderDAO;
+        this.offerService = offerService;
     }
 
     public boolean addOrder(Order order) {
@@ -30,8 +32,8 @@ public class OrderService {
         }
 
         // Now we populate the order fields with the product data
-        Offer offerFromRef = OfferService.getOffer(order.getOfferReference());
-        order.setSellerEmail(Objects.requireNonNull(offerFromRef).getSellerEmail());
+        Offer offerFromRef = offerService.getOffer(order.getOfferReference());
+        order.setSellerEmail(Objects.requireNonNull(offerFromRef).getUserEmail());
         order.setProductName(Objects.requireNonNull(offerFromRef).getProductName());
         order.setPresentation(Objects.requireNonNull(offerFromRef).getPresentation());
         order.setTotalPrice(Objects.requireNonNull(offerFromRef).getPricePresentation() * order.getNumberOfUnits());
@@ -43,7 +45,7 @@ public class OrderService {
         }
 
         // Check for minimum order quantity
-        if (order.getNumberOfUnits() < OfferService.getOffer(order.getOfferReference()).getMinQuantity()) {
+        if (order.getNumberOfUnits() < offerService.getOffer(order.getOfferReference()).getMinQuantity()) {
             System.out.println("You are attempting to buy less units than the minimum.");
             return false;
         }
