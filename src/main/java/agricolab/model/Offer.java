@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Offer {
 
     private String id;
-    private String userEmail;
+    private String SellerEmail;
     private String productName;
     private int presentation;
     private double pricePresentation;
@@ -23,7 +23,7 @@ public class Offer {
     public void manual (String userEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
 
         this.productName = productName;
-        this.userEmail = userEmail;
+        this.SellerEmail = userEmail;
         this.presentation = presentation;
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
@@ -39,7 +39,7 @@ public class Offer {
                  @JsonProperty("description")String description
     ){
         this.productName = productName;
-        this.userEmail = userEmail;
+        this.SellerEmail = userEmail;
         this.presentation = presentation;
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
@@ -50,7 +50,7 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-                ", userEmail='" + userEmail + '\'' +
+                ", userEmail='" + SellerEmail + '\'' +
                 ", name='" + productName + '\'' +
                 ", presentation='" + presentation + '\'' +
                 ", pricePresentation='" + pricePresentation + '\'' +
@@ -61,8 +61,8 @@ public class Offer {
 
     public String getId(){return  id;}
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getSellerEmail() {
+        return SellerEmail;
     }
 
     public String getProductName() {
@@ -95,8 +95,8 @@ public class Offer {
         return this;
     }
 
-    public Offer setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public Offer setSellerEmail(String sellerEmail) {
+        this.SellerEmail = sellerEmail;
         return this;
     }
 
