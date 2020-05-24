@@ -1,6 +1,7 @@
 package agricolab.dao;
 
 import agricolab.JsonModel.Update;
+import agricolab.model.ID;
 import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.ID;
@@ -24,6 +25,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     public OrderFirestoreDAO(OfferDAO offerDAO) {
         this.offerDAO = offerDAO;
     }
+
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
     public boolean createOrder(Order order) {
@@ -86,25 +88,24 @@ public class OrderFirestoreDAO implements OrderDAO {
         ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
         try {
             Order temp = actual.get().toObject(Order.class);
-            if (!changes.isCanceled()){
+            if (!changes.isCanceled()) {
                 updates.put("state", 0);
                 db.collection("order").document(changes.getOrderId()).update(updates);
                 return true;
             }
-                if(temp == null){
-                    return false;
-                }
-                int stateTemp=temp.getState();
-                if(stateTemp!=0){
-                    stateTemp++;
-                    updates.put("state", stateTemp);
-                    ud= db.collection("order").document(changes.getOrderId()).update(updates);
-                    System.out.println(ud.get().getUpdateTime());
-                    return true;
-                }
-                else{
-                    return false;
-                }
+            if (temp == null) {
+                return false;
+            }
+            int stateTemp = temp.getState();
+            if (stateTemp != 0) {
+                stateTemp++;
+                updates.put("state", stateTemp);
+                ud = db.collection("order").document(changes.getOrderId()).update(updates);
+                System.out.println(ud.get().getUpdateTime());
+                return true;
+            } else {
+                return false;
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -139,7 +140,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        Objects.requireNonNull(ret).setId(ret.getId()+1);
+        Objects.requireNonNull(ret).setId(ret.getId() + 1);
         ref.set(ret);
         return ret;
     }
@@ -188,7 +189,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereGreaterThan("state", 1).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereEqualTo("state", 2).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -240,13 +241,14 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
 
         //para todas las ofertas buscar las ordenes con ese id
-        for(String offer: userOffers){
+        for (String offer : userOffers) {
             orders.addAll(getOrdersByOffer(offer));
         }
         return orders;
     }
+
     @Override
-    public int getLastOrderId(){
+    public int getLastOrderId() {
         int ret = 0;
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference ref = db.collection("ids").document("idorder");
@@ -265,7 +267,7 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getActiveOrders(){
+    public ArrayList<Order> getActiveOrders() {
         ArrayList<Order> activeOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
@@ -291,7 +293,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a: docList){
+            for (QueryDocumentSnapshot a : docList) {
                 activeOrders.add(a.toObject(Order.class));
             }
         } catch (InterruptedException | ExecutionException e) {

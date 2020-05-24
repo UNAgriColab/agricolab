@@ -21,15 +21,15 @@ public class User {
                 @JsonProperty("password") String password,
                 @JsonProperty("age") int age,
                 @JsonProperty("phoneNumber") long phoneNumber
-                ) {
+    ) {
 
         this.email = email;
         this.name = name;
         this.password = password;
         this.seller = false;
         this.age = age;
-        this.phoneNumber=phoneNumber;
-        this.mailing= new Mailing();
+        this.phoneNumber = phoneNumber;
+        this.mailing = new Mailing();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class User {
             ", email='" + email + '\'' +
             ", password='" + password + '\'' +
             "vendor = " + seller + '\'' +
-                "phone-number= " + phoneNumber + '\'' +
+            "phone-number= " + phoneNumber + '\'' +
             '}';
     }
 
@@ -47,25 +47,54 @@ public class User {
         return email;
     }
 
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
     public long getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public User setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
+    public User setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
     }
 
     public Boolean getSeller() {
         return seller;
     }
 
+    public User setSeller(Boolean seller) {
+        this.seller = seller;
+        return this;
+    }
+
     public int getAge() {
         return age;
+    }
+
+    public User setAge(int age) {
+        this.age = age;
+        return this;
     }
 
     public Mailing getMailing() {
@@ -74,35 +103,5 @@ public class User {
 
     public void setMailing(Mailing mailing) {
         this.mailing = mailing;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public User setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
-
-    public User setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public User setSeller(Boolean seller) {
-        this.seller = seller;
-        return this;
-    }
-
-    public User setAge(int age) {
-        this.age = age;
-        return this;
     }
 }

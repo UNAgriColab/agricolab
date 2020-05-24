@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean createMailing(String email, Mailing mailing) {
-        User user= getUser(email);
+        User user = getUser(email);
         user.setMailing(mailing);
         System.out.println(mailing);
         return userDAO.createMailing(user);//, mailing);

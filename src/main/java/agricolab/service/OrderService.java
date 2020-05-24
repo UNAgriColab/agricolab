@@ -2,8 +2,10 @@ package agricolab.service;
 
 import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
+import agricolab.model.ID;
 import agricolab.model.Offer;
 import agricolab.model.Order;
+import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,12 @@ import java.util.Objects;
 public class OrderService {
 
     private OrderDAO orderDAO;
+    private OfferService offerService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO) {
+    public OrderService(OrderDAO orderDAO, OfferService offerService) {
         this.orderDAO = orderDAO;
+        this.offerService = offerService;
     }
 
     public boolean addOrder(Order order) {
@@ -30,7 +34,7 @@ public class OrderService {
         }
 
         // Now we populate the order fields with the product data
-        Offer offerFromRef = OfferService.getOffer(order.getOfferReference());
+        Offer offerFromRef = offerService.getOffer(order.getOfferReference());
         order.setSellerEmail(Objects.requireNonNull(offerFromRef).getSellerEmail());
         order.setProductName(Objects.requireNonNull(offerFromRef).getProductName());
         order.setPresentation(Objects.requireNonNull(offerFromRef).getPresentation());
@@ -43,7 +47,7 @@ public class OrderService {
         }
 
         // Check for minimum order quantity
-        if (order.getNumberOfUnits() < OfferService.getOffer(order.getOfferReference()).getMinQuantity()) {
+        if (order.getNumberOfUnits() < offerService.getOffer(order.getOfferReference()).getMinQuantity()) {
             System.out.println("You are attempting to buy less units than the minimum.");
             return false;
         }
