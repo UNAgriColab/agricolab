@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/order")
 @RestController
-@RequestMapping(value = "/api/v1/order")
 public class OrderAPI {
 
     private final OrderService orderService;
@@ -26,7 +26,9 @@ public class OrderAPI {
     }
 
     @DeleteMapping("del/{id}")
-    public void deleteOrder(@PathVariable String id ) { orderService.deleteOrder(id);}
+    public void deleteOrder(@PathVariable String id) {
+        orderService.deleteOrder(id);
+    }
 
     // GET METHODS
     @GetMapping("/{id}")
@@ -35,20 +37,22 @@ public class OrderAPI {
     }
 
     @PutMapping("/buyer")
-    public boolean updateOrderByBuyer(@RequestBody Update changes){
+    public boolean updateOrderByBuyer(@RequestBody Update changes) {
         return orderService.updateOrderByBuyer(changes);
     }
+
     @PutMapping("/seller")
-    public boolean updateOrderBySeller(@RequestBody Update changes){
+    public boolean updateOrderBySeller(@RequestBody Update changes) {
         return orderService.updateOrderBySeller(changes);
     }
+
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
 
     @GetMapping("/actives")
-    public ArrayList<Order> getActiveOrders(){
+    public ArrayList<Order> getActiveOrders() {
         return orderService.getActiveOrders();
     }
 
@@ -63,14 +67,16 @@ public class OrderAPI {
     }
 
     @GetMapping("/seller/{email}")
-    public ArrayList<Order> getOrdersBySeller(@PathVariable String email){
+    public ArrayList<Order> getOrdersBySeller(@PathVariable String email) {
         return orderService.getOrdersBySeller(email);
     }
 
     @GetMapping("/product/{productName}")
-    public ArrayList<Order> getOrdersByProduct(@PathVariable String productName){
+    public ArrayList<Order> getOrdersByProduct(@PathVariable String productName) {
         return orderService.getOrdersByProduct(productName);
     }
 
 
 }
+
+

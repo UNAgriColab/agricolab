@@ -16,7 +16,7 @@ public class Offer {
     private Boolean state;
 
 
-    public Offer(){
+    public Offer() {
 
     }
 
@@ -50,7 +50,7 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-                ", userEmail='" + SellerEmail + '\'' +
+                ", sellerEmail='" + SellerEmail + '\'' +
                 ", name='" + productName + '\'' +
                 ", presentation='" + presentation + '\'' +
                 ", pricePresentation='" + pricePresentation + '\'' +
@@ -105,6 +105,7 @@ public class Offer {
         return this;
     }
 
+
     public Offer setPresentation(int presentation) {
         this.presentation = presentation;
         return this;
@@ -120,7 +121,8 @@ public class Offer {
         return this;
     }
 
-    public Offer setDescription (String description) {
+
+    public Offer setDescription(String description) {
         this.description = description;
         return this;
     }
