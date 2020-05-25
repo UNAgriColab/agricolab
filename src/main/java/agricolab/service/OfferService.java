@@ -19,6 +19,12 @@ public class OfferService {
     }
 
     public boolean addOffer(Offer offer) {
+        // Check for orders on the same product
+        if (!offerDAO.getOffersByUserAndProduct(offer.getSellerEmail() , offer.getProductName()).isEmpty()){
+            System.out.println("ya hiciste una oferta de este producto y sigue activa, debes esperar a su" +
+                    " fin o cancelarla antes de crear otra");
+            return false;
+        }
         return offerDAO.createOffer(offer);
     }
 

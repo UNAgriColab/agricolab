@@ -133,7 +133,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> userOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("userEmail", email).get();
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("sellerEmail", email).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -147,12 +147,12 @@ public class OfferFirestoreDAO implements OfferDAO {
         return userOffers;
     }
 
-    /* TODO
-    public ArrayList<Offer> getOffersByUserAndProduct(String email){
+    @Override
+    public ArrayList<Offer> getOffersByUserAndProduct(String email , String productName){
         ArrayList<Offer> userOffers= new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference requestRef=db.collection("offer");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("userEmail", email).get();
+        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("sellerEmail", email).whereEqualTo("state"  ,true).whereEqualTo("productName" , productName ).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -165,7 +165,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return userOffers;
     }
-    */
+
 
 
     @Override

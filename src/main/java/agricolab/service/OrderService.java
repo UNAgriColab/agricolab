@@ -26,12 +26,6 @@ public class OrderService {
     }
 
     public boolean addOrder(Order order) {
-        // Check for orders on the same product
-        if (!orderDAO.getActiveOrdersByBuyerAndOffer(order.getBuyerEmail(), order.getOfferReference()).isEmpty()) {
-            System.out.println("ya hiciste una orden a este pedido y sigue activa, debes esperar a su" +
-                " fin o cancelarla antes de crear otra");
-            return false;
-        }
 
         // Now we populate the order fields with the product data
         Offer offerFromRef = offerService.getOffer(order.getOfferReference());
