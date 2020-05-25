@@ -2,8 +2,10 @@ package agricolab.service;
 
 import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
+import agricolab.model.ID;
 import agricolab.model.Offer;
 import agricolab.model.Order;
+import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class OrderService {
 
         // Now we populate the order fields with the product data
         Offer offerFromRef = offerService.getOffer(order.getOfferReference());
-        order.setSellerEmail(Objects.requireNonNull(offerFromRef).getUserEmail());
+        order.setSellerEmail(Objects.requireNonNull(offerFromRef).getSellerEmail());
         order.setProductName(Objects.requireNonNull(offerFromRef).getProductName());
         order.setPresentation(Objects.requireNonNull(offerFromRef).getPresentation());
         order.setTotalPrice(Objects.requireNonNull(offerFromRef).getPricePresentation() * order.getNumberOfUnits());
