@@ -2,10 +2,8 @@ package agricolab.service;
 
 import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
-import agricolab.model.ID;
 import agricolab.model.Offer;
 import agricolab.model.Order;
-import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,9 +66,7 @@ public class OrderService {
         return orderDAO.getOrdersByBuyer(email);
     }
 
-    public ArrayList<Order> getActiveOrdersByBuyer(String email) {
-        return orderDAO.getActiveOrdersByBuyer(email);
-    }
+    public ArrayList<Order> getActiveOrdersByBuyer(String email) { return orderDAO.getActiveOrdersByBuyer(email); }
 
     public ArrayList<Order> getOrdersByOffer(String offerId) {
         return orderDAO.getOrdersByOffer(offerId);
@@ -82,10 +78,6 @@ public class OrderService {
 
     public ArrayList<Order> getActiveOrders() {
         return orderDAO.getActiveOrders();
-    }
-
-    public ArrayList<Order> getActiveOrdersBySeller(String email) {
-        return orderDAO.getActiveOrdersBySeller(email);
     }
 
     public ArrayList<Order> getOrdersByProduct(String productName) {

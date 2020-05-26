@@ -77,14 +77,12 @@ public class OrderAPI {
     }
 
     @GetMapping("/seller/actives/{email}")
-    public ArrayList<Order> getActiveOrdersBySeller(
-            @PathVariable String email) {
+    public ArrayList<Order> getActiveOrdersBySeller(@PathVariable String email) {
         return orderService.getActiveOrdersBySeller(email);
     }
 
     @GetMapping("/buyer/actives/{email}")
-    public ArrayList<Order> getActiveOrdersByBuyer(
-            @PathVariable String email) {
+    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email) {
         return orderService.getActiveOrdersByBuyer(email);
     }
 
