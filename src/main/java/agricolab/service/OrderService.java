@@ -29,7 +29,7 @@ public class OrderService {
         // Check for orders on the same product
         if (!orderDAO.getActiveOrdersByBuyerAndOffer(order.getBuyerEmail(), order.getOfferReference()).isEmpty()) {
             System.out.println("ya hiciste una orden a este pedido y sigue activa, debes esperar a su" +
-                " fin o cancelarla antes de crear otra");
+                    " fin o cancelarla antes de crear otra");
             return false;
         }
 
@@ -78,6 +78,10 @@ public class OrderService {
 
     public ArrayList<Order> getActiveOrders() {
         return orderDAO.getActiveOrders();
+    }
+
+    public ArrayList<Order> getActiveOrdersBySeller(String email) {
+        return orderDAO.getActiveOrdersBySeller(email);
     }
 
     public ArrayList<Order> getOrdersByProduct(String productName) {
