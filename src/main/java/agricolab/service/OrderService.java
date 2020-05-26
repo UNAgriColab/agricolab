@@ -68,6 +68,10 @@ public class OrderService {
         return orderDAO.getOrdersByBuyer(email);
     }
 
+    public ArrayList<Order> getActiveOrdersByBuyer(String email) {
+        return orderDAO.getActiveOrdersByBuyer(email);
+    }
+
     public ArrayList<Order> getOrdersByOffer(String offerId) {
         return orderDAO.getOrdersByOffer(offerId);
     }
