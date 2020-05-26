@@ -220,6 +220,25 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return offerOrders;
     }
+
+    @Override
+    public ArrayList<Order> getActiveOrdersByBuyer(String email) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThan("state" , 1).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
+
     @Override
     public ArrayList<Order> getActiveOrdersBySeller(String email){
         ArrayList<String> userOffers = new ArrayList<>();
