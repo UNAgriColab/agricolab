@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -42,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider());
         auth.userDetailsService(userService);
     }
 
@@ -50,20 +53,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable()
-            .authorizeRequests().antMatchers("/api/auth").permitAll()
-            .antMatchers("/", "/static/**", "/public/**", "/resources/**", "/resources/public/**").permitAll()
-            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .mvcMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
-            .anyRequest().authenticated()
-            .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            .and().sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests().antMatchers("/api/auth").permitAll()
+                .antMatchers("/", "/static/**", "/public/**", "/resources/**", "/resources/public/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+                .anyRequest().authenticated()
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
@@ -73,13 +76,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(this.userService);
+        authProvider.setPasswordEncoder(this.userService.getPasswordEncoder());
+        return authProvider;
+    }
+
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedHeaders("*")
-                    .allowedOrigins("*").allowedMethods("*")
-                    .allowCredentials(true);
+                        .allowedOrigins("*").allowedMethods("*")
+                        .allowCredentials(true);
             }
         };
     }

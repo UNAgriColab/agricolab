@@ -3,11 +3,14 @@ package agricolab.service;
 import agricolab.dao.UserDAO;
 import agricolab.model.Mailing;
 import agricolab.model.User;
+import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,15 +20,28 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class UserService implements UserDetailsService {
 
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
     public UserService(@Qualifier("Firestore") UserDAO userDAO) {
         this.userDAO = userDAO;
+        passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public boolean addUser(User user) {
+        for (User u : userDAO.getAllUsers()) {
+            if (u.getEmail().equals(user.getEmail())) {
+                System.out.println("ya existe un usuario registrado con este correo, por favor intenta te nuevo");
+                return false;
+            }
+        }
+        if (user.getAge() < (18)) {
+            System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
+            return false;
+        }
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return userDAO.createUser(user);
     }
 
@@ -39,6 +55,10 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(String email) {
         userDAO.deleteUser(email);
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
     @Override

@@ -92,6 +92,8 @@ public class OrderService {
         return orderDAO.getOrdersByProduct(productName);
     }
 
+    public ArrayList<Order> getActiveOrdersBySeller(String email){ return orderDAO.getActiveOrdersBySeller(email);}
+
     public void deleteOrder(String id) {
         orderDAO.deleteOrder(id);
     }
