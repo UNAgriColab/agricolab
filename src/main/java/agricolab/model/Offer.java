@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Offer {
 
     private String id;
-    private String SellerEmail;
+    private String sellerEmail;
     private String productName;
     private int presentation;
     private double pricePresentation;
@@ -20,10 +20,10 @@ public class Offer {
 
     }
 
-    public void manual (String userEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
+    public void manual (String sellerEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
 
         this.productName = productName;
-        this.SellerEmail = userEmail;
+        this.sellerEmail = sellerEmail;
         this.presentation = presentation;
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
@@ -32,14 +32,14 @@ public class Offer {
     }
 
     public Offer(@JsonProperty("productName")String productName,
-                 @JsonProperty("userEmail")String userEmail,
+                 @JsonProperty("sellerEmail")String sellerEmail,
                  @JsonProperty("presentation")int presentation,
                  @JsonProperty("pricePresentation")double pricePresentation,
                  @JsonProperty("minQuantity")int minQuantity,
                  @JsonProperty("description")String description
     ){
         this.productName = productName;
-        this.SellerEmail = userEmail;
+        this.sellerEmail = sellerEmail;
         this.presentation = presentation;
         this.pricePresentation = pricePresentation;
         this.minQuantity = minQuantity;
@@ -50,7 +50,7 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-                ", sellerEmail='" + SellerEmail + '\'' +
+                ", sellerEmail='" + sellerEmail + '\'' +
                 ", name='" + productName + '\'' +
                 ", presentation='" + presentation + '\'' +
                 ", pricePresentation='" + pricePresentation + '\'' +
@@ -62,7 +62,7 @@ public class Offer {
     public String getId(){return  id;}
 
     public String getSellerEmail() {
-        return SellerEmail;
+        return sellerEmail;
     }
 
     public String getProductName() {
@@ -96,7 +96,7 @@ public class Offer {
     }
 
     public Offer setSellerEmail(String sellerEmail) {
-        this.SellerEmail = sellerEmail;
+        this.sellerEmail = sellerEmail;
         return this;
     }
 
