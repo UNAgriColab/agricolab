@@ -20,22 +20,17 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class UserService implements UserDetailsService {
 
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
     public UserService(@Qualifier("Firestore") UserDAO userDAO) {
         this.userDAO = userDAO;
+        passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public boolean addUser(User user) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() {
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return false;
-            }
-        };
         for (User u : userDAO.getAllUsers()) {
             if (u.getEmail().equals(user.getEmail())) {
                 System.out.println("ya existe un usuario registrado con este correo, por favor intenta te nuevo");
@@ -46,7 +41,7 @@ public class UserService implements UserDetailsService {
             System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
             return false;
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return userDAO.createUser(user);
     }
 
@@ -60,6 +55,10 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(String email) {
         userDAO.deleteUser(email);
+    }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
     @Override
