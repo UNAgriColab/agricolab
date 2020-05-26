@@ -12,20 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/user")
 @RestController
 public class UserAPI {
 
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private JwtUtil jwtUtil;
 
     @Autowired
-    public UserAPI(UserService userService, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
+    public UserAPI(UserService userService) {
         this.userService = userService;
-        this.jwtUtil = jwtUtil;
-        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping
