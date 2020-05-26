@@ -19,12 +19,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
         String name = offer.getProductName();
-        for (Offer o : getOffersByUser(offer.getSellerEmail())){ // TODO: Fix this for loop with a composite query
-            if (o.getProductName().equals(name)){
-                System.out.println( "exite ya una oferta para este producto, no puedes crear una nueva");
-                return false;
-            }
-        }
+
         ID id = setOfferId();
         offer.setId(id.toString());
         ref.document(id.toString()).set(offer);
