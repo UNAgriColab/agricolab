@@ -24,8 +24,6 @@ public interface OrderDAO {
     ArrayList<Order> getActiveOrdersByBuyer(String email);
 
     ArrayList<Order> getOrdersBySeller(String email);
-    
-    ArrayList<Order> getActiveOrdersBySeller(String email);
 
     ArrayList<Order> getActiveOrdersBySeller(String email);
 
