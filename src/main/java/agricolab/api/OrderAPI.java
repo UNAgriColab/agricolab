@@ -61,11 +61,6 @@ public class OrderAPI {
         return orderService.getOrdersByBuyer(email);
     }
 
-    @GetMapping("/offer/{offerId}")
-    public ArrayList<Order> getOrdersByOffer(@PathVariable String offerId) {
-        return orderService.getOrdersByOffer(offerId);
-    }
-
     @GetMapping("/seller/{email}")
     public ArrayList<Order> getOrdersBySeller(@PathVariable String email) {
         return orderService.getOrdersBySeller(email);
