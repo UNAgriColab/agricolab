@@ -122,28 +122,6 @@ public class OrderFirestoreDAO implements OrderDAO {
 
     }
 
-    //AUXILIARY METHODS
-    @Override
-    public ID setOrderId() {
-        ID ret = new ID();
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("ids").document("idorder");
-        ApiFuture<DocumentSnapshot> future = ref.get();
-        DocumentSnapshot document;
-        try {
-            document = future.get();
-            if (document.exists()) {
-                ret = document.toObject(ID.class);
-            } else {
-                System.out.println("No such document!");
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        Objects.requireNonNull(ret).setId(ret.getId() + 1);
-        ref.set(ret);
-        return ret;
-    }
 
     //RETRIEVES ALL ORDERS FROM ORDER COLLECTION
     @Override
@@ -166,6 +144,27 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     //
+
+    @Override
+    public ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offerRef) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereGreaterThan("state", 1).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
+    //BUYER METHODS ------------------------------------------
+
+
     @Override
     public ArrayList<Order> getOrdersByBuyer(String email) {
         ArrayList<Order> userOrder = new ArrayList<>();
@@ -182,43 +181,6 @@ public class OrderFirestoreDAO implements OrderDAO {
             e.printStackTrace();
         }
         return userOrder;
-    }
-
-    @Override
-    public ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offerRef) {
-        ArrayList<Order> userOrder = new ArrayList<>();
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereEqualTo("offerReference", offerRef).whereEqualTo("state", 2).get();
-        List<QueryDocumentSnapshot> docList;
-        try {
-            docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a : docList) {
-                userOrder.add(a.toObject(Order.class));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return userOrder;
-    }
-
-
-    @Override
-    public ArrayList<Order> getOrdersByOffer(String orderID) {
-        ArrayList<Order> offerOrders = new ArrayList<>();
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
-        List<QueryDocumentSnapshot> docList;
-        try {
-            docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a : docList) {
-                offerOrders.add(a.toObject(Order.class));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return offerOrders;
     }
 
     @Override
@@ -261,10 +223,12 @@ public class OrderFirestoreDAO implements OrderDAO {
 
         //para todas las ofertas buscar las ordenes con ese id
         for (String offer : userOffers) {
-            orders.addAll(getOrdersByOffer(offer));
+            orders.addAll(getActivesOrdersByOffer(offer));
         }
         return orders;
     }
+
+    //SELLER METHODS -----------------------------------------
     @Override
     public ArrayList<Order> getOrdersBySeller(String email) {
         ArrayList<String> userOffers = new ArrayList<>();
@@ -291,6 +255,25 @@ public class OrderFirestoreDAO implements OrderDAO {
         return orders;
     }
 
+    @Override
+    public ArrayList<Order> getOrdersByProduct(String  productName){
+        ArrayList<Order> activeOrders= new ArrayList<>();
+        Firestore db= FirestoreClient.getFirestore();
+        CollectionReference requestRef=db.collection("order");
+        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("productName", productName).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOrders.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOrders;
+    }
+
+    //UNUSERD METHODS ------------------------------------------------
     @Override
     public int getLastOrderId() {
         int ret = 0;
@@ -328,21 +311,61 @@ public class OrderFirestoreDAO implements OrderDAO {
         return activeOrders;
     }
 
-    @Override
-    public ArrayList<Order> getOrdersByProduct(String  productName){
-        ArrayList<Order> activeOrders= new ArrayList<>();
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("order");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("productName", productName).whereGreaterThan("state" , 1).get();
+
+    // AUXILIARY METHODS-------------------------------------------------
+    public ArrayList<Order> getActivesOrdersByOffer(String orderID) {
+        ArrayList<Order> offerOrders = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
-                activeOrders.add(a.toObject(Order.class));
+                offerOrders.add(a.toObject(Order.class));
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return activeOrders;
+        return offerOrders;
     }
+
+    public ArrayList<Order> getOrdersByOffer(String orderID) {
+        ArrayList<Order> offerOrders = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                offerOrders.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return offerOrders;
+    }
+
+    public ID setOrderId() {
+        ID ret = new ID();
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("ids").document("idorder");
+        ApiFuture<DocumentSnapshot> future = ref.get();
+        DocumentSnapshot document;
+        try {
+            document = future.get();
+            if (document.exists()) {
+                ret = document.toObject(ID.class);
+            } else {
+                System.out.println("No such document!");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        Objects.requireNonNull(ret).setId(ret.getId() + 1);
+        ref.set(ret);
+        return ret;
+    }
+
 }

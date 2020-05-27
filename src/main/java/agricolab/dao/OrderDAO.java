@@ -9,8 +9,6 @@ import java.util.ArrayList;
 public interface OrderDAO {
 
 
-    ID setOrderId();
-
     boolean createOrder(Order request);
 
     int getLastOrderId();
@@ -32,8 +30,6 @@ public interface OrderDAO {
     void deleteOrder(String id);
 
     ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offer);
-
-    ArrayList<Order> getOrdersByOffer(String orderID);
 
     ArrayList<Order> getActiveOrders();
 

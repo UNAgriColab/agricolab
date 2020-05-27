@@ -63,10 +63,6 @@ public class OrderService {
 
     public ArrayList<Order> getActiveOrdersByBuyer(String email) { return orderDAO.getActiveOrdersByBuyer(email); }
 
-    public ArrayList<Order> getOrdersByOffer(String offerId) {
-        return orderDAO.getOrdersByOffer(offerId);
-    }
-
     public ArrayList<Order> getOrdersBySeller(String email) {
         return orderDAO.getOrdersBySeller(email);
     }
