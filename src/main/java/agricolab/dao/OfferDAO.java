@@ -2,6 +2,7 @@ package agricolab.dao;
 
 import agricolab.model.ID;
 import agricolab.model.Offer;
+import agricolab.model.Order;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,22 @@ public interface OfferDAO {
 
     ArrayList<Offer> getOffersByUser(String email);
 
-    ArrayList<Offer> getActiveOffers();
+    //methods used to the filters
+    ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation);
 
-    ArrayList<Offer> getOffersByProduct(String productName);
+    ArrayList<Offer> getActiveOffers(String productName , double maxPrice);
+
+    ArrayList<Offer> getActiveOffers(String productName , int presentation);
+
+    ArrayList<Offer> getActiveOffers(double maxPrice , int presentation);
+
+    ArrayList<Offer> getActiveOffers(String productName);
+
+    ArrayList<Offer> getActiveOffers(double maxPrice );
+
+    ArrayList<Offer> getActiveOffers(int presentation);
+
+    ArrayList<Offer> getActiveOffers();
 
     ArrayList<Offer> getOffersByUserAndProduct(String email , String productName);
 

@@ -1,6 +1,7 @@
 package agricolab.api;
 
 import agricolab.model.Offer;
+import agricolab.model.Order;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,18 +45,13 @@ public class OfferAPI {
         return offerService.getAllOffers();
     }
 
-    @GetMapping("/actives")
-    public ArrayList<Offer> getActiveOffers() {
-        return offerService.getActiveOffers();
-    }
-
     @GetMapping("/user/{email}")
     public ArrayList<Offer> getOffersByUser(@PathVariable String email) {
         return offerService.gerOffersByUser(email);
     }
 
-    @GetMapping("product/{productName}")
-    public ArrayList<Offer> getOffersByProduct(@PathVariable String productName) {
-        return offerService.getOffersByProduct(productName);
+    @GetMapping("/{productName}/{maxPrice}/{presentation}")
+    public ArrayList<Offer> getActiveOrders(@PathVariable String productName , @PathVariable double maxPrice , @PathVariable int presentation) {
+        return offerService.getActiveOffers(productName ,  maxPrice , presentation);
     }
 }
