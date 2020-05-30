@@ -2,6 +2,7 @@ package agricolab.service;
 
 import agricolab.dao.OfferDAO;
 import agricolab.model.Offer;
+import agricolab.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,12 +45,38 @@ public class OfferService {
         return offerDAO.getOffersByUser(email);
     }
 
-    public ArrayList<Offer> getActiveOffers() {
-        return offerDAO.getActiveOffers();
-    }
+    //filtros
+    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation ) {
+        if(productName.equals("all")){
+            if(maxPrice==0){
+                if(presentation == 0 ){
+                    return offerDAO.getActiveOffers();
+                }else{
+                    return offerDAO.getActiveOffers(presentation);
+                }
+            }else{
+                if(presentation == 0 ){
+                    return offerDAO.getActiveOffers(maxPrice);
+                }else{
+                    return offerDAO.getActiveOffers(maxPrice , presentation);
+                }
+            }
 
-    public ArrayList<Offer> getOffersByProduct(String productName) {
-        return offerDAO.getOffersByProduct(productName);
+        }else{
+            if(maxPrice==0){
+                if(presentation == 0 ){
+                    return offerDAO.getActiveOffers(productName);
+                }else{
+                    return offerDAO.getActiveOffers(productName , presentation);
+                }
+            }else{
+                if(presentation == 0 ){
+                    return offerDAO.getActiveOffers(productName , maxPrice);
+                }else{
+                    return offerDAO.getActiveOffers(productName , maxPrice ,presentation);
+                }
+            }
+        }
     }
 
     public void deleteOffer(String id) {
