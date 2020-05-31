@@ -1,15 +1,14 @@
 package agricolab.dao;
 
 import agricolab.model.Mailing;
+import agricolab.model.Offer;
 import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Repository("Firestore")
@@ -68,7 +67,7 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference request = db.collection("user");
         ApiFuture<DocumentSnapshot> obj = request.document(email).get();
-        return Objects.requireNonNull(obj.get().toObject(User.class).getMailing());
+        return Objects.requireNonNull(Objects.requireNonNull(obj.get().toObject(User.class)).getMailing());
     }
 
     @Override
@@ -81,10 +80,10 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public int updateUser(User u1, User u2) {
-        return 0;
+    public boolean updateUser(User u) {
+        //todo write the updateuser method
+        return false;
     }
-
     @Override
     public void deleteUser(String email) {
         Firestore db = FirestoreClient.getFirestore();

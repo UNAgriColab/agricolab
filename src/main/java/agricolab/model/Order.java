@@ -17,6 +17,7 @@ public class Order {
     private String description;
     private int state;
     private Mailing mailing;
+    private int qualification;
 
     public Order() {
     }
@@ -34,6 +35,7 @@ public class Order {
         this.description = description;
         this.state = 2;
         this.mailing = mailing;
+        this.qualification = 0;
     }
 
     @Override
@@ -132,5 +134,13 @@ public class Order {
 
     public void setMailing(Mailing mailing) {
         this.mailing = mailing;
+    }
+
+    public int getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(int qualification) {
+        this.qualification = qualification;
     }
 }

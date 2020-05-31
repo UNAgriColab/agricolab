@@ -14,6 +14,7 @@ public class Offer {
     private int minQuantity;
     private String description;
     private Boolean state;
+    private int qualification;
 
 
     public Offer() {
@@ -45,19 +46,23 @@ public class Offer {
         this.minQuantity = minQuantity;
         this.description = description;
         this.state = true;
+        this.qualification = 0;
     }
 
     @Override
     public String toString() {
         return "Offer{" +
+                "id='" + id + '\'' +
                 ", sellerEmail='" + sellerEmail + '\'' +
-                ", name='" + productName + '\'' +
-                ", presentation='" + presentation + '\'' +
-                ", pricePresentation='" + pricePresentation + '\'' +
-                ", minQuantity='" + minQuantity + '\'' +
+                ", productName='" + productName + '\'' +
+                ", presentation=" + presentation +
+                ", pricePresentation=" + pricePresentation +
+                ", minQuantity=" + minQuantity +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", qualification=" + qualification +
                 '}';
     }
-
 
     public String getId(){return  id;}
 
@@ -84,6 +89,8 @@ public class Offer {
     public String getDescription(){return description;}
 
     public Boolean getState(){ return state; }
+
+    public int getQualification(){ return qualification; }
 
     public Offer setState(Boolean state){
         this.state = state;
@@ -124,6 +131,11 @@ public class Offer {
 
     public Offer setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Offer setQualification(int qualification){
+        this.qualification = qualification;
         return this;
     }
 

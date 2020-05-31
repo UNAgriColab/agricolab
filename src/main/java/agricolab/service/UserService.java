@@ -1,9 +1,11 @@
 package agricolab.service;
 
+import agricolab.dao.OfferDAO;
+import agricolab.dao.OrderDAO;
 import agricolab.dao.UserDAO;
 import agricolab.model.Mailing;
+import agricolab.model.Offer;
 import agricolab.model.User;
-import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +24,17 @@ public class UserService implements UserDetailsService {
 
     private final UserDAO userDAO;
     private final PasswordEncoder passwordEncoder;
+    private final OrderDAO orderDAO;
+    private final OfferDAO offerDAO;
 
 
     @Autowired
-    public UserService(@Qualifier("Firestore") UserDAO userDAO) {
+    public UserService(@Qualifier("Firestore") UserDAO userDAO , OrderDAO orderDao , OfferDAO offerDAO) {
+
+        this.passwordEncoder = new BCryptPasswordEncoder();
         this.userDAO = userDAO;
-        passwordEncoder = new BCryptPasswordEncoder();
+        this.orderDAO = orderDao;
+        this.offerDAO = offerDAO;
     }
 
     public boolean addUser(User user) {
@@ -76,5 +83,15 @@ public class UserService implements UserDetailsService {
         user.setMailing(mailing);
         System.out.println(mailing);
         return userDAO.createMailing(user);//, mailing);
+    }
+
+    public boolean updateUser(User u){
+        ArrayList<Offer> offers;
+        offers = offerDAO.getOffersByUser(u.getEmail());
+        for (Offer offer : offers){
+            offer.setQualification(u.getQualification());
+            offerDAO.updateOffer(offer);
+        }
+        return userDAO.updateUser(u);
     }
 }
