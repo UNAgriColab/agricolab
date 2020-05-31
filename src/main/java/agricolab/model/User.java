@@ -11,6 +11,8 @@ public class User {
     private int age;
     private long phoneNumber;
     private Mailing mailing;
+    private int qualification;
+    private int numberOfReviews;
 
     public User() {
     }
@@ -30,6 +32,8 @@ public class User {
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.mailing = new Mailing();
+        this.qualification = 0;
+        this.numberOfReviews = 0;
     }
 
     @Override
@@ -103,5 +107,23 @@ public class User {
 
     public void setMailing(Mailing mailing) {
         this.mailing = mailing;
+    }
+
+    public int getQualification() {
+        return qualification;
+    }
+
+    public User setQualification(int qualification) {
+        this.qualification = qualification;
+        return this;
+    }
+
+    public int getNumberOfReviews() {
+        return numberOfReviews;
+    }
+
+    public User setNumberOfReviews(int numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+        return this;
     }
 }

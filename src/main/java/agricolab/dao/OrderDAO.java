@@ -3,6 +3,7 @@ package agricolab.dao;
 import agricolab.JsonModel.Update;
 import agricolab.model.ID;
 import agricolab.model.Order;
+import agricolab.model.User;
 
 import java.util.ArrayList;
 
@@ -33,9 +34,10 @@ public interface OrderDAO {
     boolean updateOrderByBuyer(String orderId);
 
     boolean updateOrderBySeller(Update changes);
-//delete method
+
+    boolean updateOrder(Order order);
+
+    //delete method
     void deleteOrder(String id);
-
-
 
 }

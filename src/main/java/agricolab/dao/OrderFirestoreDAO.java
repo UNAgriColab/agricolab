@@ -65,6 +65,13 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     // UPDATE
+
+    @Override
+    public boolean updateOrder(Order r) {
+        //todo write the updateOrder method
+        return false;
+    }
+
     @Override
     public boolean updateOrderByBuyer(String orderId) {
         Firestore db = FirestoreClient.getFirestore();

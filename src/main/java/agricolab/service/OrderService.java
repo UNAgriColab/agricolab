@@ -4,6 +4,7 @@ import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
 import agricolab.model.Offer;
 import agricolab.model.Order;
+import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,14 @@ import java.util.Objects;
 public class OrderService {
 
     private OrderDAO orderDAO;
+    private UserService userService;
     private OfferService offerService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, OfferService offerService) {
+    public OrderService(OrderDAO orderDAO, OfferService offerService , UserService userService ) {
         this.orderDAO = orderDAO;
         this.offerService = offerService;
+        this.userService = userService;
     }
 
     public boolean addOrder(Order order) {
@@ -83,4 +86,14 @@ public class OrderService {
         return orderDAO.updateOrderBySeller(changes);
     }
 
+    public boolean updateOrderQualification(String orderId, int qualification){
+        Order order = orderDAO.getOrder(orderId);
+        User u = userService.getUser(order.getSellerEmail());
+        int newQualification = ((u.getQualification()*u.getNumberOfReviews())+qualification)/u.getNumberOfReviews();
+        u.setQualification(newQualification);
+        u.setNumberOfReviews(u.getNumberOfReviews()+1);
+        userService.updateUser(u);
+        order.setQualification(newQualification);
+        return orderDAO.updateOrder(order);
+    }
 }

@@ -2,7 +2,6 @@ package agricolab.dao;
 
 import agricolab.model.ID;
 import agricolab.model.Offer;
-import agricolab.model.Order;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -50,9 +49,10 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
 
     //UPDATE
+    //todo review the updateOffer method
     @Override
     public boolean updateOffer(Offer r) {
-            Firestore db = FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
         updates.put("presentation", r.getPresentation());
         updates.put("pricePresentation", r.getPricePresentation());
