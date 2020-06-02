@@ -56,6 +56,11 @@ public class OrderAPI {
         return orderService.getActiveOrders();
     }
 
+    @GetMapping("/last")
+    public int getLastOfferId(){
+        return orderService.getLastOrderId();
+    }
+
     @GetMapping("/buyer/{email}")
     public ArrayList<Order> getOrdersByBuyer(@PathVariable String email) {
         return orderService.getOrdersByBuyer(email);
