@@ -18,8 +18,6 @@ public class OfferFirestoreDAO implements OfferDAO {
     public boolean createOffer(Offer offer) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
-        String name = offer.getProductName();
-
         ID id = setOfferId();
         offer.setId(id.toString());
         ref.document(id.toString()).set(offer);

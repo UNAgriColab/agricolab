@@ -2,7 +2,6 @@ package agricolab.dao;
 
 import agricolab.model.ID;
 import agricolab.model.Offer;
-import agricolab.model.Order;
 
 import java.util.ArrayList;
 

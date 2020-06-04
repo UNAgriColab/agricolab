@@ -2,6 +2,7 @@ package agricolab.service;
 
 import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
+import agricolab.model.Comment;
 import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.User;
@@ -18,12 +19,14 @@ public class OrderService {
     private OrderDAO orderDAO;
     private UserService userService;
     private OfferService offerService;
+    private CommentService commentService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, OfferService offerService , UserService userService ) {
+    public OrderService(OrderDAO orderDAO, OfferService offerService , UserService userService, CommentService commentService) {
         this.orderDAO = orderDAO;
         this.offerService = offerService;
         this.userService = userService;
+        this.commentService = commentService;
     }
 
     public boolean addOrder(Order order) {
@@ -86,15 +89,22 @@ public class OrderService {
         return orderDAO.updateOrderBySeller(changes);
     }
 
-    public boolean updateOrderQualification(String orderId, int qualification){
+    public boolean updateOrderQualification(String orderId, int qualification , String comentario){
         if( 0 <= qualification && qualification <= 5) {
+
             Order order = orderDAO.getOrder(orderId);
             User u = userService.getUser(order.getSellerEmail());
+            Comment comment = new Comment();
+            comment.setCommentario(comentario);
+            comment.setOfferReference(order.getOfferReference());
+            commentService.addComment(comment);
+
             double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + qualification) / (u.getNumberOfReviews() + 1);
 
             u.setQualification(newQualification);
             u.setNumberOfReviews(u.getNumberOfReviews() + 1);
             userService.updateUser(u);
+
             order.setQualification(newQualification);
             return orderDAO.updateOrder(order);
         }else{
