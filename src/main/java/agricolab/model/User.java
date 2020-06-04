@@ -11,7 +11,7 @@ public class User {
     private int age;
     private long phoneNumber;
     private Mailing mailing;
-    private int qualification;
+    private double qualification;
     private int numberOfReviews;
 
     public User() {
@@ -109,11 +109,11 @@ public class User {
         this.mailing = mailing;
     }
 
-    public int getQualification() {
+    public double getQualification() {
         return qualification;
     }
 
-    public User setQualification(int qualification) {
+    public User setQualification(double qualification) {
         this.qualification = qualification;
         return this;
     }
