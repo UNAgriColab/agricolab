@@ -49,22 +49,11 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
 
     //UPDATE
-    //todo review the updateOffer method
     @Override
     public boolean updateOffer(Offer r) {
         Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("presentation", r.getPresentation());
-        updates.put("pricePresentation", r.getPricePresentation());
-        updates.put("minQuantity", r.getMinQuantity());
-        updates.put("description", r.getDescription());
-        ApiFuture<WriteResult> ud = db.collection("offer").document(r.getId()).update(updates);
-        try {
-            System.out.println(ud.get().getUpdateTime());
-            return true;
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        DocumentReference ref = db.collection("offer").document(r.getId());
+        ApiFuture<WriteResult> future = ref.set(r);
         return false;
     }
 

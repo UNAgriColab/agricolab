@@ -89,7 +89,8 @@ public class OrderService {
     public boolean updateOrderQualification(String orderId, int qualification){
         Order order = orderDAO.getOrder(orderId);
         User u = userService.getUser(order.getSellerEmail());
-        int newQualification = ((u.getQualification()*u.getNumberOfReviews())+qualification)/u.getNumberOfReviews();
+        int newQualification = ((u.getQualification() * u.getNumberOfReviews()) + qualification) /(u.getNumberOfReviews()+1);
+
         u.setQualification(newQualification);
         u.setNumberOfReviews(u.getNumberOfReviews()+1);
         userService.updateUser(u);

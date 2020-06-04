@@ -71,6 +71,10 @@ public class OrderAPI {
     public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email) {
         return orderService.getActiveOrdersByBuyer(email);
     }
+    @PutMapping("/qualification/{orderId}/{qualification}")
+    public boolean updateOrderQualification(@PathVariable String orderId , @PathVariable int qualification){
+        return orderService.updateOrderQualification(orderId , qualification);
+    }
 
 }
 
