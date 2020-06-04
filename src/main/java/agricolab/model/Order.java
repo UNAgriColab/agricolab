@@ -17,7 +17,7 @@ public class Order {
     private String description;
     private int state;
     private Mailing mailing;
-    private int qualification;
+    private double qualification;
 
     public Order() {
     }
@@ -136,11 +136,11 @@ public class Order {
         this.mailing = mailing;
     }
 
-    public int getQualification() {
+    public double getQualification() {
         return qualification;
     }
 
-    public void setQualification(int qualification) {
+    public void setQualification(double qualification) {
         this.qualification = qualification;
     }
 }
