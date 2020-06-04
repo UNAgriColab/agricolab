@@ -87,14 +87,19 @@ public class OrderService {
     }
 
     public boolean updateOrderQualification(String orderId, int qualification){
-        Order order = orderDAO.getOrder(orderId);
-        User u = userService.getUser(order.getSellerEmail());
-        double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + qualification) /(u.getNumberOfReviews()+1);
+        if( 0 <= qualification && qualification <= 5) {
+            Order order = orderDAO.getOrder(orderId);
+            User u = userService.getUser(order.getSellerEmail());
+            double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + qualification) / (u.getNumberOfReviews() + 1);
 
-        u.setQualification(newQualification);
-        u.setNumberOfReviews(u.getNumberOfReviews()+1);
-        userService.updateUser(u);
-        order.setQualification(newQualification);
-        return orderDAO.updateOrder(order);
+            u.setQualification(newQualification);
+            u.setNumberOfReviews(u.getNumberOfReviews() + 1);
+            userService.updateUser(u);
+            order.setQualification(newQualification);
+            return orderDAO.updateOrder(order);
+        }else{
+            System.out.println("calificacion fuera de rango no puede ser procesada");
+            return false;
+        }
     }
 }
