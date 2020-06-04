@@ -1,7 +1,6 @@
 package agricolab.dao;
 
 import agricolab.model.Mailing;
-import agricolab.model.Offer;
 import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -81,7 +80,9 @@ public class UserFirestoreDAO implements UserDAO {
 
     @Override
     public boolean updateUser(User u) {
-        //todo write the updateuser method
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("user").document(u.getEmail());
+        ApiFuture<WriteResult> future = ref.set(u);
         return false;
     }
     @Override
