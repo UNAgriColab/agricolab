@@ -22,7 +22,7 @@ public class CommentService {
         return commentDAO.createComment(comment);
     }
 
-    public ArrayList<Comment> getAllCommentsBySeller (String sellerEmail){
-        return commentDAO.getAllCommentsBySeller(sellerEmail);
+    public ArrayList<Comment> getAllCommentsByOffer (String OfferRefference){
+        return commentDAO.getAllCommentsBySeller(OfferRefference);
     }
 }

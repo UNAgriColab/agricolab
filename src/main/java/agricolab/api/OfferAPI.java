@@ -1,7 +1,8 @@
 package agricolab.api;
 
+import agricolab.model.Comment;
 import agricolab.model.Offer;
-import agricolab.model.Order;
+import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 public class OfferAPI {
 
     private final OfferService offerService;
+    private final CommentService commentService;
 
     @Autowired
-    public OfferAPI(OfferService offerService) {
+    public OfferAPI(OfferService offerService, CommentService commentService) {
         this.offerService = offerService;
+        this.commentService = commentService;
     }
 
     @PostMapping
@@ -53,5 +56,10 @@ public class OfferAPI {
     @GetMapping("/{productName}/{maxPrice}/{presentation}")
     public ArrayList<Offer> getActiveOrders(@PathVariable String productName , @PathVariable double maxPrice , @PathVariable int presentation) {
         return offerService.getActiveOffers(productName ,  maxPrice , presentation);
+    }
+
+    @GetMapping("/comments/{offerID}")
+    public ArrayList<Comment> getAllCommentsByOffer (@PathVariable String offerID){
+        return commentService.getAllCommentsByOffer(offerID);
     }
 }
