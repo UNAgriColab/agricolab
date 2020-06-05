@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-@Repository()
+@Repository
 public class OfferFirestoreDAO implements OfferDAO {
     ////////////////////////////////////////////////////////////////////////////////////
     //Basic CRUD(CREATE READ UPDATE DELETE)
