@@ -23,6 +23,6 @@ public class CommentService {
     }
 
     public ArrayList<Comment> getAllCommentsByOffer (String OfferRefference){
-        return commentDAO.getAllCommentsBySeller(OfferRefference);
+        return commentDAO.getAllCommentsByOffer(OfferRefference);
     }
 }

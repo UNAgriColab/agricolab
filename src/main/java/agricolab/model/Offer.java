@@ -15,13 +15,14 @@ public class Offer {
     private String description;
     private Boolean state;
     private int qualification;
+    private int numberOfReviews;
 
 
     public Offer() {
 
     }
 
-    public void manual (String sellerEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description) {
+    public void manual (String sellerEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description ) {
 
         this.productName = productName;
         this.sellerEmail = sellerEmail;
@@ -47,6 +48,7 @@ public class Offer {
         this.description = description;
         this.state = true;
         this.qualification = 0;
+        this.numberOfReviews = 0;
     }
 
     @Override
@@ -61,82 +63,87 @@ public class Offer {
                 ", description='" + description + '\'' +
                 ", state=" + state +
                 ", qualification=" + qualification +
+                ", numberOfReviews=" + numberOfReviews +
                 '}';
     }
 
-    public String getId(){return  id;}
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getSellerEmail() {
         return sellerEmail;
+    }
+
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
     }
 
     public String getProductName() {
         return productName;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public int getPresentation() {
         return presentation;
+    }
+
+    public void setPresentation(int presentation) {
+        this.presentation = presentation;
     }
 
     public double getPricePresentation() {
         return pricePresentation;
     }
 
+    public void setPricePresentation(double pricePresentation) {
+        this.pricePresentation = pricePresentation;
+    }
+
     public int getMinQuantity() {
         return minQuantity;
     }
 
-    public String getDescription(){return description;}
-
-    public Boolean getState(){ return state; }
-
-    public int getQualification(){ return qualification; }
-
-    public Offer setState(Boolean state){
-        this.state = state;
-        return this;
-    }
-
-    public Offer setId(String id) {
-        this.id = id;
-        return this;
-    }
-
-    public Offer setSellerEmail(String sellerEmail) {
-        this.sellerEmail = sellerEmail;
-        return this;
-    }
-
-    public Offer setProductName(String productName) {
-        this.productName = productName;
-        return this;
-    }
-
-
-    public Offer setPresentation(int presentation) {
-        this.presentation = presentation;
-        return this;
-    }
-
-    public Offer setPricePresentation(double pricePresentation) {
-        this.pricePresentation = pricePresentation;
-        return this;
-    }
-
-    public Offer setMinQuantity(int minQuantity) {
+    public void setMinQuantity(int minQuantity) {
         this.minQuantity = minQuantity;
-        return this;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
-    public Offer setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
-    public Offer setQualification(int qualification){
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+    }
+
+    public int getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(int qualification) {
         this.qualification = qualification;
-        return this;
     }
 
+    public int getNumberOfReviews() {
+        return numberOfReviews;
+    }
+
+    public void setNumberOfReviews(int numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+    }
 }

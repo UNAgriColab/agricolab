@@ -1,6 +1,7 @@
 package agricolab.api;
 
 import agricolab.JsonModel.Update;
+import agricolab.model.Comment;
 import agricolab.model.Order;
 import agricolab.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,10 @@ public class OrderAPI {
     public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email) {
         return orderService.getActiveOrdersByBuyer(email);
     }
-    @PutMapping("/qualification/{orderId}/{qualification}/{comment}")
-    public boolean updateOrderQualification(@PathVariable String orderId , @PathVariable int qualification , @PathVariable String comment){
-        return orderService.updateOrderQualification(orderId , qualification , comment);
+    @PostMapping("/qualification")
+    public boolean updateOrderQualification(@RequestBody Comment comment){
+        return orderService.updateOrderQualification(comment);
     }
-
 }
 
 

@@ -1,27 +1,35 @@
 package agricolab.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Comment {
 
     private String id;
     private String commentario;
-    private String OfferReference;
+    private String orderReference;
+    private int calificacion;
 
     public Comment() {
 
     }
 
-    public Comment(String id, String commentario, String OfferReference) {
+    public Comment(@JsonProperty("id")String id,
+                   @JsonProperty("commentario")String commentario,
+                   @JsonProperty("offerReference")String offerReference ,
+                   @JsonProperty("calificacion")int calificacion) {
         this.id = id;
         this.commentario = commentario;
-        this.OfferReference = OfferReference;
+        this.orderReference = offerReference;
+        this.calificacion = calificacion;
     }
 
     @Override
     public String toString() {
-        return "Comments{" +
+        return "Comment{" +
                 "id='" + id + '\'' +
                 ", commentario='" + commentario + '\'' +
-                ", sellerEmail='" + OfferReference + '\'' +
+                ", orderReference='" + orderReference + '\'' +
+                ", calificacion='" + calificacion + '\'' +
                 '}';
     }
 
@@ -41,11 +49,19 @@ public class Comment {
         this.commentario = commentario;
     }
 
-    public String getOfferReference() {
-        return OfferReference;
+    public String getOrderReference() {
+        return orderReference;
     }
 
-    public void setOfferReference(String offerReference) {
-        this.OfferReference = offerReference;
+    public void setOrderReference(String orderReference) {
+        this.orderReference = orderReference;
+    }
+
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
     }
 }

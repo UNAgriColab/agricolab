@@ -69,22 +69,22 @@ public class CommentFirestoreDAO implements CommentDAO {
     }
 
     @Override
-    public ArrayList<Comment> getAllCommentsBySeller(String userEmail) {
-        ArrayList<Comment> allOffers = new ArrayList<>();
+    public ArrayList<Comment> getAllCommentsByOffer(String offerId) {
+        ArrayList<Comment> comments = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference offerRef = db.collection("comment");
-        ApiFuture<QuerySnapshot> docs = offerRef.get();
+        CollectionReference ref = db.collection("comment");
+        ApiFuture<QuerySnapshot> docs = ref.whereEqualTo("offerReference"  ,offerId ).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
-                allOffers.add(a.toObject(Comment.class));
+                comments.add(a.toObject(Comment.class));
             }
-            System.out.println(allOffers);
+            System.out.println(comments);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return allOffers;
+        return comments;
     }
 
 }

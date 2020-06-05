@@ -86,11 +86,6 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean updateUser(User u){
-        ArrayList<Offer> offers = offerDAO.getOffersByUser(u.getEmail());
-        for (Offer offer : offers){
-            offer.setQualification(((int) u.getQualification()));
-            offerDAO.updateOffer(offer);
-        }
         return userDAO.updateUser(u);
     }
 }
