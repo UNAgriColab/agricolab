@@ -89,23 +89,28 @@ public class OrderService {
         return orderDAO.updateOrderBySeller(changes);
     }
 
-    public boolean updateOrderQualification(String orderId, int qualification , String comentario){
-        if( 0 <= qualification && qualification <= 5) {
+    public boolean updateOrderQualification(Comment comment){
+        if( 0 <= comment.getCalificacion() && comment.getCalificacion() <= 5) {
 
-            Order order = orderDAO.getOrder(orderId);
-            User u = userService.getUser(order.getSellerEmail());
-            Comment comment = new Comment();
-            comment.setCommentario(comentario);
-            comment.setOfferReference(order.getOfferReference());
             commentService.addComment(comment);
 
-            double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + qualification) / (u.getNumberOfReviews() + 1);
+            Order order = orderDAO.getOrder(comment.getOrderReference());
+            User u = userService.getUser(order.getSellerEmail());
+            Offer o = offerService.getOffer(order.getOfferReference());
+            commentService.addComment(comment);
+
+            double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + comment.getCalificacion()) / (u.getNumberOfReviews() + 1);
 
             u.setQualification(newQualification);
             u.setNumberOfReviews(u.getNumberOfReviews() + 1);
             userService.updateUser(u);
 
-            order.setQualification(newQualification);
+            int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getCalificacion()) / (o.getNumberOfReviews() + 1);
+            o.setQualification(offerQualification);
+            o.setNumberOfReviews(o.getNumberOfReviews() +1);
+            offerService.updateOffer(o);
+
+            order.setQualification(comment.getCalificacion());
             return orderDAO.updateOrder(order);
         }else{
             System.out.println("calificacion fuera de rango no puede ser procesada");
