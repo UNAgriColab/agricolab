@@ -5,12 +5,14 @@ import agricolab.model.Comment;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+@Repository
 public class CommentFirestoreDAO implements CommentDAO {
 
     @Override
