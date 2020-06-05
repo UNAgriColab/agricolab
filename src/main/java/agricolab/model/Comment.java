@@ -13,11 +13,10 @@ public class Comment {
 
     }
 
-    public Comment(@JsonProperty("id")String id,
-                   @JsonProperty("commentario")String commentario,
+    public Comment(@JsonProperty("commentario")String commentario,
                    @JsonProperty("offerReference")String offerReference ,
                    @JsonProperty("calificacion")int calificacion) {
-        this.id = id;
+        this.id = "";
         this.commentario = commentario;
         this.orderReference = offerReference;
         this.calificacion = calificacion;
