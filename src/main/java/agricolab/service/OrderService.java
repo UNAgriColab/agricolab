@@ -61,7 +61,9 @@ public class OrderService {
         return orderDAO.getOrdersByBuyer(email);
     }
 
-    public ArrayList<Order> getActiveOrdersByBuyer(String email) { return orderDAO.getActiveOrdersByBuyer(email); }
+    public ArrayList<Order> getActiveOrdersByBuyer(String email) {
+        return orderDAO.getActiveOrdersByBuyer(email);
+    }
 
     public ArrayList<Order> getOrdersBySeller(String email) {
         return orderDAO.getOrdersBySeller(email);
@@ -75,7 +77,9 @@ public class OrderService {
         return orderDAO.getOrdersByProduct(productName);
     }
 
-    public ArrayList<Order> getActiveOrdersBySeller(String email){ return orderDAO.getActiveOrdersBySeller(email);}
+    public ArrayList<Order> getActiveOrdersBySeller(String email) {
+        return orderDAO.getActiveOrdersBySeller(email);
+    }
 
     public void deleteOrder(String id) {
         orderDAO.deleteOrder(id);

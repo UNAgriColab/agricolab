@@ -51,7 +51,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     //UPDATE
     @Override
     public boolean updateOffer(Offer r) {
-            Firestore db = FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         Map<String, Object> updates = new HashMap<>();
         updates.put("presentation", r.getPresentation());
         updates.put("pricePresentation", r.getPricePresentation());
@@ -143,15 +143,15 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
 
     @Override
-    public ArrayList<Offer> getOffersByUserAndProduct(String email , String productName){
-        ArrayList<Offer> userOffers= new ArrayList<>();
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("offer");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("sellerEmail", email).whereEqualTo("state"  ,true).whereEqualTo("productName" , productName ).get();
+    public ArrayList<Offer> getOffersByUserAndProduct(String email, String productName) {
+        ArrayList<Offer> userOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("sellerEmail", email).whereEqualTo("state", true).whereEqualTo("productName", productName).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a: docList){
+            for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class));
             }
             System.out.println(userOffers);
@@ -160,7 +160,6 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return userOffers;
     }
-
 
 
     @Override
