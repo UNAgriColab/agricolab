@@ -118,17 +118,12 @@ public class OrderFirestoreDAO implements OrderDAO {
         WriteResult result = null;
         try {
             result = future.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        if(result.equals(null)){
-            return false;
-        } else {
-            //System.out.println("Write result: " + result);
-            return true;
-        }
+        //System.out.println("Write result: " + result);
+        // true if success, false if still null
+        return result != null;
     }
 
     // DELETE
