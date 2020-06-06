@@ -42,6 +42,11 @@ public class OrderAPI {
         return orderService.updateOrderBySeller(changes);
     }
 
+    @PutMapping("/update/{id}/{email}")
+    public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email){
+        return orderService.updateOrderStatus(id, email);
+    }
+
     @PutMapping("/test")
     public boolean updateTest(@JsonProperty("orderId") String updateOrder, @JsonProperty("action") Integer action) {
         // This method avoids bloat from Update class
