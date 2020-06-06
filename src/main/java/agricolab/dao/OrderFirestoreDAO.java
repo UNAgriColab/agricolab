@@ -110,6 +110,13 @@ public class OrderFirestoreDAO implements OrderDAO {
         return false;
     }
 
+    @Override
+    public boolean updateOrderStatus(String id, int i) {
+        Firestore db = FirestoreClient.getFirestore();
+        // TODO: Get order reference, update status value with parameter i (int)
+        return true;
+    }
+
     // DELETE
     @Override
     public void deleteOrder(String id) {

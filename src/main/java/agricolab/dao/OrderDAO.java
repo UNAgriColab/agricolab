@@ -35,4 +35,6 @@ public interface OrderDAO {
     ArrayList<Order> getOrdersByProduct(String productName);
 
     boolean updateOrderBySeller(Update changes);
+
+    boolean updateOrderStatus(String id, int i);
 }
