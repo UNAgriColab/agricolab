@@ -14,11 +14,11 @@ public class Comment {
     }
 
     public Comment(@JsonProperty("commentario")String commentario,
-                   @JsonProperty("offerReference")String offerReference ,
+                   @JsonProperty("orderReference")String orderReference ,
                    @JsonProperty("calificacion")int calificacion) {
         this.id = "";
         this.commentario = commentario;
-        this.orderReference = offerReference;
+        this.orderReference = orderReference;
         this.calificacion = calificacion;
     }
 

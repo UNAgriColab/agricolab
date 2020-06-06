@@ -90,11 +90,15 @@ public class OrderService {
     }
 
     public boolean updateOrderQualification(Comment comment){
-        if( 0 <= comment.getCalificacion() && comment.getCalificacion() <= 5) {
+        if( 1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) {
 
             commentService.addComment(comment);
 
             Order order = orderDAO.getOrder(comment.getOrderReference());
+            if(order.getQualification() != 0 ){
+                System.out.println("Ya se habia realizado un review de esta orden, no se puede hacer 2 veces");
+                return false;
+            }
             User u = userService.getUser(order.getSellerEmail());
             Offer o = offerService.getOffer(order.getOfferReference());
             commentService.addComment(comment);
