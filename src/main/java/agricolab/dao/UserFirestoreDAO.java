@@ -18,10 +18,10 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public boolean createUser(User user) {
 
-            Firestore db = FirestoreClient.getFirestore();
-            db.collection("user").document(user.getEmail()).set(user);
-            System.out.println(user);
-            return true;
+        Firestore db = FirestoreClient.getFirestore();
+        db.collection("user").document(user.getEmail()).set(user);
+        System.out.println(user);
+        return true;
 
     }
 

@@ -40,7 +40,7 @@ public class OfferAPI {
     }
 
     @GetMapping("/last")
-    public int getLastOfferId(){
+    public int getLastOfferId() {
         return offerService.getLastOfferId();
     }
 

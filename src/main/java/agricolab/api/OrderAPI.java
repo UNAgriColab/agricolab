@@ -3,6 +3,7 @@ package agricolab.api;
 import agricolab.JsonModel.Update;
 import agricolab.model.Order;
 import agricolab.service.OrderService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +31,6 @@ public class OrderAPI {
         orderService.deleteOrder(id);
     }
 
-    // GET METHODS
-    @GetMapping("/{id}")
-    public Order getOrder(@PathVariable String id) {
-        return orderService.getOrder(id);
-    }
 
     @PutMapping("/buyer")
     public boolean updateOrderByBuyer(@RequestBody Update changes) {
@@ -46,19 +42,37 @@ public class OrderAPI {
         return orderService.updateOrderBySeller(changes);
     }
 
+    @PutMapping("/test")
+    public boolean updateTest(@JsonProperty("orderId") String updateOrder, @JsonProperty("action") Integer action) {
+        // This method avoids bloat from Update class
+        System.out.println(updateOrder);
+        System.out.println(action);
+
+        // We fetch the order
+
+        return true;
+    }
+
+    // GET METHODS
+    @GetMapping("/{id}")
+    public Order getOrder(@PathVariable String id) {
+        return orderService.getOrder(id);
+    }
+
+    @GetMapping("/last")
+    public int getLastOfferId() {
+        return orderService.getLastOrderId();
+    }
+
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
 
-    @GetMapping("/actives")
+
+    @GetMapping("/actives") // Dependent on seller/buyer?
     public ArrayList<Order> getActiveOrders() {
         return orderService.getActiveOrders();
-    }
-
-    @GetMapping("/last")
-    public int getLastOfferId(){
-        return orderService.getLastOrderId();
     }
 
     @GetMapping("/buyer/{email}")

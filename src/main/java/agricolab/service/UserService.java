@@ -3,7 +3,6 @@ package agricolab.service;
 import agricolab.dao.UserDAO;
 import agricolab.model.Mailing;
 import agricolab.model.User;
-import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
