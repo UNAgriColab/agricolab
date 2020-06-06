@@ -102,6 +102,9 @@ public class OrderService {
     public boolean updateOrderStatus(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
+        if(theOrder.equals(null)){
+            return false;
+        }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible update)

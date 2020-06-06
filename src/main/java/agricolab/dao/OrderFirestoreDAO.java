@@ -113,8 +113,22 @@ public class OrderFirestoreDAO implements OrderDAO {
     @Override
     public boolean updateOrderStatus(String id, int i) {
         Firestore db = FirestoreClient.getFirestore();
-        // TODO: Get order reference, update status value with parameter i (int)
-        return true;
+        DocumentReference docRef = db.collection("order").document(id);
+        ApiFuture<WriteResult> future = docRef.update("state", i);
+        WriteResult result = null;
+        try {
+            result = future.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if(result.equals(null)){
+            return false;
+        } else {
+            //System.out.println("Write result: " + result);
+            return true;
+        }
     }
 
     // DELETE
