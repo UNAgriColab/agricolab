@@ -45,34 +45,67 @@ public class OfferService {
     }
 
     //filtros
-    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation ) {
-        if(productName.equals("all")){
-            if(maxPrice==0){
-                if(presentation == 0 ){
-                    return offerDAO.getActiveOffers();
+    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation , double minPrice) {
+        if(minPrice == 0){
+            if(productName.equals("all")){
+                if(maxPrice==0){
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffers();
+                    }else{
+                        return offerDAO.getActiveOffers(presentation);
+                    }
                 }else{
-                    return offerDAO.getActiveOffers(presentation);
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffersmax(maxPrice);
+                    }else{
+                        return offerDAO.getActiveOffers(maxPrice , presentation);
+                    }
                 }
+
             }else{
-                if(presentation == 0 ){
-                    return offerDAO.getActiveOffers(maxPrice);
+                if(maxPrice==0){
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffers(productName);
+                    }else{
+                        return offerDAO.getActiveOffers(productName , presentation);
+                    }
                 }else{
-                    return offerDAO.getActiveOffers(maxPrice , presentation);
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffers(productName , maxPrice);
+                    }else{
+                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation);
+                    }
                 }
             }
-
         }else{
-            if(maxPrice==0){
-                if(presentation == 0 ){
-                    return offerDAO.getActiveOffers(productName);
+            if(productName.equals("all")){
+                if(maxPrice==0){
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffersmin(minPrice);
+                    }else{
+                        return offerDAO.getActiveOffers(presentation , minPrice);
+                    }
                 }else{
-                    return offerDAO.getActiveOffers(productName , presentation);
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffers(maxPrice , minPrice);
+                    }else{
+                        return offerDAO.getActiveOffers(maxPrice , presentation , minPrice);
+                    }
                 }
+
             }else{
-                if(presentation == 0 ){
-                    return offerDAO.getActiveOffers(productName , maxPrice);
+                if(maxPrice==0){
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffers( minPrice , productName);
+                    }else{
+                        return offerDAO.getActiveOffers(productName , presentation , minPrice);
+                    }
                 }else{
-                    return offerDAO.getActiveOffers(productName , maxPrice ,presentation);
+                    if(presentation == 0 ){
+                        return offerDAO.getActiveOffers(productName , maxPrice , minPrice);
+                    }else{
+                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation , minPrice);
+                    }
                 }
             }
         }

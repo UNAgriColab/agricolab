@@ -32,11 +32,27 @@ public interface OfferDAO {
 
     ArrayList<Offer> getActiveOffers(String productName);
 
-    ArrayList<Offer> getActiveOffers(double maxPrice );
+    ArrayList<Offer> getActiveOffersmax(double maxPrice );
 
     ArrayList<Offer> getActiveOffers(int presentation);
 
     ArrayList<Offer> getActiveOffers();
+
+    ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation , double minPrice);
+
+    ArrayList<Offer> getActiveOffers(String productName , double maxPrice , double minPrice);
+
+    ArrayList<Offer> getActiveOffers(String productName , int presentation , double minPrice);
+
+    ArrayList<Offer> getActiveOffers(double maxPrice , int presentation , double minPrice);
+
+    ArrayList<Offer> getActiveOffers(double minPrice ,String productName );
+
+    ArrayList<Offer> getActiveOffers(double maxPrice ,double minPrice);
+
+    ArrayList<Offer> getActiveOffers(int presentation , double minPrice);
+
+    ArrayList<Offer> getActiveOffersmin(double minPrice);
 
     ArrayList<Offer> getOffersByUserAndProduct(String email , String productName);
 

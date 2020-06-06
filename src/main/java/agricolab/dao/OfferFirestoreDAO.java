@@ -135,7 +135,9 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> userOffers= new ArrayList<>();
         Firestore db= FirestoreClient.getFirestore();
         CollectionReference requestRef=db.collection("offer");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("sellerEmail", email).whereEqualTo("state"  ,true).whereEqualTo("productName" , productName ).get();
+        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("sellerEmail", email)
+                .whereEqualTo("state"  ,true)
+                .whereEqualTo("productName" , productName ).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -155,7 +157,10 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereEqualTo("productName" , productName).whereEqualTo("presentation" , presentation).whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName)
+                .whereEqualTo("presentation" , presentation)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -173,7 +178,9 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereEqualTo("productName" , productName).whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -191,7 +198,9 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereEqualTo("productName" , productName).whereEqualTo("presentation" , presentation).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName)
+                .whereEqualTo("presentation" , presentation).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -208,7 +217,9 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereEqualTo("presentation" , presentation).whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("presentation" , presentation)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -226,7 +237,8 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereEqualTo("productName" , productName).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -240,11 +252,12 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
 
     @Override
-    public ArrayList<Offer> getActiveOffers( double maxPrice ) {
+    public ArrayList<Offer> getActiveOffersmax( double maxPrice ) {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -262,7 +275,8 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).whereEqualTo("presentation" , presentation).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("presentation" , presentation).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -281,6 +295,171 @@ public class OfferFirestoreDAO implements OfferDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
         ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    //new
+    @Override
+    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation , double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true).
+                whereEqualTo("productName" , productName).
+                whereEqualTo("presentation" , presentation).
+                whereLessThanOrEqualTo("pricePresentation", maxPrice).
+                whereGreaterThanOrEqualTo("pricePresentation", minPrice)
+                .get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getActiveOffers(String productName ,  int presentation , double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName)
+                .whereEqualTo("presentation" , presentation)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+    @Override
+    public ArrayList<Offer> getActiveOffers(double maxPrice , int presentation , double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("presentation" , presentation)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getActiveOffers(double minPrice ,String productName ) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("productName" , productName)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getActiveOffers( double maxPrice , double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereLessThanOrEqualTo("pricePresentation", maxPrice)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getActiveOffers(int presentation , double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereEqualTo("presentation" , presentation)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getActiveOffersmin(double minPrice) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("state", true)
+                .whereGreaterThanOrEqualTo("pricePresentation", minPrice).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
