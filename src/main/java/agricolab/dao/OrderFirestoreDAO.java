@@ -1,22 +1,19 @@
 package agricolab.dao;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.ID;
 import agricolab.model.Offer;
 import agricolab.model.Order;
-import agricolab.model.ID;
-import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Repository
 public class OrderFirestoreDAO implements OrderDAO {
-
 
 
     private final OfferDAO offerDAO;
@@ -64,52 +61,20 @@ public class OrderFirestoreDAO implements OrderDAO {
         return ret;
     }
 
-    // UPDATE
     @Override
-    public boolean updateOrderByBuyer(String orderId) {
+    public boolean updateOrderStatus(String id, int i) {
         Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("state", 0);
-        ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
+        DocumentReference docRef = db.collection("order").document(id);
+        ApiFuture<WriteResult> future = docRef.update("state", i);
+        WriteResult result = null;
         try {
-            System.out.println(ud.get().getUpdateTime());
-            return true;
+            result = future.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return false;
-    }
-
-    @Override
-    public boolean updateOrderBySeller(Update changes) {
-        Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        ApiFuture<WriteResult> ud;
-        ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
-        try {
-            Order temp = actual.get().toObject(Order.class);
-            if (!changes.isCanceled()) {
-                updates.put("state", 0);
-                db.collection("order").document(changes.getOrderId()).update(updates);
-                return true;
-            }
-            if (temp == null) {
-                return false;
-            }
-            int stateTemp = temp.getState();
-            if (stateTemp != 0) {
-                stateTemp++;
-                updates.put("state", stateTemp);
-                ud = db.collection("order").document(changes.getOrderId()).update(updates);
-                System.out.println(ud.get().getUpdateTime());
-                return true;
-            } else {
-                return false;
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
+        //System.out.println("Write result: " + result);
+        // true if success, false if still null
+        return result != null;
     }
 
     // DELETE
@@ -188,7 +153,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThan("state" , 1).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThan("state", 1).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -256,11 +221,11 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getOrdersByProduct(String  productName){
-        ArrayList<Order> activeOrders= new ArrayList<>();
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("order");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("productName", productName).get();
+    public ArrayList<Order> getOrdersByProduct(String productName) {
+        ArrayList<Order> activeOrders = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("order");
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("productName", productName).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -317,7 +282,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state", 1).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -334,7 +299,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state", 1).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -367,5 +332,4 @@ public class OrderFirestoreDAO implements OrderDAO {
         ref.set(ret);
         return ret;
     }
-
 }
