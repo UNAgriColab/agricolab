@@ -18,6 +18,7 @@ public class OrderService {
     private OfferService offerService;
     private static int CANCEL_STATE = 0;
     private static int FINAL_STATE = 5;
+    private static int INIT_STATE = 1;
 
     @Autowired
     public OrderService(OrderDAO orderDAO, OfferService offerService) {
@@ -129,6 +130,33 @@ public class OrderService {
             }
             // Update possible, delegate return to DAO
             return orderDAO.updateOrderStatus(id, orderState + 1);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean cancelOrder(String id, String email) {
+        // Fetch order and status
+        Order theOrder = orderDAO.getOrder(id);
+        if(theOrder.equals(null)){
+            return false;
+        }
+        int orderState = theOrder.getState();
+
+
+        // Compare email to either buyer or seller
+        if(email.equalsIgnoreCase(theOrder.getSellerEmail())){
+            // CANCEL BY SELLER
+            // No restrictions, delegate return to DAO
+            return orderDAO.updateOrderStatus(id, CANCEL_STATE);
+        } else if(email.equalsIgnoreCase(theOrder.getBuyerEmail())){
+            // CANCEL BY BUYER
+            // Check if state is initial (unconfirmed)
+            if(orderState != INIT_STATE){
+                return false;
+            }
+            // Cancel possible, delegate return to DAO
+            return orderDAO.updateOrderStatus(id, CANCEL_STATE);
         } else {
             return false;
         }
