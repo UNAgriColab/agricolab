@@ -143,6 +143,10 @@ public class OrderService {
         }
         int orderState = theOrder.getState();
 
+        // Check if order is completed or cancelled (no possible cancel)
+        if(orderState == CANCEL_STATE || orderState == FINAL_STATE){
+            return false;
+        }
 
         // Compare email to either buyer or seller
         if(email.equalsIgnoreCase(theOrder.getSellerEmail())){
