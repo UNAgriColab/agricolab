@@ -45,35 +45,36 @@ public class OfferService {
     }
 
     //filtros
-    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation , double minPrice) {
+    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation , double minPrice, int order) {
+
         if(minPrice == 0){
             if(productName.equals("all")){
                 if(maxPrice==0){
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffers();
+                        return offerDAO.getActiveOffers(order);
                     }else{
-                        return offerDAO.getActiveOffers(presentation);
+                        return offerDAO.getActiveOffers(presentation , order);
                     }
                 }else{
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffersmax(maxPrice);
+                        return offerDAO.getActiveOffersmax(maxPrice , order);
                     }else{
-                        return offerDAO.getActiveOffers(maxPrice , presentation);
+                        return offerDAO.getActiveOffers(maxPrice , presentation , order);
                     }
                 }
 
             }else{
                 if(maxPrice==0){
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(productName);
+                        return offerDAO.getActiveOffers(productName , order);
                     }else{
-                        return offerDAO.getActiveOffers(productName , presentation);
+                        return offerDAO.getActiveOffers(productName , presentation , order);
                     }
                 }else{
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(productName , maxPrice);
+                        return offerDAO.getActiveOffers(productName , maxPrice , order);
                     }else{
-                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation);
+                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation , order);
                     }
                 }
             }
@@ -81,30 +82,30 @@ public class OfferService {
             if(productName.equals("all")){
                 if(maxPrice==0){
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffersmin(minPrice);
+                        return offerDAO.getActiveOffersmin(minPrice , order);
                     }else{
-                        return offerDAO.getActiveOffers(presentation , minPrice);
+                        return offerDAO.getActiveOffers(presentation , minPrice , order);
                     }
                 }else{
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(maxPrice , minPrice);
+                        return offerDAO.getActiveOffers(maxPrice , minPrice ,  order);
                     }else{
-                        return offerDAO.getActiveOffers(maxPrice , presentation , minPrice);
+                        return offerDAO.getActiveOffers(maxPrice , presentation , minPrice, order);
                     }
                 }
 
             }else{
                 if(maxPrice==0){
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffers( minPrice , productName);
+                        return offerDAO.getActiveOffers( minPrice , productName , order);
                     }else{
-                        return offerDAO.getActiveOffers(productName , presentation , minPrice);
+                        return offerDAO.getActiveOffers(productName , presentation , minPrice , order);
                     }
                 }else{
                     if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(productName , maxPrice , minPrice);
+                        return offerDAO.getActiveOffers(productName , maxPrice , minPrice , order);
                     }else{
-                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation , minPrice);
+                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation , minPrice ,order);
                     }
                 }
             }

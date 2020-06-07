@@ -194,13 +194,41 @@ public class OrderFirestoreDAO implements OrderDAO {
 
 
     @Override
-    public ArrayList<Order> getActiveOrdersBySeller(String email) {
+    public ArrayList<Order> getActiveOrdersBySeller(String email , String productName) {
         ArrayList<String> userOffers = new ArrayList<>();
         ArrayList<Order> orders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference offerRef = db.collection("offer");
         //buscar todas los ofertas del vendedor
-        ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("sellerEmail", email).get();
+        Query q = offerRef.whereEqualTo("sellerEmail", email).whereEqualTo("productName" , productName);
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOffers.add(a.toObject(Offer.class).getId());
+            }
+            System.out.println(userOffers);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        //para todas las ofertas buscar las ordenes con ese id
+        for (String offer : userOffers) {
+            orders.addAll(getActivesOrdersByOffer(offer));
+        }
+        return orders;
+    }
+
+    @Override
+    public ArrayList<Order> getActiveOrdersBySeller(String email ) {
+        ArrayList<String> userOffers = new ArrayList<>();
+        ArrayList<Order> orders = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference offerRef = db.collection("offer");
+        //buscar todas los ofertas del vendedor
+        Query q = offerRef.whereEqualTo("sellerEmail", email);
+        ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -287,7 +315,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
+        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
