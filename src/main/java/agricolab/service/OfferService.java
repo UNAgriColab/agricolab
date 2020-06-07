@@ -45,7 +45,8 @@ public class OfferService {
     }
 
     //filtros
-    public ArrayList<Offer> getActiveOffers(String productName ,double minPrice, double maxPrice , int presentation ,  int order) {return offerDAO.getActiveOffers(productName , minPrice , maxPrice , presentation , order);
+    public ArrayList<Offer> getActiveOffers(String productName ,double minPrice, double maxPrice , int presentation ,  int order) {
+        return offerDAO.getActiveOffers(productName , minPrice , maxPrice , presentation , order );
     }
 
     public void deleteOffer(String id) {

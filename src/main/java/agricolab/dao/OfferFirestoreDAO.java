@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Repository
 public class OfferFirestoreDAO implements OfferDAO {
@@ -154,10 +156,18 @@ public class OfferFirestoreDAO implements OfferDAO {
 
     @Override
     public ArrayList<Offer> getActiveOffers(String productName, double minPrice,  double maxPrice , int presentation,int order) {
+        int elementsPerPage = 1;
+
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("offer");
         Query q = orderRef.whereEqualTo("state", true);
+        if(order == 1){
+            q = q.orderBy("pricePresentation" , Query.Direction.ASCENDING);
+        }
+        if(order == 2){
+            q = q.orderBy("pricePresentation" , Query.Direction.DESCENDING);
+        }
         if(!productName.equals("all")){
             q = q.whereEqualTo("productName" , productName);
         }
@@ -170,30 +180,14 @@ public class OfferFirestoreDAO implements OfferDAO {
         if(presentation != 0){
             q = q.whereEqualTo("presentation" , presentation);
         }
-        if(order == 1){
-            q = q.orderBy("pricePresentation" , Query.Direction.ASCENDING);
-        }else{
-            if(order == 2){
-                q = q.orderBy("pricePresentation" , Query.Direction.DESCENDING);
-            }else{
-                if(order == 3) {
-                    if(minPrice == 0 && maxPrice == 0) {
-                        q = q.orderBy("qualification", Query.Direction.DESCENDING);
-                    }else{
-                        System.out.println("no puedes ordenar por precio y simultaneamente por calificacion, si deceas ver la " +
-                                "ordenacion por calificacion debes descartar los criterios de busqueda de precio");
-                    }
-                }
-            }
-        }
-        ApiFuture<QuerySnapshot> docs = q.get();
+        ApiFuture<QuerySnapshot> future = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
-            docList = docs.get().getDocuments();
+            docList = future.get(30, TimeUnit.SECONDS).getDocuments();
             for (QueryDocumentSnapshot a : docList) {
                 activeOffers.add(a.toObject(Offer.class));
             }
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();
         }
         return activeOffers;
