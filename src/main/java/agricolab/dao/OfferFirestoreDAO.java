@@ -177,7 +177,12 @@ public class OfferFirestoreDAO implements OfferDAO {
                 q = q.orderBy("pricePresentation" , Query.Direction.DESCENDING);
             }else{
                 if(order == 3) {
-                    q = q.orderBy("qualification" , Query.Direction.DESCENDING);
+                    if(minPrice == 0 && maxPrice == 0) {
+                        q = q.orderBy("qualification", Query.Direction.DESCENDING);
+                    }else{
+                        System.out.println("no puedes ordenar por precio y simultaneamente por calificacion, si deceas ver la " +
+                                "ordenacion por calificacion debes descartar los criterios de busqueda de precio");
+                    }
                 }
             }
         }
