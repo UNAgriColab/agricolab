@@ -17,14 +17,15 @@ Each entity has it's own endpoint to send or retrieve instances.
   - [Read order](#read-order)
   - [Read all orders](#read-all-orders)
   - [Read all orders from an offerReference](#read-all-orders-from-an-offerreference)
-  - [Update order as Buyer](#update-order-for-buyer)
-  - [Update order as Seller](#update-order-for-seller)
 
 - [Offer](#offer)
   - [Create Offer](#create-offer)
   - [Read all Offers](#read-all-offers)
   - [Read all Offers from User](#read-all-offers-from-user)
 - [dev notes](#dev-notes)
+- [DEPRECATED](#deprecated)
+  - [Update order as Buyer](#update-order-for-buyer)
+  - [Update order as Seller](#update-order-for-seller)
 
 Entity classes:
 - User
@@ -300,30 +301,7 @@ GET /api/v1/order/offer/{offerId}
 
 }
 ```
-#####Update Order for Buyer:
-```
-PUT /api/v1/order/buyer
-```
-```JSON
-// Sample Update request:
-{
-    "canceled": false,
-    "orderId": "9"
-}
-```
-#####Update Order for Seller:
-```
-PUT /api/v1/order/buyer
-true = Update order
-false = Cancel order
-```
-```JSON
-// Sample Update request:
-{
-    "canceled": false,
-    "orderId": "9"
-}
-```
+
 
 ----
 #### Offer
@@ -471,5 +449,32 @@ POST Method
 {
 	"email": "test@test.edu.co",
 	"password": "12345"
+}
+```
+
+----
+#### DEPRECATED:
+#####Update Order for Buyer:
+```
+PUT /api/v1/order/buyer
+```
+```JSON
+// Sample Update request:
+{
+    "canceled": false,
+    "orderId": "9"
+}
+```
+#####Update Order for Seller:
+```
+PUT /api/v1/order/buyer
+true = Update order
+false = Cancel order
+```
+```JSON
+// Sample Update request:
+{
+    "canceled": false,
+    "orderId": "9"
 }
 ```

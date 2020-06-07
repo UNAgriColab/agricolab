@@ -32,11 +32,4 @@ public interface OrderDAO {
     ArrayList<Order> getOrdersByProduct(String productName);
 
     boolean updateOrderStatus(String id, int i);
-
-    /* DEPRECATED
-    boolean updateOrderBySeller(Update changes);
-
-    boolean updateOrderByBuyer(String orderId);
-     */
-
 }

@@ -112,7 +112,7 @@ public class OrderService {
             if(orderState == FINAL_STATE - 1){
                 return false;
             }
-            // Update possible, delegate return to DAO
+            // update possible, delegate return to DAO
             return orderDAO.updateOrderStatus(id, orderState + 1);
         } else if(email.equalsIgnoreCase(theOrder.getBuyerEmail())){
             // UPDATE BY BUYER
@@ -120,7 +120,7 @@ public class OrderService {
             if(orderState != FINAL_STATE - 1){
                 return false;
             }
-            // Update possible, delegate return to DAO
+            // update possible, delegate return to DAO
             return orderDAO.updateOrderStatus(id, orderState + 1);
         } else {
             return false;
@@ -157,14 +157,4 @@ public class OrderService {
             return false;
         }
     }
-
-    //    DEPRECATED
-//    public boolean updateOrderByBuyer(Update changes) {
-//        return orderDAO.updateOrderByBuyer(changes.getOrderId());
-//    }
-//
-//    public boolean updateOrderBySeller(Update changes) {
-//        return orderDAO.updateOrderBySeller(changes);
-//    }
-//    DEPRECATED
 }
