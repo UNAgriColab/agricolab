@@ -1,6 +1,5 @@
 package agricolab.service;
 
-import agricolab.JsonModel.Update;
 import agricolab.dao.OrderDAO;
 import agricolab.model.Offer;
 import agricolab.model.Order;
@@ -89,14 +88,6 @@ public class OrderService {
         orderDAO.deleteOrder(id);
     }
 
-    public boolean updateOrderByBuyer(Update changes) {
-        return orderDAO.updateOrderByBuyer(changes.getOrderId());
-    }
-
-    public boolean updateOrderBySeller(Update changes) {
-        return orderDAO.updateOrderBySeller(changes);
-    }
-
     public int getLastOrderId() {
         return orderDAO.getLastOrderId();
     }
@@ -166,4 +157,14 @@ public class OrderService {
             return false;
         }
     }
+
+    //    DEPRECATED
+//    public boolean updateOrderByBuyer(Update changes) {
+//        return orderDAO.updateOrderByBuyer(changes.getOrderId());
+//    }
+//
+//    public boolean updateOrderBySeller(Update changes) {
+//        return orderDAO.updateOrderBySeller(changes);
+//    }
+//    DEPRECATED
 }

@@ -1,6 +1,5 @@
 package agricolab.dao;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.ID;
 import agricolab.model.Offer;
 import agricolab.model.Order;
@@ -60,54 +59,6 @@ public class OrderFirestoreDAO implements OrderDAO {
             e.printStackTrace();
         }
         return ret;
-    }
-
-    // UPDATE
-    @Override
-    public boolean updateOrderByBuyer(String orderId) {
-        Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("state", 0);
-        ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
-        try {
-            System.out.println(ud.get().getUpdateTime());
-            return true;
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateOrderBySeller(Update changes) {
-        Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        ApiFuture<WriteResult> ud;
-        ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
-        try {
-            Order temp = actual.get().toObject(Order.class);
-            if (!changes.isCanceled()) {
-                updates.put("state", 0);
-                db.collection("order").document(changes.getOrderId()).update(updates);
-                return true;
-            }
-            if (temp == null) {
-                return false;
-            }
-            int stateTemp = temp.getState();
-            if (stateTemp != 0) {
-                stateTemp++;
-                updates.put("state", stateTemp);
-                ud = db.collection("order").document(changes.getOrderId()).update(updates);
-                System.out.println(ud.get().getUpdateTime());
-                return true;
-            } else {
-                return false;
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     @Override
@@ -381,5 +332,55 @@ public class OrderFirestoreDAO implements OrderDAO {
         ref.set(ret);
         return ret;
     }
+/*
+    DEPRECATED
+    // UPDATE
+    @Override
+    public boolean updateOrderByBuyer(String orderId) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("state", 0);
+        ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
+        try {
+            System.out.println(ud.get().getUpdateTime());
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+
+    @Override
+    public boolean updateOrderBySeller(Update changes) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        ApiFuture<WriteResult> ud;
+        ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
+        try {
+            Order temp = actual.get().toObject(Order.class);
+            if (!changes.isCanceled()) {
+                updates.put("state", 0);
+                db.collection("order").document(changes.getOrderId()).update(updates);
+                return true;
+            }
+            if (temp == null) {
+                return false;
+            }
+            int stateTemp = temp.getState();
+            if (stateTemp != 0) {
+                stateTemp++;
+                updates.put("state", stateTemp);
+                ud = db.collection("order").document(changes.getOrderId()).update(updates);
+                System.out.println(ud.get().getUpdateTime());
+                return true;
+            } else {
+                return false;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+*/
 }
