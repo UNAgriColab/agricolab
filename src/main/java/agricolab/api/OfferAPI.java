@@ -55,7 +55,7 @@ public class OfferAPI {
 
     @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}")
     public ArrayList<Offer> getActiveOrders(@PathVariable String productName , @PathVariable double maxPrice , @PathVariable int presentation , @PathVariable double minPrice , @PathVariable int order) {
-        return offerService.getActiveOffers(productName ,  minPrice , maxPrice , presentation ,  order);
+        return offerService.getActiveOffers(productName ,  minPrice , maxPrice , presentation ,  order );
     }
 
     @GetMapping("/comments/{offerID}")
