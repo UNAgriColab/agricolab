@@ -45,6 +45,18 @@ public class UserFirestoreDAO implements UserDAO {
         return ret;
     }
 
+    @Override
+    public int updateUser(User u1, User u2) {
+        return 0;
+    }
+
+    @Override
+    public void deleteUser(String email) {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("user");
+        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
+    }
+
     public ArrayList<User> getAllUsers() {
         ArrayList<User> allUsers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
@@ -78,17 +90,5 @@ public class UserFirestoreDAO implements UserDAO {
         //updates.put("mailing", mailing);
         db.collection("user").document(user.getEmail()).set(user);
         return true;
-    }
-
-    @Override
-    public int updateUser(User u1, User u2) {
-        return 0;
-    }
-
-    @Override
-    public void deleteUser(String email) {
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("user");
-        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
     }
 }
