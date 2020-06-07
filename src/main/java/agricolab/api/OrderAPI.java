@@ -88,29 +88,6 @@ public class OrderAPI {
     public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email) {
         return orderService.getActiveOrdersByBuyer(email);
     }
-
-//    DEPRECATED
-//    @PutMapping("/test")
-//    public boolean updateTest(@JsonProperty("orderId") String updateOrder, @JsonProperty("action") Integer action) {
-//        // This method avoids bloat from Update class
-//        System.out.println(updateOrder);
-//        System.out.println(action);
-//
-//        // We fetch the order
-//
-//        return true;
-//    }
-//
-//    @PutMapping("/buyer")
-//    public boolean updateOrderByBuyer(@RequestBody Update changes) {
-//        return orderService.updateOrderByBuyer(changes);
-//    }
-//
-//    @PutMapping("/seller")
-//    public boolean updateOrderBySeller(@RequestBody Update changes) {
-//        return orderService.updateOrderBySeller(changes);
-//    }
-//    DEPRECATED
 }
 
 
