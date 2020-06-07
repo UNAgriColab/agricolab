@@ -35,6 +35,7 @@ public class OrderService {
         order.setProductName(Objects.requireNonNull(offerFromRef).getProductName());
         order.setPresentation(Objects.requireNonNull(offerFromRef).getPresentation());
         order.setTotalPrice(Objects.requireNonNull(offerFromRef).getPricePresentation() * order.getNumberOfUnits());
+        order.setState(INIT_STATE);
 
         // Check for different buyer and seller (return false)
         if (order.getBuyerEmail().equalsIgnoreCase(order.getSellerEmail())) {
