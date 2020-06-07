@@ -13,12 +13,12 @@ import java.util.Objects;
 @Service
 public class OrderService {
 
-    private OrderDAO orderDAO;
-    private OfferService offerService;
     public static int STATE_INIT = 2;
     public static int STATE_CANCELED = 0;
     public static int STATE_COMPLETED = 1;
     public static int STATE_SHIPPED = 4;
+    private OrderDAO orderDAO;
+    private OfferService offerService;
 
     @Autowired
     public OrderService(OrderDAO orderDAO, OfferService offerService) {
@@ -96,27 +96,27 @@ public class OrderService {
     public boolean updateOrderStatus(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if(theOrder.equals(null)){
+        if (theOrder.equals(null)) {
             return false;
         }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible update)
-        if(orderState == STATE_CANCELED || orderState == STATE_COMPLETED){
+        if (orderState == STATE_CANCELED || orderState == STATE_COMPLETED) {
             return false;
         }
 
         // Compare email to either buyer or seller
-        if(email.equalsIgnoreCase(theOrder.getSellerEmail())){
+        if (email.equalsIgnoreCase(theOrder.getSellerEmail())) {
             // UPDATE BY SELLER
-            if(orderState == STATE_SHIPPED){
+            if (orderState == STATE_SHIPPED) {
                 return false;
             }
             // Delegate return to DAO
             return orderDAO.updateOrderStatus(id, orderState + 1);
-        } else if(email.equalsIgnoreCase(theOrder.getBuyerEmail())){
+        } else if (email.equalsIgnoreCase(theOrder.getBuyerEmail())) {
             // UPDATE BY BUYER
-            if(orderState != STATE_SHIPPED){
+            if (orderState != STATE_SHIPPED) {
                 return false;
             }
             // Delegate return to DAO
@@ -129,25 +129,25 @@ public class OrderService {
     public boolean cancelOrder(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if(theOrder.equals(null)){
+        if (theOrder.equals(null)) {
             return false;
         }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible cancel)
-        if(orderState == STATE_CANCELED || orderState == STATE_COMPLETED){
+        if (orderState == STATE_CANCELED || orderState == STATE_COMPLETED) {
             return false;
         }
 
         // Compare email to either buyer or seller
-        if(email.equalsIgnoreCase(theOrder.getSellerEmail())){
+        if (email.equalsIgnoreCase(theOrder.getSellerEmail())) {
             // CANCEL BY SELLER
             // No restrictions, delegate return to DAO
             return orderDAO.updateOrderStatus(id, STATE_CANCELED);
-        } else if(email.equalsIgnoreCase(theOrder.getBuyerEmail())){
+        } else if (email.equalsIgnoreCase(theOrder.getBuyerEmail())) {
             // CANCEL BY BUYER
             // Check if state is initial (unconfirmed)
-            if(orderState != STATE_INIT){
+            if (orderState != STATE_INIT) {
                 return false;
             }
             // Cancel possible, delegate return to DAO

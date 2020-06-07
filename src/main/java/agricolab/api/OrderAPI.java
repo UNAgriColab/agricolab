@@ -30,12 +30,12 @@ public class OrderAPI {
     }
 
     @PutMapping("/update/{id}/{email}")
-    public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email){
+    public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email) {
         return orderService.updateOrderStatus(id, email);
     }
 
     @PutMapping("/cancel/{id}/{email}")
-    public boolean cancelOrder(@PathVariable String id, @PathVariable String email){
+    public boolean cancelOrder(@PathVariable String id, @PathVariable String email) {
         return orderService.cancelOrder(id, email);
     }
 
@@ -50,9 +50,9 @@ public class OrderAPI {
         return orderService.getLastOrderId();
     }
 
-/*
-* ORDER ARRAYLIST GETTERS
-* */
+    /*
+     * ORDER ARRAYLIST GETTERS
+     * */
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
