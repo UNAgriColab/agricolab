@@ -1,9 +1,7 @@
 package agricolab.api;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.Order;
 import agricolab.service.OrderService;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +29,6 @@ public class OrderAPI {
         orderService.deleteOrder(id);
     }
 
-
-    @PutMapping("/buyer")
-    public boolean updateOrderByBuyer(@RequestBody Update changes) {
-        return orderService.updateOrderByBuyer(changes);
-    }
-
-    @PutMapping("/seller")
-    public boolean updateOrderBySeller(@RequestBody Update changes) {
-        return orderService.updateOrderBySeller(changes);
-    }
-
     @PutMapping("/update/{id}/{email}")
     public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email){
         return orderService.updateOrderStatus(id, email);
@@ -50,17 +37,6 @@ public class OrderAPI {
     @PutMapping("/cancel/{id}/{email}")
     public boolean cancelOrder(@PathVariable String id, @PathVariable String email){
         return orderService.cancelOrder(id, email);
-    }
-
-    @PutMapping("/test")
-    public boolean updateTest(@JsonProperty("orderId") String updateOrder, @JsonProperty("action") Integer action) {
-        // This method avoids bloat from Update class
-        System.out.println(updateOrder);
-        System.out.println(action);
-
-        // We fetch the order
-
-        return true;
     }
 
     // GET METHODS
@@ -74,6 +50,9 @@ public class OrderAPI {
         return orderService.getLastOrderId();
     }
 
+/*
+* ORDER ARRAYLIST GETTERS
+* */
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();
@@ -110,6 +89,28 @@ public class OrderAPI {
         return orderService.getActiveOrdersByBuyer(email);
     }
 
+//    DEPRECATED
+//    @PutMapping("/test")
+//    public boolean updateTest(@JsonProperty("orderId") String updateOrder, @JsonProperty("action") Integer action) {
+//        // This method avoids bloat from Update class
+//        System.out.println(updateOrder);
+//        System.out.println(action);
+//
+//        // We fetch the order
+//
+//        return true;
+//    }
+//
+//    @PutMapping("/buyer")
+//    public boolean updateOrderByBuyer(@RequestBody Update changes) {
+//        return orderService.updateOrderByBuyer(changes);
+//    }
+//
+//    @PutMapping("/seller")
+//    public boolean updateOrderBySeller(@RequestBody Update changes) {
+//        return orderService.updateOrderBySeller(changes);
+//    }
+//    DEPRECATED
 }
 
 

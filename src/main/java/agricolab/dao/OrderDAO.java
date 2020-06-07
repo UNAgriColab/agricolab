@@ -1,6 +1,5 @@
 package agricolab.dao;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.Order;
 
 import java.util.ArrayList;
@@ -24,8 +23,6 @@ public interface OrderDAO {
 
     ArrayList<Order> getActiveOrdersBySeller(String email);
 
-    boolean updateOrderByBuyer(String orderId);
-
     void deleteOrder(String id);
 
     ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offer);
@@ -34,7 +31,12 @@ public interface OrderDAO {
 
     ArrayList<Order> getOrdersByProduct(String productName);
 
+    boolean updateOrderStatus(String id, int i);
+
+    /* DEPRECATED
     boolean updateOrderBySeller(Update changes);
 
-    boolean updateOrderStatus(String id, int i);
+    boolean updateOrderByBuyer(String orderId);
+     */
+
 }
