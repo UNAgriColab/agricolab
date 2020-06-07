@@ -4,12 +4,8 @@ import agricolab.model.JwtRequest;
 import agricolab.security.JwtUtil;
 import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -32,7 +28,7 @@ public class AuthenticationAPI {
     public String generateToken(@RequestBody JwtRequest user) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
         } catch (Exception e) {
             throw new Exception("invalid username/password");
@@ -42,6 +38,6 @@ public class AuthenticationAPI {
         System.out.println(tt);
         return tt;
     }
-    
+
 }
 

@@ -39,6 +39,11 @@ public class OfferAPI {
         return offerService.getOffer(id);
     }
 
+    @GetMapping("/last")
+    public int getLastOfferId() {
+        return offerService.getLastOfferId();
+    }
+
     @GetMapping
     public ArrayList<Offer> getAllOffers() {
         return offerService.getAllOffers();
