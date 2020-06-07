@@ -72,9 +72,14 @@ public class OrderService {
     public ArrayList<Order> getOrdersBySeller(String email) {
         return orderDAO.getOrdersBySeller(email);
     }
-    public ArrayList<Order> getActiveOrdersBySeller(String email){ return orderDAO.getActiveOrdersBySeller(email);}
 
-
+    public ArrayList<Order> getActiveOrdersBySeller(String email , String productName){
+    if(productName.equalsIgnoreCase("all")){
+        return orderDAO.getActiveOrdersBySeller(email);
+    }else{
+        return orderDAO.getActiveOrdersBySeller(email , productName);
+    }
+    }
 
     public void deleteOrder(String id) {
         orderDAO.deleteOrder(id);

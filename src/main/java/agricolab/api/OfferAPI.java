@@ -53,9 +53,9 @@ public class OfferAPI {
         return offerService.gerOffersByUser(email);
     }
 
-    @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}")
-    public ArrayList<Offer> getActiveOrders(@PathVariable String productName , @PathVariable double maxPrice , @PathVariable int presentation , @PathVariable double minPrice) {
-        return offerService.getActiveOffers(productName ,  maxPrice , presentation , minPrice);
+    @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}")
+    public ArrayList<Offer> getActiveOrders(@PathVariable String productName , @PathVariable double maxPrice , @PathVariable int presentation , @PathVariable double minPrice , @PathVariable int order) {
+        return offerService.getActiveOffers(productName ,  maxPrice , presentation , minPrice , order);
     }
 
     @GetMapping("/comments/{offerID}")
