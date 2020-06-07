@@ -45,71 +45,7 @@ public class OfferService {
     }
 
     //filtros
-    public ArrayList<Offer> getActiveOffers(String productName , double maxPrice , int presentation , double minPrice, int order) {
-
-        if(minPrice == 0){
-            if(productName.equals("all")){
-                if(maxPrice==0){
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(order);
-                    }else{
-                        return offerDAO.getActiveOffers(presentation , order);
-                    }
-                }else{
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffersmax(maxPrice , order);
-                    }else{
-                        return offerDAO.getActiveOffers(maxPrice , presentation , order);
-                    }
-                }
-
-            }else{
-                if(maxPrice==0){
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(productName , order);
-                    }else{
-                        return offerDAO.getActiveOffers(productName , presentation , order);
-                    }
-                }else{
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(productName , maxPrice , order);
-                    }else{
-                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation , order);
-                    }
-                }
-            }
-        }else{
-            if(productName.equals("all")){
-                if(maxPrice==0){
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffersmin(minPrice , order);
-                    }else{
-                        return offerDAO.getActiveOffers(presentation , minPrice , order);
-                    }
-                }else{
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(maxPrice , minPrice ,  order);
-                    }else{
-                        return offerDAO.getActiveOffers(maxPrice , presentation , minPrice, order);
-                    }
-                }
-
-            }else{
-                if(maxPrice==0){
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffers( minPrice , productName , order);
-                    }else{
-                        return offerDAO.getActiveOffers(productName , presentation , minPrice , order);
-                    }
-                }else{
-                    if(presentation == 0 ){
-                        return offerDAO.getActiveOffers(productName , maxPrice , minPrice , order);
-                    }else{
-                        return offerDAO.getActiveOffers(productName , maxPrice ,presentation , minPrice ,order);
-                    }
-                }
-            }
-        }
+    public ArrayList<Offer> getActiveOffers(String productName ,double minPrice, double maxPrice , int presentation ,  int order) {return offerDAO.getActiveOffers(productName , minPrice , maxPrice , presentation , order);
     }
 
     public void deleteOffer(String id) {
