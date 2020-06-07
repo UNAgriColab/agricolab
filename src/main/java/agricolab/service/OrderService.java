@@ -13,11 +13,12 @@ import java.util.Objects;
 @Service
 public class OrderService {
 
+    public static int STATE_INIT = 2;
+    public static int STATE_CANCELED = 0;
+    public static int STATE_COMPLETED = 1;
+    public static int STATE_SHIPPED = 4;
     private OrderDAO orderDAO;
     private OfferService offerService;
-    private static int CANCEL_STATE = 0;
-    private static int FINAL_STATE = 5;
-    private static int INIT_STATE = 1;
 
     @Autowired
     public OrderService(OrderDAO orderDAO, OfferService offerService) {
@@ -34,7 +35,7 @@ public class OrderService {
         order.setProductName(Objects.requireNonNull(offerFromRef).getProductName());
         order.setPresentation(Objects.requireNonNull(offerFromRef).getPresentation());
         order.setTotalPrice(Objects.requireNonNull(offerFromRef).getPricePresentation() * order.getNumberOfUnits());
-        order.setState(INIT_STATE);
+        order.setState(STATE_INIT);
 
         // Check for different buyer and seller (return false)
         if (order.getBuyerEmail().equalsIgnoreCase(order.getSellerEmail())) {
@@ -95,33 +96,31 @@ public class OrderService {
     public boolean updateOrderStatus(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if(theOrder.equals(null)){
+        if (theOrder.equals(null)) {
             return false;
         }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible update)
-        if(orderState == CANCEL_STATE || orderState == FINAL_STATE){
+        if (orderState == STATE_CANCELED || orderState == STATE_COMPLETED) {
             return false;
         }
 
         // Compare email to either buyer or seller
-        if(email.equalsIgnoreCase(theOrder.getSellerEmail())){
+        if (email.equalsIgnoreCase(theOrder.getSellerEmail())) {
             // UPDATE BY SELLER
-            // Check if state is second to last
-            if(orderState == FINAL_STATE - 1){
+            if (orderState == STATE_SHIPPED) {
                 return false;
             }
-            // update possible, delegate return to DAO
+            // Delegate return to DAO
             return orderDAO.updateOrderStatus(id, orderState + 1);
-        } else if(email.equalsIgnoreCase(theOrder.getBuyerEmail())){
+        } else if (email.equalsIgnoreCase(theOrder.getBuyerEmail())) {
             // UPDATE BY BUYER
-            // Check if state is not second to last
-            if(orderState != FINAL_STATE - 1){
+            if (orderState != STATE_SHIPPED) {
                 return false;
             }
-            // update possible, delegate return to DAO
-            return orderDAO.updateOrderStatus(id, orderState + 1);
+            // Delegate return to DAO
+            return orderDAO.updateOrderStatus(id, STATE_COMPLETED);
         } else {
             return false;
         }
@@ -130,29 +129,29 @@ public class OrderService {
     public boolean cancelOrder(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if(theOrder.equals(null)){
+        if (theOrder.equals(null)) {
             return false;
         }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible cancel)
-        if(orderState == CANCEL_STATE || orderState == FINAL_STATE){
+        if (orderState == STATE_CANCELED || orderState == STATE_COMPLETED) {
             return false;
         }
 
         // Compare email to either buyer or seller
-        if(email.equalsIgnoreCase(theOrder.getSellerEmail())){
+        if (email.equalsIgnoreCase(theOrder.getSellerEmail())) {
             // CANCEL BY SELLER
             // No restrictions, delegate return to DAO
-            return orderDAO.updateOrderStatus(id, CANCEL_STATE);
-        } else if(email.equalsIgnoreCase(theOrder.getBuyerEmail())){
+            return orderDAO.updateOrderStatus(id, STATE_CANCELED);
+        } else if (email.equalsIgnoreCase(theOrder.getBuyerEmail())) {
             // CANCEL BY BUYER
             // Check if state is initial (unconfirmed)
-            if(orderState != INIT_STATE){
+            if (orderState != STATE_INIT) {
                 return false;
             }
             // Cancel possible, delegate return to DAO
-            return orderDAO.updateOrderStatus(id, CANCEL_STATE);
+            return orderDAO.updateOrderStatus(id, STATE_CANCELED);
         } else {
             return false;
         }
