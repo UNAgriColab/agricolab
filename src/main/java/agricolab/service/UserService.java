@@ -44,10 +44,6 @@ public class UserService implements UserDetailsService {
         return userDAO.createUser(user);
     }
 
-    public User getUser(String email) {
-        return userDAO.getUser(email);
-    }
-
     public ArrayList<User> getAllUsers() {
         return userDAO.getAllUsers();
     }
@@ -75,5 +71,9 @@ public class UserService implements UserDetailsService {
         user.setMailing(mailing);
         System.out.println(mailing);
         return userDAO.createMailing(user);//, mailing);
+    }
+
+    public User getUser(String email) {
+        return userDAO.getUser(email);
     }
 }
