@@ -46,7 +46,40 @@ public class OfferService {
 
     //filtros
     public ArrayList<Offer> getActiveOffers(String productName ,double minPrice, double maxPrice , int presentation ,  int order) {
-        return offerDAO.getActiveOffers(productName , minPrice , maxPrice , presentation , order );
+        ArrayList<Offer> offers =  new ArrayList<>();
+        ArrayList<Offer> ofertas = offerDAO.getActiveOffers(productName , minPrice , maxPrice , presentation , order );
+        if((order == 3) && ((minPrice != 0) || (maxPrice !=0))) {
+            if((minPrice != 0) && (maxPrice !=0)){
+                for (Offer o: ofertas){
+                    if (o.getPricePresentation()<=maxPrice && o.getPricePresentation()>=minPrice){
+                        offers.add(o);
+                    }
+                }
+            }
+            if((minPrice != 0) && (maxPrice ==0)){
+                for (Offer o: ofertas){
+                    if (o.getPricePresentation()>=minPrice){
+                        offers.add(o);
+                    }
+                }
+            }
+            if((minPrice == 0) && (maxPrice !=0)){
+                for (Offer o: ofertas){
+                    if (o.getPricePresentation()<=maxPrice){
+                        offers.add(o);
+                    }
+                }
+            }
+        }
+        if((order == 3) && (minPrice != 0)) {
+            for (Offer o: ofertas){
+                if (o.getPricePresentation()<=maxPrice && o.getPricePresentation()>=minPrice){
+                    offers.add(o);
+                }
+            }
+        }
+
+        return offers;
     }
 
     public void deleteOffer(String id) {
