@@ -168,18 +168,22 @@ public class OfferFirestoreDAO implements OfferDAO {
         if(order == 2){
             q = q.orderBy("pricePresentation" , Query.Direction.DESCENDING);
         }
+        if (order == 3){
+            q = q.orderBy("qualification" , Query.Direction.DESCENDING);
+        }
         if(!productName.equals("all")){
             q = q.whereEqualTo("productName" , productName);
-        }
-        if(minPrice != 0){
-            q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
-        }
-        if(maxPrice != 0){
-            q = q.whereLessThan("pricePresentation" , maxPrice);
         }
         if(presentation != 0){
             q = q.whereEqualTo("presentation" , presentation);
         }
+        if(minPrice != 0 && order !=3){
+            q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
+        }
+        if(maxPrice != 0 && order !=3){
+            q = q.whereLessThan("pricePresentation" , maxPrice);
+        }
+
         ApiFuture<QuerySnapshot> future = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
