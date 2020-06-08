@@ -72,9 +72,8 @@ public class OfferService {
             }
         }else{
             offers = ofertas;
+
         }
-
-
         return offers;
     }
 
