@@ -70,14 +70,10 @@ public class OfferService {
                     }
                 }
             }
+        }else{
+            offers = ofertas;
         }
-        if((order == 3) && (minPrice != 0)) {
-            for (Offer o: ofertas){
-                if (o.getPricePresentation()<=maxPrice && o.getPricePresentation()>=minPrice){
-                    offers.add(o);
-                }
-            }
-        }
+
 
         return offers;
     }
