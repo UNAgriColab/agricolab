@@ -194,40 +194,16 @@ public class OrderFirestoreDAO implements OrderDAO {
 
 
     @Override
-    public ArrayList<Order> getActiveOrdersBySeller(String email , String productName) {
-        ArrayList<String> userOffers = new ArrayList<>();
-        ArrayList<Order> orders = new ArrayList<>();
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference offerRef = db.collection("offer");
-        //buscar todas los ofertas del vendedor
-        Query q = offerRef.whereEqualTo("sellerEmail", email).whereEqualTo("productName" , productName);
-        ApiFuture<QuerySnapshot> docs = q.get();
-        List<QueryDocumentSnapshot> docList;
-        try {
-            docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a : docList) {
-                userOffers.add(a.toObject(Offer.class).getId());
-            }
-            System.out.println(userOffers);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        //para todas las ofertas buscar las ordenes con ese id
-        for (String offer : userOffers) {
-            orders.addAll(getActivesOrdersByOffer(offer));
-        }
-        return orders;
-    }
-
-    @Override
-    public ArrayList<Order> getActiveOrdersBySeller(String email ) {
+    public ArrayList<Order> getActiveOrdersBySeller(String email , String productName , int state) {
         ArrayList<String> userOffers = new ArrayList<>();
         ArrayList<Order> orders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference offerRef = db.collection("offer");
         //buscar todas los ofertas del vendedor
         Query q = offerRef.whereEqualTo("sellerEmail", email);
+        if(!productName.equals("all")){
+            q = q.whereEqualTo("productName" , productName);
+        }
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
@@ -235,17 +211,17 @@ public class OrderFirestoreDAO implements OrderDAO {
             for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class).getId());
             }
-            System.out.println(userOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
         //para todas las ofertas buscar las ordenes con ese id
         for (String offer : userOffers) {
-            orders.addAll(getActivesOrdersByOffer(offer));
+            orders.addAll(getActivesOrdersByOffer(offer , state));
         }
         return orders;
     }
+
 
     //SELLER METHODS -----------------------------------------
     @Override
@@ -262,7 +238,6 @@ public class OrderFirestoreDAO implements OrderDAO {
             for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class).getId());
             }
-            System.out.println(userOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -294,11 +269,15 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     // AUXILIARY METHODS-------------------------------------------------
-    public ArrayList<Order> getActivesOrdersByOffer(String orderID) {
+    public ArrayList<Order> getActivesOrdersByOffer(String orderID , int state) {
         ArrayList<Order> offerOrders = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        ApiFuture<QuerySnapshot> docs = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1).get();
+        Query q = orderRef.whereEqualTo("offerReference", orderID).whereGreaterThan("state" , 1);
+        if(state != 0){
+            q = q.whereEqualTo("state" , state);
+        }
+        ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -348,8 +327,6 @@ public class OrderFirestoreDAO implements OrderDAO {
         ref.set(ret);
         return ret;
     }
-
-
 
     public int getLastOrderId() {
         int ret = 0;
