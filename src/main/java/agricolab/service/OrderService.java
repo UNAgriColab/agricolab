@@ -91,7 +91,7 @@ public class OrderService {
     }
 
     public boolean updateOrderQualification(Comment comment){
-        if( 1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) {
+        if(( 1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
 
             Order order = orderDAO.getOrder(comment.getOrderReference());
             if(order.getQualification() != 0 ){
