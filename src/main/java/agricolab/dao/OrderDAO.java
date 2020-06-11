@@ -18,16 +18,14 @@ public interface OrderDAO {
     ArrayList<Order> getAllOrders();
 
     //Buyer methods
-    ArrayList<Order> getOrdersByBuyer(String email);
+    ArrayList<Order> getOrdersByBuyer(String email , String productName , int state);
 
-    ArrayList<Order> getActiveOrdersByBuyer(String email);
+    ArrayList<Order> getActiveOrdersByBuyer(String email, String productName , int state);
 
     //Seller methods
-    ArrayList<Order> getOrdersBySeller(String email);
+    ArrayList<Order> getOrdersBySeller(String email, String productName , int state);
 
     ArrayList<Order> getActiveOrdersBySeller(String email , String productName , int state);
-
-    ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offerRef);
 
     //Update methods
 
