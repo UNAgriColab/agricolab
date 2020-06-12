@@ -29,4 +29,6 @@ public interface OfferDAO {
     ArrayList<Offer> getOffersByUserAndProduct(String email , String productName);
 
     void deleteOffer(String id);
+
+
 }

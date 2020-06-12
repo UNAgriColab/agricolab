@@ -146,7 +146,6 @@ public class OfferFirestoreDAO implements OfferDAO {
             for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class));
             }
-            System.out.println(userOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -239,6 +238,7 @@ public class OfferFirestoreDAO implements OfferDAO {
 
 
     //AUXILIARY METHODS
+
     public int getLastOfferId() {
         int ret = 0;
         Firestore db = FirestoreClient.getFirestore();
