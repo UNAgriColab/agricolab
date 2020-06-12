@@ -7,9 +7,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -54,8 +52,18 @@ public class OfferFirestoreDAO implements OfferDAO {
     @Override
     public boolean updateOffer(Offer r) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("offer").document(String.valueOf(r.getId()));
-        ApiFuture<WriteResult> future = ref.set(r);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("presentation", r.getPresentation());
+        updates.put("pricePresentation", r.getPricePresentation());
+        updates.put("minQuantity", r.getMinQuantity());
+        updates.put("description", r.getDescription());
+        ApiFuture<WriteResult> ud = db.collection("offer").document(String.valueOf(r.getId())).update(updates);
+        try {
+            System.out.println(ud.get().getUpdateTime());
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

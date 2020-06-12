@@ -40,17 +40,6 @@ public class Offer {
         this.numberOfReviews = 0;
     }
 
-    public void manual(String sellerEmail, String productName, int presentation, double pricePresentation, int minQuantity, String description) {
-
-        this.productName = productName;
-        this.sellerEmail = sellerEmail;
-        this.presentation = presentation;
-        this.pricePresentation = pricePresentation;
-        this.minQuantity = minQuantity;
-        this.description = description;
-        this.state = true;
-    }
-
     @Override
     public String toString() {
         return "Offer{" +
