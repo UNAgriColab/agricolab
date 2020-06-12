@@ -90,6 +90,7 @@ public class OrderService {
     public int getLastOrderId() {
         return orderDAO.getLastOrderId();
     }
+
     public boolean updateOrderQualification(Comment comment) {
         if ((1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
 

@@ -2,7 +2,6 @@ package agricolab.dao;
 
 import agricolab.model.ID;
 import agricolab.model.Order;
-import agricolab.service.OrderService;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -61,6 +60,14 @@ public class OrderFirestoreDAO implements OrderDAO {
             e.printStackTrace();
         }
         return ret;
+    }
+
+    @Override
+    public boolean updateOrder(Order r) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(r.getId());
+        ApiFuture<WriteResult> future = ref.set(r);
+        return true;
     }
 
     // READ
@@ -185,6 +192,12 @@ public class OrderFirestoreDAO implements OrderDAO {
             e.printStackTrace();
         }
         return userOrder;
+    }
+
+    @Override
+    public void deleteOrder(String id) {
+        //UNUSED
+        System.out.println("No implementado");
     }
     //BUYER METHODS ------------------------------------------
 

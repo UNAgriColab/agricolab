@@ -153,7 +153,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a: docList){
+            for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class));
             }
         } catch (InterruptedException | ExecutionException e) {

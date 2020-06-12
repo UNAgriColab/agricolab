@@ -10,6 +10,11 @@ public interface OrderDAO {
     boolean createOrder(Order request);
 
 
+    //UNUSED METHODS ------------------------------------------------
+    int getLastOrderId();
+
+    boolean updateOrder(Order r);
+
     Order getOrder(String id);
 
     ArrayList<Order> getAllOrders();
@@ -28,11 +33,6 @@ public interface OrderDAO {
 
     void deleteOrder(String id);
 
-    ArrayList<Order> getActiveOrdersByBuyerAndOffer(String email, String offer);
-
-    ArrayList<Order> getActiveOrders();
-
-    ArrayList<Order> getOrdersByProduct(String productName);
 
     boolean updateOrderStatus(String id, int i);
 }
