@@ -14,7 +14,6 @@ public interface UserDAO {
 
     boolean updateUser(User u);
 
-    int updateUser(User u1, User u2);
 
     void deleteUser(String email);
 

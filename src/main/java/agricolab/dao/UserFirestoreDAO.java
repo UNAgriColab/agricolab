@@ -46,11 +46,6 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public int updateUser(User u1, User u2) {
-        return 0;
-    }
-
-    @Override
     public void deleteUser(String email) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection("user");
