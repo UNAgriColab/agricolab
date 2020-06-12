@@ -7,7 +7,9 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Repository("Firestore")
@@ -16,10 +18,10 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public boolean createUser(User user) {
 
-            Firestore db = FirestoreClient.getFirestore();
-            db.collection("user").document(user.getEmail()).set(user);
-            System.out.println(user);
-            return true;
+        Firestore db = FirestoreClient.getFirestore();
+        db.collection("user").document(user.getEmail()).set(user);
+        System.out.println(user);
+        return true;
 
     }
 
@@ -85,6 +87,7 @@ public class UserFirestoreDAO implements UserDAO {
         ApiFuture<WriteResult> future = ref.set(u);
         return false;
     }
+
     @Override
     public void deleteUser(String email) {
         Firestore db = FirestoreClient.getFirestore();

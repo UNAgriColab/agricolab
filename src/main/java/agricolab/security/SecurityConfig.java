@@ -25,9 +25,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private UserService userService;
-    private JwtRequestFilter filter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final UserService userService;
+    private final JwtRequestFilter filter;
 
     @Autowired
     public SecurityConfig(UserService userService, JwtRequestFilter filter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {

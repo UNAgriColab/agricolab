@@ -1,6 +1,6 @@
 package agricolab.dao;
 
-import agricolab.model.Producto;
+import agricolab.model.Product;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
@@ -17,8 +17,8 @@ import java.util.concurrent.ExecutionException;
 public class ProductoFirestoreDAO implements ProductoDAO {
 
     @Override
-    public ArrayList<Producto> getProductos() {
-        ArrayList<Producto> productos= new ArrayList<>();
+    public ArrayList<Product> getProductos() {
+        ArrayList<Product> products = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("producto");
         ApiFuture<QuerySnapshot> docs = orderRef.get();
@@ -26,20 +26,20 @@ public class ProductoFirestoreDAO implements ProductoDAO {
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
-                productos.add(a.toObject(Producto.class));
+                products.add(a.toObject(Product.class));
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return  productos;
+        return products;
     }
 
     @Override
-    public boolean addProduct(Producto producto) {
+    public boolean addProduct(Product product) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("producto");
-        String id =  producto.getId();
-        ref.document(id).set(producto);
+        String id = product.getId();
+        ref.document(id).set(product);
         return true;
     }
 

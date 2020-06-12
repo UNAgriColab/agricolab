@@ -13,5 +13,5 @@ public interface CommentDAO {
 
     Comment getComment(String id);
 
-    ArrayList<Comment> getAllCommentsByOffer( String offerId);
+    ArrayList<Comment> getAllCommentsByOffer(String offerId);
 }
