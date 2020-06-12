@@ -14,16 +14,19 @@ public class Offer {
     private int minQuantity;
     private String description;
     private Boolean state;
-    private int qualification;
-    private int numberOfReviews;
 
 
     public Offer() {
 
     }
 
-    public void manual (String sellerEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description ) {
-
+    public Offer(@JsonProperty("productName") String productName,
+                 @JsonProperty("sellerEmail") String sellerEmail,
+                 @JsonProperty("presentation") int presentation,
+                 @JsonProperty("pricePresentation") double pricePresentation,
+                 @JsonProperty("minQuantity") int minQuantity,
+                 @JsonProperty("description") String description
+    ) {
         this.productName = productName;
         this.sellerEmail = sellerEmail;
         this.presentation = presentation;
@@ -33,13 +36,8 @@ public class Offer {
         this.state = true;
     }
 
-    public Offer(@JsonProperty("productName")String productName,
-                 @JsonProperty("sellerEmail")String sellerEmail,
-                 @JsonProperty("presentation")int presentation,
-                 @JsonProperty("pricePresentation")double pricePresentation,
-                 @JsonProperty("minQuantity")int minQuantity,
-                 @JsonProperty("description")String description
-    ){
+    public void manual(String sellerEmail, String productName, int presentation, double pricePresentation, int minQuantity, String description) {
+
         this.productName = productName;
         this.sellerEmail = sellerEmail;
         this.presentation = presentation;
@@ -47,103 +45,90 @@ public class Offer {
         this.minQuantity = minQuantity;
         this.description = description;
         this.state = true;
-        this.qualification = 0;
-        this.numberOfReviews = 0;
     }
 
     @Override
     public String toString() {
         return "Offer{" +
-                "id='" + id + '\'' +
-                ", sellerEmail='" + sellerEmail + '\'' +
-                ", productName='" + productName + '\'' +
-                ", presentation=" + presentation +
-                ", pricePresentation=" + pricePresentation +
-                ", minQuantity=" + minQuantity +
-                ", description='" + description + '\'' +
-                ", state=" + state +
-                ", qualification=" + qualification +
-                ", numberOfReviews=" + numberOfReviews +
-                '}';
+            ", sellerEmail='" + sellerEmail + '\'' +
+            ", name='" + productName + '\'' +
+            ", presentation='" + presentation + '\'' +
+            ", pricePresentation='" + pricePresentation + '\'' +
+            ", minQuantity='" + minQuantity + '\'' +
+            '}';
     }
+
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public Offer setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getSellerEmail() {
         return sellerEmail;
     }
 
-    public void setSellerEmail(String sellerEmail) {
+    public Offer setSellerEmail(String sellerEmail) {
         this.sellerEmail = sellerEmail;
+        return this;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public Offer setProductName(String productName) {
         this.productName = productName;
+        return this;
     }
 
     public int getPresentation() {
         return presentation;
     }
 
-    public void setPresentation(int presentation) {
+    public Offer setPresentation(int presentation) {
         this.presentation = presentation;
+        return this;
     }
 
     public double getPricePresentation() {
         return pricePresentation;
     }
 
-    public void setPricePresentation(double pricePresentation) {
+    public Offer setPricePresentation(double pricePresentation) {
         this.pricePresentation = pricePresentation;
+        return this;
     }
 
     public int getMinQuantity() {
         return minQuantity;
     }
 
-    public void setMinQuantity(int minQuantity) {
+    public Offer setMinQuantity(int minQuantity) {
         this.minQuantity = minQuantity;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Offer setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Boolean getState() {
         return state;
     }
 
-    public void setState(Boolean state) {
+    public Offer setState(Boolean state) {
         this.state = state;
+        return this;
     }
 
-    public int getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(int qualification) {
-        this.qualification = qualification;
-    }
-
-    public int getNumberOfReviews() {
-        return numberOfReviews;
-    }
-
-    public void setNumberOfReviews(int numberOfReviews) {
-        this.numberOfReviews = numberOfReviews;
-    }
 }

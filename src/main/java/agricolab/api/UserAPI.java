@@ -3,10 +3,8 @@ package agricolab.api;
 
 import agricolab.model.Mailing;
 import agricolab.model.User;
-import agricolab.security.JwtUtil;
 import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

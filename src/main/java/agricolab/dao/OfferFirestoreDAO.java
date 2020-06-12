@@ -9,10 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-@Repository
+@Repository()
 public class OfferFirestoreDAO implements OfferDAO {
     ////////////////////////////////////////////////////////////////////////////////////
     //Basic CRUD(CREATE READ UPDATE DELETE)
@@ -20,6 +18,8 @@ public class OfferFirestoreDAO implements OfferDAO {
     public boolean createOffer(Offer offer) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("offer");
+        String name = offer.getProductName();
+
         ID id = setOfferId();
         offer.setId(id.toString());
         ref.document(id.toString()).set(offer);
@@ -52,8 +52,18 @@ public class OfferFirestoreDAO implements OfferDAO {
     @Override
     public boolean updateOffer(Offer r) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("offer").document(r.getId());
-        ApiFuture<WriteResult> future = ref.set(r);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("presentation", r.getPresentation());
+        updates.put("pricePresentation", r.getPricePresentation());
+        updates.put("minQuantity", r.getMinQuantity());
+        updates.put("description", r.getDescription());
+        ApiFuture<WriteResult> ud = db.collection("offer").document(r.getId()).update(updates);
+        try {
+            System.out.println(ud.get().getUpdateTime());
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -133,19 +143,18 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
 
     @Override
-    public ArrayList<Offer> getOffersByUserAndProduct(String email , String productName){
-        ArrayList<Offer> userOffers= new ArrayList<>();
-        Firestore db= FirestoreClient.getFirestore();
-        CollectionReference requestRef=db.collection("offer");
-        ApiFuture<QuerySnapshot> docs= requestRef.whereEqualTo("sellerEmail", email)
-                .whereEqualTo("state"  ,true)
-                .whereEqualTo("productName" , productName ).get();
+    public ArrayList<Offer> getOffersByUserAndProduct(String email, String productName) {
+        ArrayList<Offer> userOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("sellerEmail", email).whereEqualTo("state", true).whereEqualTo("productName", productName).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a: docList){
+            for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class));
             }
+            System.out.println(userOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -154,51 +163,6 @@ public class OfferFirestoreDAO implements OfferDAO {
 
 
     @Override
-    public ArrayList<Offer> getActiveOffers(String productName, double minPrice,  double maxPrice , int presentation,int order) {
-        int elementsPerPage = 1;
-
-        ArrayList<Offer> activeOffers = new ArrayList<>();
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection("offer");
-        Query q = orderRef.whereEqualTo("state", true);
-        if(order == 1){
-            q = q.orderBy("pricePresentation" , Query.Direction.ASCENDING);
-        }
-        if(order == 2){
-            q = q.orderBy("pricePresentation" , Query.Direction.DESCENDING);
-        }
-        if (order == 3){
-            q = q.orderBy("qualification" , Query.Direction.DESCENDING);
-        }
-        if(!productName.equals("all")){
-            q = q.whereEqualTo("productName" , productName);
-        }
-        if(presentation != 0){
-            q = q.whereEqualTo("presentation" , presentation);
-        }
-        if(minPrice != 0 && order !=3){
-            q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
-        }
-        if(maxPrice != 0 && order !=3){
-            q = q.whereLessThan("pricePresentation" , maxPrice);
-        }
-
-        ApiFuture<QuerySnapshot> future = q.get();
-        List<QueryDocumentSnapshot> docList;
-        try {
-            docList = future.get(30, TimeUnit.SECONDS).getDocuments();
-            for (QueryDocumentSnapshot a : docList) {
-                activeOffers.add(a.toObject(Offer.class));
-            }
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            e.printStackTrace();
-        }
-        return activeOffers;
-    }
-
-
-    //AUXILIARY METHODS
-
     public int getLastOfferId() {
         int ret = 0;
         Firestore db = FirestoreClient.getFirestore();
@@ -217,4 +181,39 @@ public class OfferFirestoreDAO implements OfferDAO {
         return ret;
     }
 
+    @Override
+    public ArrayList<Offer> getActiveOffers() {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("state", true).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
+
+    @Override
+    public ArrayList<Offer> getOffersByProduct(String productName) {
+        ArrayList<Offer> activeOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("offer");
+        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("productName", productName).get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                activeOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return activeOffers;
+    }
 }
