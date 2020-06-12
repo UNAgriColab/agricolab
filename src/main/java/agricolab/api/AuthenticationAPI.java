@@ -1,6 +1,6 @@
 package agricolab.api;
 
-import agricolab.model.JwtRequest;
+import agricolab.security.JwtRequest;
 import agricolab.security.JwtUtil;
 import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

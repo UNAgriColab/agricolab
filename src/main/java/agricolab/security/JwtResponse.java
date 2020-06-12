@@ -1,4 +1,4 @@
-package agricolab.model;
+package agricolab.security;
 
 import java.io.Serializable;
 
