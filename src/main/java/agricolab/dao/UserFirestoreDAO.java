@@ -80,7 +80,7 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference request = db.collection("user");
         ApiFuture<DocumentSnapshot> obj = request.document(email).get();
-        return Objects.requireNonNull(obj.get().toObject(User.class).getMailing());
+        return Objects.requireNonNull(Objects.requireNonNull(obj.get().toObject(User.class)).getMailing());
     }
 
     @Override
@@ -91,4 +91,13 @@ public class UserFirestoreDAO implements UserDAO {
         db.collection("user").document(user.getEmail()).set(user);
         return true;
     }
+
+    @Override
+    public boolean updateUser(User u) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("user").document(u.getEmail());
+        ApiFuture<WriteResult> future = ref.set(u);
+        return false;
+    }
+
 }

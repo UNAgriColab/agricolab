@@ -12,7 +12,7 @@ public interface UserDAO {
 
     User getUser(String email);
 
-    int updateUser(User u1, User u2);
+    boolean updateUser(User u);
 
     void deleteUser(String email);
 
@@ -21,4 +21,5 @@ public interface UserDAO {
     Mailing getMailingByUser(String email) throws ExecutionException, InterruptedException;
 
     boolean createMailing(User user);//, Mailing mailing);
+
 }

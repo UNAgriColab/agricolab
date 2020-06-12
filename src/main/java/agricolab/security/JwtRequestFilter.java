@@ -20,8 +20,8 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private UserService userService;
-    private JwtUtil jwtTokenUtil;
+    private final UserService userService;
+    private final JwtUtil jwtTokenUtil;
 
     @Autowired
     public JwtRequestFilter(UserService userService, JwtUtil jwtTokenUtil) {
@@ -31,7 +31,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
         System.out.println(requestTokenHeader);
         String username = null;
@@ -57,9 +57,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 // authentication
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities());
+                        userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
-                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 // After setting the Authentication in the context, we specify
 // that the current user is authenticated. So it passes the
 // Spring Security Configurations successfully.

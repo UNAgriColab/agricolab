@@ -1,5 +1,6 @@
 package agricolab.api;
 
+import agricolab.model.Comment;
 import agricolab.model.Order;
 import agricolab.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,34 +60,29 @@ public class OrderAPI {
     }
 
 
-    @GetMapping("/actives") // Dependent on seller/buyer?
-    public ArrayList<Order> getActiveOrders() {
-        return orderService.getActiveOrders();
+    @GetMapping("/buyer/{email}/{productName}/{state}")
+    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getOrdersByBuyer(email, productName, state);
     }
 
-    @GetMapping("/buyer/{email}")
-    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email) {
-        return orderService.getOrdersByBuyer(email);
+    @GetMapping("/buyer/actives/{email}/{productName}/{state}")
+    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getActiveOrdersByBuyer(email, productName, state);
     }
 
-    @GetMapping("/seller/{email}")
-    public ArrayList<Order> getOrdersBySeller(@PathVariable String email) {
-        return orderService.getOrdersBySeller(email);
+    @GetMapping("/seller/{email}/{productName}/{state}")
+    public ArrayList<Order> getOrdersBySeller(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getOrdersBySeller(email, productName, state);
     }
 
-    @GetMapping("/product/{productName}")
-    public ArrayList<Order> getOrdersByProduct(@PathVariable String productName) {
-        return orderService.getOrdersByProduct(productName);
+    @GetMapping("/seller/actives/{email}/{productName}/{state}")
+    public ArrayList<Order> getActiveOrdersBySeller(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getActiveOrdersBySeller(email, productName, state);
     }
 
-    @GetMapping("/seller/actives/{email}")
-    public ArrayList<Order> getActiveOrdersBySeller(@PathVariable String email) {
-        return orderService.getActiveOrdersBySeller(email);
-    }
-
-    @GetMapping("/buyer/actives/{email}")
-    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email) {
-        return orderService.getActiveOrdersByBuyer(email);
+    @PostMapping("/qualification")
+    public boolean updateOrderQualification(@RequestBody Comment comment) {
+        return orderService.updateOrderQualification(comment);
     }
 }
 
