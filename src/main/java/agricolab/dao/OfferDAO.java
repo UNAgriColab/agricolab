@@ -24,7 +24,7 @@ public interface OfferDAO {
     //methods used to the filters
     ArrayList<Offer> getActiveOffers(String productName ,double minPrice , double maxPrice , int presentation ,  int order );
 
-    ArrayList<Offer> getOffersByUserAndProduct(String email , String productName);
+    ArrayList<Offer> getOffersByUserAndProduct(String email, String productName);
 
     void deleteOffer(String id);
 

@@ -7,7 +7,9 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Repository("Firestore")
@@ -16,10 +18,10 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public boolean createUser(User user) {
 
-            Firestore db = FirestoreClient.getFirestore();
-            db.collection("user").document(user.getEmail()).set(user);
-            System.out.println(user);
-            return true;
+        Firestore db = FirestoreClient.getFirestore();
+        db.collection("user").document(user.getEmail()).set(user);
+        System.out.println(user);
+        return true;
 
     }
 
@@ -41,6 +43,18 @@ public class UserFirestoreDAO implements UserDAO {
             e.printStackTrace();
         }
         return ret;
+    }
+
+    @Override
+    public int updateUser(User u1, User u2) {
+        return 0;
+    }
+
+    @Override
+    public void deleteUser(String email) {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("user");
+        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
     }
 
     public ArrayList<User> getAllUsers() {
@@ -66,7 +80,7 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference request = db.collection("user");
         ApiFuture<DocumentSnapshot> obj = request.document(email).get();
-        return Objects.requireNonNull(Objects.requireNonNull(obj.get().toObject(User.class)).getMailing());
+        return Objects.requireNonNull(obj.get().toObject(User.class).getMailing());
     }
 
     @Override
@@ -76,19 +90,5 @@ public class UserFirestoreDAO implements UserDAO {
         //updates.put("mailing", mailing);
         db.collection("user").document(user.getEmail()).set(user);
         return true;
-    }
-
-    @Override
-    public boolean updateUser(User u) {
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("user").document(u.getEmail());
-        ApiFuture<WriteResult> future = ref.set(u);
-        return false;
-    }
-    @Override
-    public void deleteUser(String email) {
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("user");
-        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
     }
 }
