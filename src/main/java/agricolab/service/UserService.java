@@ -1,5 +1,7 @@
 package agricolab.service;
 
+import agricolab.dao.OfferDAO;
+import agricolab.dao.OrderDAO;
 import agricolab.dao.UserDAO;
 import agricolab.model.Mailing;
 import agricolab.model.User;
@@ -21,12 +23,17 @@ public class UserService implements UserDetailsService {
 
     private final UserDAO userDAO;
     private final PasswordEncoder passwordEncoder;
+    private final OrderDAO orderDAO;
+    private final OfferDAO offerDAO;
 
 
     @Autowired
-    public UserService(@Qualifier("Firestore") UserDAO userDAO) {
+    public UserService(@Qualifier("Firestore") UserDAO userDAO, OrderDAO orderDao, OfferDAO offerDAO) {
+
+        this.passwordEncoder = new BCryptPasswordEncoder();
         this.userDAO = userDAO;
-        passwordEncoder = new BCryptPasswordEncoder();
+        this.orderDAO = orderDao;
+        this.offerDAO = offerDAO;
     }
 
     public boolean addUser(User user) {
@@ -42,6 +49,10 @@ public class UserService implements UserDetailsService {
         }
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return userDAO.createUser(user);
+    }
+
+    public User getUser(String email) {
+        return userDAO.getUser(email);
     }
 
     public ArrayList<User> getAllUsers() {
@@ -73,7 +84,7 @@ public class UserService implements UserDetailsService {
         return userDAO.createMailing(user);//, mailing);
     }
 
-    public User getUser(String email) {
-        return userDAO.getUser(email);
+    public boolean updateUser(User u) {
+        return userDAO.updateUser(u);
     }
 }
