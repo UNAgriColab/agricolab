@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
@@ -66,34 +67,40 @@ public class OfferService {
 
     //filtros
     public ArrayList<Offer> getActiveOffers(String productName, double minPrice, double maxPrice,
-                                            int presentation, int order, int page, int pivot) throws ExecutionException, InterruptedException {
+                                            int presentation, int order, int page, int pivot) {
         ArrayList<Offer> offers = new ArrayList<>();
         ArrayList<Offer> inverted = new ArrayList<>();
-        ArrayList<Offer> ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
-                order, page, pivot);
+        ArrayList<Offer> ofertas = null;
+        try {
+            ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
+                    order, page, pivot);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         if (page == 0) {
-            for (int i = ofertas.size(); i > 0; i--) {
+            for (int i = Objects.requireNonNull(ofertas).size(); i > 0; i--) {
                 inverted.add(ofertas.get(i - 1));
             }
             ofertas = inverted;
         }
-        if ((order == 3) && ((minPrice != 0) || (maxPrice != 0))) {
+        if ((order == 3 || order ==0) && ((minPrice != 0) || (maxPrice != 0))) {
+            //filtrar por rango de precio en caso de necesitar un ordenamiento diferente
             if ((minPrice != 0) && (maxPrice != 0)) {
-                for (Offer o : ofertas) {
+                for (Offer o : Objects.requireNonNull(ofertas)) {
                     if (o.getPricePresentation() <= maxPrice && o.getPricePresentation() >= minPrice) {
                         offers.add(o);
                     }
                 }
             }
             if ((minPrice != 0) && (maxPrice == 0)) {
-                for (Offer o : ofertas) {
+                for (Offer o : Objects.requireNonNull(ofertas)) {
                     if (o.getPricePresentation() >= minPrice) {
                         offers.add(o);
                     }
                 }
             }
             if ((minPrice == 0) && (maxPrice != 0)) {
-                for (Offer o : ofertas) {
+                for (Offer o : Objects.requireNonNull(ofertas)) {
                     if (o.getPricePresentation() <= maxPrice) {
                         offers.add(o);
                     }

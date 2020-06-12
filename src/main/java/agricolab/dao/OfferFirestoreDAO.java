@@ -222,10 +222,10 @@ public class OfferFirestoreDAO implements OfferDAO {
         if (presentation != 0) {
             q = q.whereEqualTo("presentation", presentation);
         }
-        if (minPrice != 0 && order != 3) {
+        if (minPrice != 0 && order != 3 && order!=0) {
             q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
         }
-        if (maxPrice != 0 && order != 3) {
+        if (maxPrice != 0 && order != 3 && order!=0) {
             q = q.whereLessThan("pricePresentation", maxPrice);
         }
         if (page != 1) {
