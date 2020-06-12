@@ -1,6 +1,5 @@
 package agricolab.dao;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.ID;
 import agricolab.model.Order;
 import com.google.api.core.ApiFuture;
@@ -9,7 +8,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -41,6 +42,34 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
     }
 
+    //UNUSED METHODS ------------------------------------------------
+    @Override
+    public int getLastOrderId() {
+        int ret = 0;
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("ids").document("idorder");
+        ApiFuture<DocumentSnapshot> future = ref.get();
+        try {
+            DocumentSnapshot document = future.get();
+            if (document.exists()) {
+                ret = Objects.requireNonNull(document.toObject(ID.class)).getId();
+            } else {
+                System.out.println("No such document!");
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    @Override
+    public boolean updateOrder(Order r) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(r.getId());
+        ApiFuture<WriteResult> future = ref.set(r);
+        return true;
+    }
+
     // READ
     @Override
     public Order getOrder(String id) {
@@ -60,74 +89,6 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return ret;
     }
-
-    // UPDATE
-
-    @Override
-    public boolean updateOrder(Order r) {
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("order").document(r.getId());
-        ApiFuture<WriteResult> future = ref.set(r);
-        return true;
-    }
-
-    @Override
-    public boolean updateOrderByBuyer(String orderId) {
-        Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("state", 0);
-        ApiFuture<WriteResult> ud = db.collection("order").document(orderId).update(updates);
-        try {
-            System.out.println(ud.get().getUpdateTime());
-            return true;
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateOrderBySeller(Update changes) {
-        Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        ApiFuture<WriteResult> ud;
-        ApiFuture<DocumentSnapshot> actual = db.collection("order").document(changes.getOrderId()).get();
-        try {
-            Order temp = actual.get().toObject(Order.class);
-            if (!changes.isCanceled()) {
-                updates.put("state", 0);
-                db.collection("order").document(changes.getOrderId()).update(updates);
-                return true;
-            }
-            if (temp == null) {
-                return false;
-            }
-            int stateTemp = temp.getState();
-            if (stateTemp != 0) {
-                stateTemp++;
-                updates.put("state", stateTemp);
-                ud = db.collection("order").document(changes.getOrderId()).update(updates);
-                System.out.println(ud.get().getUpdateTime());
-                return true;
-            } else {
-                return false;
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    // DELETE
-    @Override
-    public void deleteOrder(String id) {
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("order");
-        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
-        //writeResult.get();
-
-    }
-
 
     //RETRIEVES ALL ORDERS FROM ORDER COLLECTION
     @Override
@@ -233,7 +194,14 @@ public class OrderFirestoreDAO implements OrderDAO {
         return userOrder;
     }
 
+    @Override
+    public void deleteOrder(String id) {
+        //UNUSED
+        System.out.println("No implementado");
+    }
+    //BUYER METHODS ------------------------------------------
 
+    //SELLER METHODS -----------------------------------------
     @Override
     public ArrayList<Order> getOrdersBySeller(String email, String productName, int state) {
         ArrayList<Order> userOrder = new ArrayList<>();
@@ -260,6 +228,21 @@ public class OrderFirestoreDAO implements OrderDAO {
         return userOrder;
     }
 
+    @Override
+    public boolean updateOrderStatus(String id, int i) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("order").document(id);
+        ApiFuture<WriteResult> future = docRef.update("state", i);
+        WriteResult result = null;
+        try {
+            result = future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("Write result: " + result);
+        // true if success, false if still null
+        return result != null;
+    }
 
     // AUXILIARY METHODS-------------------------------------------------
 

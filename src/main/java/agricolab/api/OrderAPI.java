@@ -1,6 +1,5 @@
 package agricolab.api;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.Comment;
 import agricolab.model.Order;
 import agricolab.service.OrderService;
@@ -31,22 +30,30 @@ public class OrderAPI {
         orderService.deleteOrder(id);
     }
 
+    @PutMapping("/update/{id}/{email}")
+    public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email) {
+        return orderService.updateOrderStatus(id, email);
+    }
+
+    @PutMapping("/cancel/{id}/{email}")
+    public boolean cancelOrder(@PathVariable String id, @PathVariable String email) {
+        return orderService.cancelOrder(id, email);
+    }
+
     // GET METHODS
     @GetMapping("/{id}")
     public Order getOrder(@PathVariable String id) {
         return orderService.getOrder(id);
     }
 
-    @PutMapping("/buyer")
-    public boolean updateOrderByBuyer(@RequestBody Update changes) {
-        return orderService.updateOrderByBuyer(changes);
+    @GetMapping("/last")
+    public int getLastOfferId() {
+        return orderService.getLastOrderId();
     }
 
-    @PutMapping("/seller")
-    public boolean updateOrderBySeller(@RequestBody Update changes) {
-        return orderService.updateOrderBySeller(changes);
-    }
-
+    /*
+     * ORDER ARRAYLIST GETTERS
+     * */
     @GetMapping
     public ArrayList<Order> getAllOrders() {
         return orderService.getAllOrders();

@@ -14,6 +14,7 @@ public interface UserDAO {
 
     boolean updateUser(User u);
 
+
     void deleteUser(String email);
 
     ArrayList<User> getAllUsers();

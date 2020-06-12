@@ -1,6 +1,5 @@
 package agricolab.dao;
 
-import agricolab.JsonModel.Update;
 import agricolab.model.Order;
 
 import java.util.ArrayList;
@@ -10,6 +9,11 @@ public interface OrderDAO {
 
     boolean createOrder(Order request);
 
+
+    //UNUSED METHODS ------------------------------------------------
+    int getLastOrderId();
+
+    boolean updateOrder(Order r);
 
     Order getOrder(String id);
 
@@ -27,13 +31,8 @@ public interface OrderDAO {
 
     //Update methods
 
-    boolean updateOrderByBuyer(String orderId);
-
-    boolean updateOrderBySeller(Update changes);
-
-    boolean updateOrder(Order order);
-
-    //delete method
     void deleteOrder(String id);
 
+
+    boolean updateOrderStatus(String id, int i);
 }

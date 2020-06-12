@@ -77,6 +77,10 @@ public class UserService implements UserDetailsService {
         return userDAO.getMailingByUser(email);
     }
 
+    public User getUser(String email) {
+        return userDAO.getUser(email);
+    }
+
     public boolean createMailing(String email, Mailing mailing) {
         User user = getUser(email);
         user.setMailing(mailing);

@@ -45,6 +45,13 @@ public class UserFirestoreDAO implements UserDAO {
         return ret;
     }
 
+    @Override
+    public void deleteUser(String email) {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("user");
+        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
+    }
+
     public ArrayList<User> getAllUsers() {
         ArrayList<User> allUsers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
@@ -88,10 +95,4 @@ public class UserFirestoreDAO implements UserDAO {
         return false;
     }
 
-    @Override
-    public void deleteUser(String email) {
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("user");
-        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
-    }
 }
