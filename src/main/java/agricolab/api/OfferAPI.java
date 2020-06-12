@@ -2,13 +2,14 @@ package agricolab.api;
 
 import agricolab.model.Comment;
 import agricolab.model.Offer;
-import agricolab.model.Producto;
+import agricolab.model.Product;
 import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/offer")
@@ -59,19 +60,21 @@ public class OfferAPI {
         return offerService.gerOffersByUser(email);
     }
 
-    @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}")
-    public ArrayList<Offer> getActiveOrders(@PathVariable String productName , @PathVariable double maxPrice , @PathVariable int presentation , @PathVariable double minPrice , @PathVariable int order) {
-        return offerService.getActiveOffers(productName ,  minPrice , maxPrice , presentation ,  order );
+    @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}/{page}/{pivot}")
+    public ArrayList<Offer> getActiveOrders(@PathVariable String productName, @PathVariable double maxPrice, @PathVariable int presentation,
+                                            @PathVariable double minPrice, @PathVariable int order, @PathVariable int page,
+                                            @PathVariable int pivot) throws ExecutionException, InterruptedException {
+        return offerService.getActiveOffers(productName, minPrice, maxPrice, presentation, order, page, pivot);
     }
 
     @GetMapping("/comments/{offerID}")
-    public ArrayList<Comment> getAllCommentsByOffer (@PathVariable String offerID){
+    public ArrayList<Comment> getAllCommentsByOffer(@PathVariable String offerID) {
         return commentService.getAllCommentsByOffer(offerID);
     }
 
     @PostMapping("product")
-    public boolean postProduct(@RequestBody Producto producto){
-        return offerService.postProduct(producto);
+    public boolean postProduct(@RequestBody Product product) {
+        return offerService.postProduct(product);
     }
 
 }

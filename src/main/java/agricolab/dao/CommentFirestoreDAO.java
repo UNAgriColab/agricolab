@@ -1,7 +1,7 @@
 package agricolab.dao;
 
-import agricolab.model.ID;
 import agricolab.model.Comment;
+import agricolab.model.ID;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -73,7 +73,7 @@ public class CommentFirestoreDAO implements CommentDAO {
         ArrayList<Comment> comments = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference ref = db.collection("comment");
-        ApiFuture<QuerySnapshot> docs = ref.whereEqualTo("offerReference"  ,offerId ).get();
+        ApiFuture<QuerySnapshot> docs = ref.whereEqualTo("offerReference", offerId).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();

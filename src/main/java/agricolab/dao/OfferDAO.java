@@ -4,6 +4,7 @@ import agricolab.model.ID;
 import agricolab.model.Offer;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public interface OfferDAO {
 
@@ -22,7 +23,8 @@ public interface OfferDAO {
     ArrayList<Offer> getOffersByUser(String email);
 
     //methods used to the filters
-    ArrayList<Offer> getActiveOffers(String productName ,double minPrice , double maxPrice , int presentation ,  int order );
+    ArrayList<Offer> getActiveOffers(String productName, double minPrice, double maxPrice,
+                                     int presentation, int order, int page, int pivot) throws ExecutionException, InterruptedException;
 
     ArrayList<Offer> getOffersByUserAndProduct(String email, String productName);
 

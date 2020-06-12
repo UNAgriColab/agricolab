@@ -369,7 +369,7 @@ GET /api/v1/offer
         "presentation": 1.0,
         "pricePresentation": 3500.0,
         "minQuantity": 14,
-        "description": "descripcion producto",
+        "description": "descripcion product",
         "id": "13"
     },
     {

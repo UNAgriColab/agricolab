@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Offer {
 
-    private String id;
+    private int id;
     private String sellerEmail;
     private String productName;
     private int presentation;
@@ -14,6 +14,8 @@ public class Offer {
     private int minQuantity;
     private String description;
     private Boolean state;
+    private int qualification;
+    private int numberOfReviews;
 
 
     public Offer() {
@@ -34,6 +36,8 @@ public class Offer {
         this.minQuantity = minQuantity;
         this.description = description;
         this.state = true;
+        this.qualification = 0;
+        this.numberOfReviews = 0;
     }
 
     public void manual(String sellerEmail, String productName, int presentation, double pricePresentation, int minQuantity, String description) {
@@ -50,85 +54,96 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-            ", sellerEmail='" + sellerEmail + '\'' +
-            ", name='" + productName + '\'' +
-            ", presentation='" + presentation + '\'' +
-            ", pricePresentation='" + pricePresentation + '\'' +
-            ", minQuantity='" + minQuantity + '\'' +
-            '}';
+                "id='" + id + '\'' +
+                ", sellerEmail='" + sellerEmail + '\'' +
+                ", productName='" + productName + '\'' +
+                ", presentation=" + presentation +
+                ", pricePresentation=" + pricePresentation +
+                ", minQuantity=" + minQuantity +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", qualification=" + qualification +
+                ", numberOfReviews=" + numberOfReviews +
+                '}';
     }
 
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public Offer setId(String id) {
+    public void setId(int id) {
         this.id = id;
-        return this;
     }
 
     public String getSellerEmail() {
         return sellerEmail;
     }
 
-    public Offer setSellerEmail(String sellerEmail) {
+    public void setSellerEmail(String sellerEmail) {
         this.sellerEmail = sellerEmail;
-        return this;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public Offer setProductName(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
-        return this;
     }
 
     public int getPresentation() {
         return presentation;
     }
 
-    public Offer setPresentation(int presentation) {
+    public void setPresentation(int presentation) {
         this.presentation = presentation;
-        return this;
     }
 
     public double getPricePresentation() {
         return pricePresentation;
     }
 
-    public Offer setPricePresentation(double pricePresentation) {
+    public void setPricePresentation(double pricePresentation) {
         this.pricePresentation = pricePresentation;
-        return this;
     }
 
     public int getMinQuantity() {
         return minQuantity;
     }
 
-    public Offer setMinQuantity(int minQuantity) {
+    public void setMinQuantity(int minQuantity) {
         this.minQuantity = minQuantity;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Offer setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public Boolean getState() {
         return state;
     }
 
-    public Offer setState(Boolean state) {
+    public void setState(Boolean state) {
         this.state = state;
-        return this;
     }
 
+    public int getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(int qualification) {
+        this.qualification = qualification;
+    }
+
+    public int getNumberOfReviews() {
+        return numberOfReviews;
+    }
+
+    public void setNumberOfReviews(int numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+    }
 }
