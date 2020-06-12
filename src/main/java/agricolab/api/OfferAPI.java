@@ -1,11 +1,15 @@
 package agricolab.api;
 
+import agricolab.model.Comment;
 import agricolab.model.Offer;
+import agricolab.model.Product;
+import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/offer")
@@ -13,10 +17,12 @@ import java.util.ArrayList;
 public class OfferAPI {
 
     private final OfferService offerService;
+    private final CommentService commentService;
 
     @Autowired
-    public OfferAPI(OfferService offerService) {
+    public OfferAPI(OfferService offerService, CommentService commentService) {
         this.offerService = offerService;
+        this.commentService = commentService;
     }
 
     @PostMapping
@@ -49,18 +55,26 @@ public class OfferAPI {
         return offerService.getAllOffers();
     }
 
-    @GetMapping("/actives")
-    public ArrayList<Offer> getActiveOffers() {
-        return offerService.getActiveOffers();
-    }
-
     @GetMapping("/user/{email}")
     public ArrayList<Offer> getOffersByUser(@PathVariable String email) {
         return offerService.gerOffersByUser(email);
     }
 
-    @GetMapping("product/{productName}")
-    public ArrayList<Offer> getOffersByProduct(@PathVariable String productName) {
-        return offerService.getOffersByProduct(productName);
+    @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}/{page}/{pivot}")
+    public ArrayList<Offer> getActiveOrders(@PathVariable String productName, @PathVariable double maxPrice, @PathVariable int presentation,
+                                            @PathVariable double minPrice, @PathVariable int order, @PathVariable int page,
+                                            @PathVariable int pivot) throws ExecutionException, InterruptedException {
+        return offerService.getActiveOffers(productName, minPrice, maxPrice, presentation, order, page, pivot);
     }
+
+    @GetMapping("/comments/{offerID}")
+    public ArrayList<Comment> getAllCommentsByOffer(@PathVariable String offerID) {
+        return commentService.getAllCommentsByOffer(offerID);
+    }
+
+    @PostMapping("product")
+    public boolean postProduct(@RequestBody Product product) {
+        return offerService.postProduct(product);
+    }
+
 }

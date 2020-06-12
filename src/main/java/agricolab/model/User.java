@@ -11,6 +11,8 @@ public class User {
     private int age;
     private long phoneNumber;
     private Mailing mailing;
+    private double qualification;
+    private int numberOfReviews;
 
     public User() {
     }
@@ -30,17 +32,19 @@ public class User {
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.mailing = new Mailing();
+        this.qualification = 0;
+        this.numberOfReviews = 0;
     }
 
     @Override
     public String toString() {
         return "User{" +
-            "name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
-            "vendor = " + seller + '\'' +
-            "phone-number= " + phoneNumber + '\'' +
-            '}';
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                "vendor = " + seller + '\'' +
+                "phone-number= " + phoneNumber + '\'' +
+                '}';
     }
 
     public String getEmail() {
@@ -103,5 +107,23 @@ public class User {
 
     public void setMailing(Mailing mailing) {
         this.mailing = mailing;
+    }
+
+    public double getQualification() {
+        return qualification;
+    }
+
+    public User setQualification(double qualification) {
+        this.qualification = qualification;
+        return this;
+    }
+
+    public int getNumberOfReviews() {
+        return numberOfReviews;
+    }
+
+    public User setNumberOfReviews(int numberOfReviews) {
+        this.numberOfReviews = numberOfReviews;
+        return this;
     }
 }

@@ -17,6 +17,7 @@ public class Order {
     private String description;
     private int state;
     private Mailing mailing;
+    private double qualification;
 
     public Order() {
     }
@@ -33,16 +34,17 @@ public class Order {
         this.numberOfUnits = numberOfUnits;
         this.description = description;
         this.mailing = mailing;
+        this.qualification = 0;
     }
 
     @Override
     public String toString() {
         return "Order{" + "id " + id +
-            ", userEmail='" + buyerEmail + '\'' +
-            ", unit='" + presentation + '\'' +
-            ", numberOfUnits='" + numberOfUnits + '\'' +
-            ", totalPrice='" + totalPrice + '\'' +
-            '}';
+                ", userEmail='" + buyerEmail + '\'' +
+                ", unit='" + presentation + '\'' +
+                ", numberOfUnits='" + numberOfUnits + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -131,5 +133,13 @@ public class Order {
 
     public void setMailing(Mailing mailing) {
         this.mailing = mailing;
+    }
+
+    public double getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(double qualification) {
+        this.qualification = qualification;
     }
 }

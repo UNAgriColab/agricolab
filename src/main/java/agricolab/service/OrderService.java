@@ -1,8 +1,10 @@
 package agricolab.service;
 
 import agricolab.dao.OrderDAO;
+import agricolab.model.Comment;
 import agricolab.model.Offer;
 import agricolab.model.Order;
+import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,17 @@ public class OrderService {
     public static int STATE_CANCELED = 0;
     public static int STATE_COMPLETED = 1;
     public static int STATE_SHIPPED = 4;
-    private OrderDAO orderDAO;
-    private OfferService offerService;
+    private final OrderDAO orderDAO;
+    private final UserService userService;
+    private final OfferService offerService;
+    private final CommentService commentService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, OfferService offerService) {
+    public OrderService(OrderDAO orderDAO, OfferService offerService, UserService userService, CommentService commentService) {
         this.orderDAO = orderDAO;
         this.offerService = offerService;
+        this.userService = userService;
+        this.commentService = commentService;
     }
 
     public boolean addOrder(Order order) {
@@ -61,28 +67,20 @@ public class OrderService {
         return orderDAO.getAllOrders();
     }
 
-    public ArrayList<Order> getOrdersByBuyer(String email) {
-        return orderDAO.getOrdersByBuyer(email);
+    public ArrayList<Order> getOrdersByBuyer(String email, String productName, int state) {
+        return orderDAO.getOrdersByBuyer(email, productName, state);
     }
 
-    public ArrayList<Order> getActiveOrdersByBuyer(String email) {
-        return orderDAO.getActiveOrdersByBuyer(email);
+    public ArrayList<Order> getActiveOrdersByBuyer(String email, String productName, int state) {
+        return orderDAO.getActiveOrdersByBuyer(email, productName, state);
     }
 
-    public ArrayList<Order> getOrdersBySeller(String email) {
-        return orderDAO.getOrdersBySeller(email);
+    public ArrayList<Order> getOrdersBySeller(String email, String productName, int state) {
+        return orderDAO.getOrdersBySeller(email, productName, state);
     }
 
-    public ArrayList<Order> getActiveOrders() {
-        return orderDAO.getActiveOrders();
-    }
-
-    public ArrayList<Order> getOrdersByProduct(String productName) {
-        return orderDAO.getOrdersByProduct(productName);
-    }
-
-    public ArrayList<Order> getActiveOrdersBySeller(String email) {
-        return orderDAO.getActiveOrdersBySeller(email);
+    public ArrayList<Order> getActiveOrdersBySeller(String email, String productName, int state) {
+        return orderDAO.getActiveOrdersBySeller(email, productName, state);
     }
 
     public void deleteOrder(String id) {
@@ -91,6 +89,36 @@ public class OrderService {
 
     public int getLastOrderId() {
         return orderDAO.getLastOrderId();
+    }
+    public boolean updateOrderQualification(Comment comment) {
+        if ((1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
+
+            Order order = orderDAO.getOrder(comment.getOrderReference());
+            if (order.getQualification() != 0) {
+                System.out.println("Ya se habia realizado un review de esta orden, no se puede hacer 2 veces");
+                return false;
+            }
+            User u = userService.getUser(order.getSellerEmail());
+            Offer o = offerService.getOffer(order.getOfferReference());
+            commentService.addComment(comment);
+
+            double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + comment.getCalificacion()) / (u.getNumberOfReviews() + 1);
+
+            u.setQualification(newQualification);
+            u.setNumberOfReviews(u.getNumberOfReviews() + 1);
+            userService.updateUser(u);
+
+            int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getCalificacion()) / (o.getNumberOfReviews() + 1);
+            o.setQualification(offerQualification);
+            o.setNumberOfReviews(o.getNumberOfReviews() + 1);
+            offerService.updateOffer(o);
+
+            order.setQualification(comment.getCalificacion());
+            return orderDAO.updateOrder(order);
+        } else {
+            System.out.println("calificacion fuera de rango no puede ser procesada");
+            return false;
+        }
     }
 
     public boolean updateOrderStatus(String id, String email) {

@@ -9,19 +9,22 @@ public interface OrderDAO {
 
     boolean createOrder(Order request);
 
-    int getLastOrderId();
 
     Order getOrder(String id);
 
     ArrayList<Order> getAllOrders();
 
-    ArrayList<Order> getOrdersByBuyer(String email);
+    //Buyer methods
+    ArrayList<Order> getOrdersByBuyer(String email, String productName, int state);
 
-    ArrayList<Order> getActiveOrdersByBuyer(String email);
+    ArrayList<Order> getActiveOrdersByBuyer(String email, String productName, int state);
 
-    ArrayList<Order> getOrdersBySeller(String email);
+    //Seller methods
+    ArrayList<Order> getOrdersBySeller(String email, String productName, int state);
 
-    ArrayList<Order> getActiveOrdersBySeller(String email);
+    ArrayList<Order> getActiveOrdersBySeller(String email, String productName, int state);
+
+    //Update methods
 
     void deleteOrder(String id);
 
