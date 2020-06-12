@@ -51,9 +51,6 @@ public class UserService implements UserDetailsService {
         return userDAO.createUser(user);
     }
 
-    public User getUser(String email) {
-        return userDAO.getUser(email);
-    }
 
     public ArrayList<User> getAllUsers() {
         return userDAO.getAllUsers();
