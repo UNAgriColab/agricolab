@@ -3,22 +3,19 @@ package agricolab.service;
 import agricolab.dao.OfferDAO;
 import agricolab.dao.ProductoDAO;
 import agricolab.model.Offer;
-import agricolab.model.Producto;
+import agricolab.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
 @Service
 public class OfferService {
 
-    private OfferDAO offerDAO;
-    private ProductoDAO productoDAO;
+    private final OfferDAO offerDAO;
+    private final ProductoDAO productoDAO;
 
     @Autowired
     public OfferService(OfferDAO offerdao, ProductoDAO productoDAO) {
@@ -26,10 +23,10 @@ public class OfferService {
         this.productoDAO = productoDAO;
     }
 
-    public boolean productoValdo(String producto){
+    public boolean productoValdo(String producto) {
         boolean coinsidence = false;
-        for(Producto p : productoDAO.getProductos()){
-            for(String productName : p.getProductNames() ){
+        for (Product p : productoDAO.getProductos()) {
+            for (String productName : p.getProductNames()) {
                 if (productName.equals(producto)) {
                     coinsidence = true;
                     break;
@@ -40,15 +37,15 @@ public class OfferService {
     }
 
     public boolean addOffer(Offer offer) {
-        if(productoValdo(offer.getProductName()) && offerDAO.getOffersByUserAndProduct(offer.getSellerEmail() , offer.getProductName()).isEmpty()){
+        if (productoValdo(offer.getProductName()) && offerDAO.getOffersByUserAndProduct(offer.getSellerEmail(), offer.getProductName()).isEmpty()) {
             return offerDAO.createOffer(offer);
-        }else {
+        } else {
             return false;
         }
     }
 
-    public boolean postProduct(Producto producto){
-        return productoDAO.addProduct(producto);
+    public boolean postProduct(Product product) {
+        return productoDAO.addProduct(product);
     }
 
     public Offer getOffer(String id) {

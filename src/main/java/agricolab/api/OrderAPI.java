@@ -54,27 +54,27 @@ public class OrderAPI {
 
 
     @GetMapping("/buyer/{email}/{productName}/{state}")
-    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email ,@PathVariable String productName ,@PathVariable int state) {
-        return orderService.getOrdersByBuyer(email ,productName , state);
+    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getOrdersByBuyer(email, productName, state);
     }
 
     @GetMapping("/buyer/actives/{email}/{productName}/{state}")
-    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email ,@PathVariable String productName ,@PathVariable int state) {
-        return orderService.getActiveOrdersByBuyer(email , productName , state);
+    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getActiveOrdersByBuyer(email, productName, state);
     }
 
     @GetMapping("/seller/{email}/{productName}/{state}")
-    public ArrayList<Order> getOrdersBySeller(@PathVariable String email ,@PathVariable String productName ,@PathVariable int state) {
-        return orderService.getOrdersBySeller(email , productName , state);
+    public ArrayList<Order> getOrdersBySeller(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getOrdersBySeller(email, productName, state);
     }
 
     @GetMapping("/seller/actives/{email}/{productName}/{state}")
-    public ArrayList<Order> getActiveOrdersBySeller(@PathVariable String email , @PathVariable String productName , @PathVariable int state) {
-        return orderService.getActiveOrdersBySeller(email , productName , state);
+    public ArrayList<Order> getActiveOrdersBySeller(@PathVariable String email, @PathVariable String productName, @PathVariable int state) {
+        return orderService.getActiveOrdersBySeller(email, productName, state);
     }
 
     @PostMapping("/qualification")
-    public boolean updateOrderQualification(@RequestBody Comment comment){
+    public boolean updateOrderQualification(@RequestBody Comment comment) {
         return orderService.updateOrderQualification(comment);
     }
 }

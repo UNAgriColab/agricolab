@@ -22,24 +22,13 @@ public class Offer {
 
     }
 
-    public void manual (String sellerEmail, String productName, int presentation, double pricePresentation , int minQuantity , String description ) {
-
-        this.productName = productName;
-        this.sellerEmail = sellerEmail;
-        this.presentation = presentation;
-        this.pricePresentation = pricePresentation;
-        this.minQuantity = minQuantity;
-        this.description = description;
-        this.state = true;
-    }
-
-    public Offer(@JsonProperty("productName")String productName,
-                 @JsonProperty("sellerEmail")String sellerEmail,
-                 @JsonProperty("presentation")int presentation,
-                 @JsonProperty("pricePresentation")double pricePresentation,
-                 @JsonProperty("minQuantity")int minQuantity,
-                 @JsonProperty("description")String description
-    ){
+    public Offer(@JsonProperty("productName") String productName,
+                 @JsonProperty("sellerEmail") String sellerEmail,
+                 @JsonProperty("presentation") int presentation,
+                 @JsonProperty("pricePresentation") double pricePresentation,
+                 @JsonProperty("minQuantity") int minQuantity,
+                 @JsonProperty("description") String description
+    ) {
         this.productName = productName;
         this.sellerEmail = sellerEmail;
         this.presentation = presentation;
@@ -49,6 +38,17 @@ public class Offer {
         this.state = true;
         this.qualification = 0;
         this.numberOfReviews = 0;
+    }
+
+    public void manual(String sellerEmail, String productName, int presentation, double pricePresentation, int minQuantity, String description) {
+
+        this.productName = productName;
+        this.sellerEmail = sellerEmail;
+        this.presentation = presentation;
+        this.pricePresentation = pricePresentation;
+        this.minQuantity = minQuantity;
+        this.description = description;
+        this.state = true;
     }
 
     @Override

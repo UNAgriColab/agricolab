@@ -23,10 +23,10 @@ public interface OfferDAO {
     ArrayList<Offer> getOffersByUser(String email);
 
     //methods used to the filters
-    ArrayList<Offer> getActiveOffers(String productName ,double minPrice , double maxPrice ,
-                                     int presentation ,  int order, int page, int pivot ) throws ExecutionException, InterruptedException;
+    ArrayList<Offer> getActiveOffers(String productName, double minPrice, double maxPrice,
+                                     int presentation, int order, int page, int pivot) throws ExecutionException, InterruptedException;
 
-    ArrayList<Offer> getOffersByUserAndProduct(String email , String productName);
+    ArrayList<Offer> getOffersByUserAndProduct(String email, String productName);
 
     void deleteOffer(String id);
 

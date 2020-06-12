@@ -11,18 +11,18 @@ import java.util.ArrayList;
 @Service
 public class CommentService {
 
-    private  CommentDAO commentDAO;
+    private final CommentDAO commentDAO;
 
     @Autowired
     public CommentService(CommentDAO commentDAO) {
         this.commentDAO = commentDAO;
     }
 
-    public boolean addComment(Comment comment){
+    public boolean addComment(Comment comment) {
         return commentDAO.createComment(comment);
     }
 
-    public ArrayList<Comment> getAllCommentsByOffer (String OfferRefference){
+    public ArrayList<Comment> getAllCommentsByOffer(String OfferRefference) {
         return commentDAO.getAllCommentsByOffer(OfferRefference);
     }
 }

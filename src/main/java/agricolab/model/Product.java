@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 
-public class Producto {
+public class Product {
     private String id;
     private String categoria;
-    private ArrayList <String> productNames;
+    private ArrayList<String> productNames;
 
-    public Producto(){
+    public Product() {
 
     }
 
-    public Producto(@JsonProperty String id,
-                    @JsonProperty String categoria,
-                    @JsonProperty ArrayList<String> productNames) {
+    public Product(@JsonProperty String id,
+                   @JsonProperty String categoria,
+                   @JsonProperty ArrayList<String> productNames) {
         this.id = id;
         this.categoria = categoria;
         this.productNames = productNames;

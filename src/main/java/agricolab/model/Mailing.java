@@ -67,11 +67,11 @@ public class Mailing {
     @Override
     public String toString() {
         return "Mailing{" +
-            "city='" + city + '\'' +
-            ", department='" + department + '\'' +
-            ", address='" + address + '\'' +
-            ", details='" + details + '\'' +
-            ", neighbourhood='" + neighbourhood + '\'' +
-            '}';
+                "city='" + city + '\'' +
+                ", department='" + department + '\'' +
+                ", address='" + address + '\'' +
+                ", details='" + details + '\'' +
+                ", neighbourhood='" + neighbourhood + '\'' +
+                '}';
     }
 }

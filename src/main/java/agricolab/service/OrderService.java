@@ -16,13 +16,13 @@ import java.util.Objects;
 @Service
 public class OrderService {
 
-    private OrderDAO orderDAO;
-    private UserService userService;
-    private OfferService offerService;
-    private CommentService commentService;
+    private final OrderDAO orderDAO;
+    private final UserService userService;
+    private final OfferService offerService;
+    private final CommentService commentService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, OfferService offerService , UserService userService, CommentService commentService) {
+    public OrderService(OrderDAO orderDAO, OfferService offerService, UserService userService, CommentService commentService) {
         this.orderDAO = orderDAO;
         this.offerService = offerService;
         this.userService = userService;
@@ -63,20 +63,20 @@ public class OrderService {
         return orderDAO.getAllOrders();
     }
 
-    public ArrayList<Order> getOrdersByBuyer(String email , String productName , int state) {
-        return orderDAO.getOrdersByBuyer(email ,  productName ,  state);
+    public ArrayList<Order> getOrdersByBuyer(String email, String productName, int state) {
+        return orderDAO.getOrdersByBuyer(email, productName, state);
     }
 
-    public ArrayList<Order> getActiveOrdersByBuyer(String email, String productName , int state) {
-        return orderDAO.getActiveOrdersByBuyer(email ,productName ,  state);
+    public ArrayList<Order> getActiveOrdersByBuyer(String email, String productName, int state) {
+        return orderDAO.getActiveOrdersByBuyer(email, productName, state);
     }
 
-    public ArrayList<Order> getOrdersBySeller(String email, String productName , int state) {
-        return orderDAO.getOrdersBySeller(email , productName ,  state);
+    public ArrayList<Order> getOrdersBySeller(String email, String productName, int state) {
+        return orderDAO.getOrdersBySeller(email, productName, state);
     }
 
-    public ArrayList<Order> getActiveOrdersBySeller(String email , String productName, int state){
-        return orderDAO.getActiveOrdersBySeller(email , productName , state);
+    public ArrayList<Order> getActiveOrdersBySeller(String email, String productName, int state) {
+        return orderDAO.getActiveOrdersBySeller(email, productName, state);
     }
 
     public void deleteOrder(String id) {
@@ -92,11 +92,11 @@ public class OrderService {
         return orderDAO.updateOrderBySeller(changes);
     }
 
-    public boolean updateOrderQualification(Comment comment){
-        if(( 1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
+    public boolean updateOrderQualification(Comment comment) {
+        if ((1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
 
             Order order = orderDAO.getOrder(comment.getOrderReference());
-            if(order.getQualification() != 0 ){
+            if (order.getQualification() != 0) {
                 System.out.println("Ya se habia realizado un review de esta orden, no se puede hacer 2 veces");
                 return false;
             }
@@ -112,12 +112,12 @@ public class OrderService {
 
             int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getCalificacion()) / (o.getNumberOfReviews() + 1);
             o.setQualification(offerQualification);
-            o.setNumberOfReviews(o.getNumberOfReviews() +1);
+            o.setNumberOfReviews(o.getNumberOfReviews() + 1);
             offerService.updateOffer(o);
 
             order.setQualification(comment.getCalificacion());
             return orderDAO.updateOrder(order);
-        }else{
+        } else {
             System.out.println("calificacion fuera de rango no puede ser procesada");
             return false;
         }

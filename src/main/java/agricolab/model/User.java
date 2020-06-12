@@ -39,12 +39,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-            "name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
-            "vendor = " + seller + '\'' +
-            "phone-number= " + phoneNumber + '\'' +
-            '}';
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                "vendor = " + seller + '\'' +
+                "phone-number= " + phoneNumber + '\'' +
+                '}';
     }
 
     public String getEmail() {

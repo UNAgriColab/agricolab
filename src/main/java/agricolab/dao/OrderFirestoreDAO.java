@@ -2,21 +2,18 @@ package agricolab.dao;
 
 import agricolab.JsonModel.Update;
 import agricolab.model.ID;
-import agricolab.model.Offer;
 import agricolab.model.Order;
-import agricolab.model.ID;
-import agricolab.model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Repository
 public class OrderFirestoreDAO implements OrderDAO {
-
 
 
     private final OfferDAO offerDAO;
@@ -157,17 +154,17 @@ public class OrderFirestoreDAO implements OrderDAO {
 
 
     @Override
-    public ArrayList<Order> getOrdersByBuyer(String email , String productName , int state) {
+    public ArrayList<Order> getOrdersByBuyer(String email, String productName, int state) {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        Query q = orderRef.whereEqualTo("buyerEmail", email).whereLessThanOrEqualTo("state" , 1);
+        Query q = orderRef.whereEqualTo("buyerEmail", email).whereLessThanOrEqualTo("state", 1);
 
-        if(!productName.equals("all")){
-            q = q.whereEqualTo("productName" , productName);
+        if (!productName.equals("all")) {
+            q = q.whereEqualTo("productName", productName);
         }
-        if(state != -1){
-            q = q. whereEqualTo("state" , state);
+        if (state != -1) {
+            q = q.whereEqualTo("state", state);
         }
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
@@ -183,17 +180,17 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getActiveOrdersByBuyer(String email, String productName , int state) {
+    public ArrayList<Order> getActiveOrdersByBuyer(String email, String productName, int state) {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        Query q = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThanOrEqualTo("state" , 2);
+        Query q = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThanOrEqualTo("state", 2);
 
-        if(!productName.equals("all")){
-            q = q.whereEqualTo("productName" , productName);
+        if (!productName.equals("all")) {
+            q = q.whereEqualTo("productName", productName);
         }
-        if(state != -1){
-            q = q. whereEqualTo("state" , state);
+        if (state != -1) {
+            q = q.whereEqualTo("state", state);
         }
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
@@ -211,17 +208,17 @@ public class OrderFirestoreDAO implements OrderDAO {
     //SELLER METHODS -----------------------------------------
 
     @Override
-    public ArrayList<Order> getActiveOrdersBySeller(String email , String productName , int state) {
+    public ArrayList<Order> getActiveOrdersBySeller(String email, String productName, int state) {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        Query q = orderRef.whereEqualTo("sellerEmail", email).whereGreaterThanOrEqualTo("state" , 2);
+        Query q = orderRef.whereEqualTo("sellerEmail", email).whereGreaterThanOrEqualTo("state", 2);
 
-        if(!productName.equals("all")){
-            q = q.whereEqualTo("productName" , productName);
+        if (!productName.equals("all")) {
+            q = q.whereEqualTo("productName", productName);
         }
-        if(state != -1){
-            q = q. whereEqualTo("state" , state);
+        if (state != -1) {
+            q = q.whereEqualTo("state", state);
         }
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
@@ -238,17 +235,17 @@ public class OrderFirestoreDAO implements OrderDAO {
 
 
     @Override
-    public ArrayList<Order> getOrdersBySeller(String email, String productName , int state) {
+    public ArrayList<Order> getOrdersBySeller(String email, String productName, int state) {
         ArrayList<Order> userOrder = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection("order");
-        Query q = orderRef.whereEqualTo("sellerEmail", email).whereLessThanOrEqualTo("state" , 1);
+        Query q = orderRef.whereEqualTo("sellerEmail", email).whereLessThanOrEqualTo("state", 1);
 
-        if(!productName.equals("all")){
-            q = q.whereEqualTo("productName" , productName);
+        if (!productName.equals("all")) {
+            q = q.whereEqualTo("productName", productName);
         }
-        if(state != -1){
-            q = q. whereEqualTo("state" , state);
+        if (state != -1) {
+            q = q.whereEqualTo("state", state);
         }
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;

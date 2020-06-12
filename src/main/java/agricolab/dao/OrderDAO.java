@@ -1,9 +1,7 @@
 package agricolab.dao;
 
 import agricolab.JsonModel.Update;
-import agricolab.model.ID;
 import agricolab.model.Order;
-import agricolab.model.User;
 
 import java.util.ArrayList;
 
@@ -18,14 +16,14 @@ public interface OrderDAO {
     ArrayList<Order> getAllOrders();
 
     //Buyer methods
-    ArrayList<Order> getOrdersByBuyer(String email , String productName , int state);
+    ArrayList<Order> getOrdersByBuyer(String email, String productName, int state);
 
-    ArrayList<Order> getActiveOrdersByBuyer(String email, String productName , int state);
+    ArrayList<Order> getActiveOrdersByBuyer(String email, String productName, int state);
 
     //Seller methods
-    ArrayList<Order> getOrdersBySeller(String email, String productName , int state);
+    ArrayList<Order> getOrdersBySeller(String email, String productName, int state);
 
-    ArrayList<Order> getActiveOrdersBySeller(String email , String productName , int state);
+    ArrayList<Order> getActiveOrdersBySeller(String email, String productName, int state);
 
     //Update methods
 

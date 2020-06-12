@@ -1,13 +1,13 @@
 package agricolab.dao;
 
-import agricolab.model.Producto;
+import agricolab.model.Product;
 
 import java.util.ArrayList;
 
 public interface ProductoDAO {
 
-    ArrayList<Producto> getProductos();
+    ArrayList<Product> getProductos();
 
-    boolean addProduct(Producto producto);
+    boolean addProduct(Product product);
 
 }
