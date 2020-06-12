@@ -63,14 +63,16 @@ public class OrderService {
         return orderDAO.getAllOrders();
     }
 
-    public ArrayList<Order> getOrdersByBuyer(String email) {
-        return orderDAO.getOrdersByBuyer(email);
+    public ArrayList<Order> getOrdersByBuyer(String email , String productName , int state) {
+        return orderDAO.getOrdersByBuyer(email ,  productName ,  state);
     }
 
-    public ArrayList<Order> getActiveOrdersByBuyer(String email) { return orderDAO.getActiveOrdersByBuyer(email); }
+    public ArrayList<Order> getActiveOrdersByBuyer(String email, String productName , int state) {
+        return orderDAO.getActiveOrdersByBuyer(email ,productName ,  state);
+    }
 
-    public ArrayList<Order> getOrdersBySeller(String email) {
-        return orderDAO.getOrdersBySeller(email);
+    public ArrayList<Order> getOrdersBySeller(String email, String productName , int state) {
+        return orderDAO.getOrdersBySeller(email , productName ,  state);
     }
 
     public ArrayList<Order> getActiveOrdersBySeller(String email , String productName, int state){

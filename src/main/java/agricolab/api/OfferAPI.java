@@ -2,6 +2,7 @@ package agricolab.api;
 
 import agricolab.model.Comment;
 import agricolab.model.Offer;
+import agricolab.model.Producto;
 import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,4 +66,10 @@ public class OfferAPI {
     public ArrayList<Comment> getAllCommentsByOffer (@PathVariable String offerID){
         return commentService.getAllCommentsByOffer(offerID);
     }
+
+    @PostMapping("product")
+    public boolean postProduct(@RequestBody Producto producto){
+        return offerService.postProduct(producto);
+    }
+
 }

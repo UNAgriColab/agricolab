@@ -53,14 +53,19 @@ public class OrderAPI {
     }
 
 
-    @GetMapping("/buyer/{email}")
-    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email) {
-        return orderService.getOrdersByBuyer(email);
+    @GetMapping("/buyer/{email}/{productName}/{state}")
+    public ArrayList<Order> getOrdersByBuyer(@PathVariable String email ,@PathVariable String productName ,@PathVariable int state) {
+        return orderService.getOrdersByBuyer(email ,productName , state);
     }
 
-    @GetMapping("/seller/{email}")
-    public ArrayList<Order> getOrdersBySeller(@PathVariable String email) {
-        return orderService.getOrdersBySeller(email);
+    @GetMapping("/buyer/actives/{email}/{productName}/{state}")
+    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email ,@PathVariable String productName ,@PathVariable int state) {
+        return orderService.getActiveOrdersByBuyer(email , productName , state);
+    }
+
+    @GetMapping("/seller/{email}/{productName}/{state}")
+    public ArrayList<Order> getOrdersBySeller(@PathVariable String email ,@PathVariable String productName ,@PathVariable int state) {
+        return orderService.getOrdersBySeller(email , productName , state);
     }
 
     @GetMapping("/seller/actives/{email}/{productName}/{state}")
@@ -68,10 +73,6 @@ public class OrderAPI {
         return orderService.getActiveOrdersBySeller(email , productName , state);
     }
 
-    @GetMapping("/buyer/actives/{email}")
-    public ArrayList<Order> getActiveOrdersByBuyer(@PathVariable String email) {
-        return orderService.getActiveOrdersByBuyer(email);
-    }
     @PostMapping("/qualification")
     public boolean updateOrderQualification(@RequestBody Comment comment){
         return orderService.updateOrderQualification(comment);
