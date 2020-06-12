@@ -209,7 +209,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
-                userOffers.add(a.toObject(Offer.class).getId());
+                userOffers.add(String.valueOf(a.toObject(Offer.class).getId()));
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -236,7 +236,7 @@ public class OrderFirestoreDAO implements OrderDAO {
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
-                userOffers.add(a.toObject(Offer.class).getId());
+                userOffers.add(String.valueOf(a.toObject(Offer.class).getId()));
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
