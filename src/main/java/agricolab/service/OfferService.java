@@ -83,33 +83,39 @@ public class OfferService {
             }
             ofertas = inverted;
         }
-        if ((order == 3 || order ==0) && ((minPrice != 0) || (maxPrice != 0))) {
-            //filtrar por rango de precio en caso de necesitar un ordenamiento diferente
-            if ((minPrice != 0) && (maxPrice != 0)) {
-                for (Offer o : Objects.requireNonNull(ofertas)) {
-                    if (o.getPricePresentation() <= maxPrice && o.getPricePresentation() >= minPrice) {
-                        offers.add(o);
+        while (offers.size()<10 && Objects.requireNonNull(ofertas).size()!=0 ){
+            if ((order == 3 || order ==0) && ((minPrice != 0) || (maxPrice != 0))) {
+                //filtrar por rango de precio en caso de necesitar un ordenamiento diferente
+                if ((minPrice != 0) && (maxPrice != 0)) {
+                    for (Offer o : Objects.requireNonNull(ofertas)) {
+                        if (o.getPricePresentation() <= maxPrice && o.getPricePresentation() >= minPrice) {
+                            offers.add(o);
+                        }
+                    }
+                }
+                if ((minPrice != 0) && (maxPrice == 0)) {
+                    for (Offer o : Objects.requireNonNull(ofertas)) {
+                        if (o.getPricePresentation() >= minPrice) {
+                            offers.add(o);
+                        }
+                    }
+                }
+                if ((minPrice == 0) && (maxPrice != 0)) {
+                    for (Offer o : Objects.requireNonNull(ofertas)) {
+                        if (o.getPricePresentation() <= maxPrice) {
+                            offers.add(o);
+                        }
                     }
                 }
             }
-            if ((minPrice != 0) && (maxPrice == 0)) {
-                for (Offer o : Objects.requireNonNull(ofertas)) {
-                    if (o.getPricePresentation() >= minPrice) {
-                        offers.add(o);
-                    }
-                }
+            try {
+                ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
+                        order, 2, ofertas.get(ofertas.size()-1).getId());
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
             }
-            if ((minPrice == 0) && (maxPrice != 0)) {
-                for (Offer o : Objects.requireNonNull(ofertas)) {
-                    if (o.getPricePresentation() <= maxPrice) {
-                        offers.add(o);
-                    }
-                }
-            }
-        } else {
-            offers = ofertas;
-
         }
+        offers = ofertas;
         return offers;
     }
 
