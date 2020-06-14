@@ -49,7 +49,15 @@ public class UserAPI {
     public boolean createMailing(@PathVariable String email, @RequestBody Mailing mailing) {
         return userService.createMailing(email, mailing);
     }
+    @PutMapping("/address/{email}/{phoneNumber}")
+    public boolean updateUserData(@PathVariable String email, @RequestBody Mailing mailing, @PathVariable long phoneNumber) {
+        return userService.updateUserData(email, mailing,phoneNumber);
+    }
 
+    @PutMapping("/{email}/{qualification}")
+    public boolean updateUserQualification(@PathVariable String email, @PathVariable double qualification){
+        return userService.updateUserQualification(email,qualification);
+    }
     @GetMapping
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
