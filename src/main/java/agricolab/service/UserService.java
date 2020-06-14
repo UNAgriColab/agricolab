@@ -85,7 +85,11 @@ public class UserService implements UserDetailsService {
         return userDAO.createMailing(user);//, mailing);
     }
 
-    public boolean updateUser(User u) {
-        return userDAO.updateUser(u);
+    public boolean updateUserData(String email, Mailing mailing, long phoneNumber) {
+        return userDAO.updateUserData(email,mailing,phoneNumber);
+    }
+
+    public boolean updateUserQualification(String email, double qualification) {
+        return userDAO.updateUserQualification(email,qualification);
     }
 }

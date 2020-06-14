@@ -12,9 +12,6 @@ public interface UserDAO {
 
     User getUser(String email);
 
-    boolean updateUser(User u);
-
-
     void deleteUser(String email);
 
     ArrayList<User> getAllUsers();
@@ -23,4 +20,7 @@ public interface UserDAO {
 
     boolean createMailing(User user);//, Mailing mailing);
 
+    boolean updateUserData(String email, Mailing mailing, long phoneNumber);
+
+    boolean updateUserQualification(String email, double qualification);
 }

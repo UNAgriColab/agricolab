@@ -69,10 +69,13 @@ public class OfferFirestoreDAO implements OfferDAO {
 
     //DELETE
     @Override
-    public void deleteOffer(String id) {
+    public boolean deleteOffer(String id) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection("offer");
-        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("state", false);
+        ApiFuture<WriteResult> cancel = requestRef.document(id).update(updates);
+        return true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -121,6 +124,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return allOffers;
     }
+
 
     ////////////////////////////////////////////////////////////////////////////////////
     //DEVUELVE OFFERS DE UN USUARIO DADO SU EMAIL
@@ -226,7 +230,7 @@ public class OfferFirestoreDAO implements OfferDAO {
             q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
         }
         if (maxPrice != 0 && order != 3 && order!=0) {
-            q = q.whereLessThan("pricePresentation", maxPrice);
+            q = q.whereLessThanOrEqualTo("pricePresentation", maxPrice);
         }
         if (page != 1) {
             q = q.startAfter(last);
