@@ -36,10 +36,6 @@ public class OfferAPI {
         offerService.updateOffer(o);
     }
 
-    @PutMapping("/{id}/{qualification}/{numberOfReviews}")
-    public boolean updateOfferReviews(@PathVariable String id, @PathVariable double qualification, @PathVariable int numberOfReviews){
-        return offerService.updateOfferReviews(id, qualification, numberOfReviews);
-    }
     @PutMapping("del/{id}")
     public boolean deleteOffer(@PathVariable String id) {
         return offerService.deleteOffer(id);

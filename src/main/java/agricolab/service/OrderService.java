@@ -92,8 +92,7 @@ public class OrderService {
     }
 
     public boolean updateOrderQualification(Comment comment) {
-        if ((1 <= comment.getCalificacion() && comment.getCalificacion() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
-
+        if ((1 <= comment.getQualification() && comment.getQualification() <= 5) && (orderDAO.getOrder(comment.getOrderReference()).getState() == 4)) {
             Order order = orderDAO.getOrder(comment.getOrderReference());
             if (order.getQualification() != 0) {
                 System.out.println("Ya se habia realizado un review de esta orden, no se puede hacer 2 veces");
@@ -103,18 +102,18 @@ public class OrderService {
             Offer o = offerService.getOffer(order.getOfferReference());
             commentService.addComment(comment);
 
-            double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + comment.getCalificacion()) / (u.getNumberOfReviews() + 1);
+            double newQualification = ((u.getQualification() * u.getNumberOfReviews()) + comment.getQualification()) / (u.getNumberOfReviews() + 1);
 
             u.setQualification(newQualification);
             u.setNumberOfReviews(u.getNumberOfReviews() + 1);
             userService.updateUserQualification(u.getEmail(), u.getQualification());
 
-            int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getCalificacion()) / (o.getNumberOfReviews() + 1);
+            int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getQualification()) / (o.getNumberOfReviews() + 1);
             o.setQualification(offerQualification);
             o.setNumberOfReviews(o.getNumberOfReviews() + 1);
             offerService.updateOfferReviews(String.valueOf(o.getId()),o.getQualification(),o.getNumberOfReviews());
 
-            order.setQualification(comment.getCalificacion());
+            order.setQualification(comment.getQualification());
             return orderDAO.updateOrder(Integer.parseInt(order.getId()),order.getQualification());
         } else {
             System.out.println("calificacion fuera de rango no puede ser procesada");

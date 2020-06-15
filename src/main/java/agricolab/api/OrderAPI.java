@@ -34,10 +34,6 @@ public class OrderAPI {
     public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email) {
         return orderService.updateOrderStatus(id, email);
     }
-    @PutMapping("/update/{id}/{qualification}")
-    public boolean updateOrder(@PathVariable int id, @PathVariable double qualification){
-        return orderService.updateOrder(id,qualification);
-    }
 
     @PutMapping("/cancel/{id}/{email}")
     public boolean cancelOrder(@PathVariable String id, @PathVariable String email) {
