@@ -56,6 +56,12 @@ public class OrderService {
             return false;
         }
 
+        User seller = userService.getUser(order.getSellerEmail());
+        User buyer = userService.getUser(order.getBuyerEmail());
+
+        // TODO: 15/06/2020 Metodos que actualicen los respectivos campos de los usuarios arriba 
+        seller.setNumberOfOrdersrecieved(seller.getNumberOfOrdersrecieved()+1);
+        buyer.setNumberOfOrdersdone(buyer.getNumberOfOrdersdone()+1);
         // No inconsistencies, delegate return to DAO status
         return orderDAO.createOrder(order);
     }

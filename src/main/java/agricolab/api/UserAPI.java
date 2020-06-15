@@ -59,4 +59,7 @@ public class UserAPI {
         return userService.getAllUsers();
     }
 
+    @GetMapping ArrayList<Integer> getDashboard(String email){
+        return userService.getDashboard(email);
+    }
 }

@@ -13,10 +13,11 @@ public class User {
     private Mailing mailing;
     private double qualification;
     private int numberOfReviews;
+    private int numberOfOrdersdone;
+    private int numberOfOrdersrecieved;
 
     public User() {
     }
-
 
     public User(@JsonProperty("email") String email,
                 @JsonProperty("name") String name,
@@ -34,16 +35,24 @@ public class User {
         this.mailing = new Mailing();
         this.qualification = 0;
         this.numberOfReviews = 0;
+        this.numberOfOrdersdone = 0;
+        this.numberOfOrdersrecieved = 0;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                "vendor = " + seller + '\'' +
-                "phone-number= " + phoneNumber + '\'' +
+                ", seller=" + seller +
+                ", age=" + age +
+                ", phoneNumber=" + phoneNumber +
+                ", mailing=" + mailing +
+                ", qualification=" + qualification +
+                ", numberOfReviews=" + numberOfReviews +
+                ", numberOfOrdersdone=" + numberOfOrdersdone +
+                ", numberOfOrdersrecieved=" + numberOfOrdersrecieved +
                 '}';
     }
 
@@ -51,54 +60,48 @@ public class User {
         return email;
     }
 
-    public User setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public User setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public User setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public User setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
     public Boolean getSeller() {
         return seller;
     }
 
-    public User setSeller(Boolean seller) {
+    public void setSeller(Boolean seller) {
         this.seller = seller;
-        return this;
     }
 
     public int getAge() {
         return age;
     }
 
-    public User setAge(int age) {
+    public void setAge(int age) {
         this.age = age;
-        return this;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Mailing getMailing() {
@@ -113,17 +116,31 @@ public class User {
         return qualification;
     }
 
-    public User setQualification(double qualification) {
+    public void setQualification(double qualification) {
         this.qualification = qualification;
-        return this;
     }
 
     public int getNumberOfReviews() {
         return numberOfReviews;
     }
 
-    public User setNumberOfReviews(int numberOfReviews) {
+    public void setNumberOfReviews(int numberOfReviews) {
         this.numberOfReviews = numberOfReviews;
-        return this;
+    }
+
+    public int getNumberOfOrdersdone() {
+        return numberOfOrdersdone;
+    }
+
+    public void setNumberOfOrdersdone(int numberOfOrdersdone) {
+        this.numberOfOrdersdone = numberOfOrdersdone;
+    }
+
+    public int getNumberOfOrdersrecieved() {
+        return numberOfOrdersrecieved;
+    }
+
+    public void setNumberOfOrdersrecieved(int numberOfOrdersrecieved) {
+        this.numberOfOrdersrecieved = numberOfOrdersrecieved;
     }
 }
