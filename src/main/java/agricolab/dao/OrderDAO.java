@@ -13,7 +13,7 @@ public interface OrderDAO {
     //UNUSED METHODS ------------------------------------------------
     int getLastOrderId();
 
-    boolean updateOrder(Order r);
+    boolean updateOrder(int id, double qualification);
 
     Order getOrder(String id);
 
@@ -31,7 +31,7 @@ public interface OrderDAO {
 
     //Update methods
 
-    void deleteOrder(String id);
+    boolean deleteOrder(String id);
 
 
     boolean updateOrderStatus(String id, int i);

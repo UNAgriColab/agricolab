@@ -271,4 +271,13 @@ public class OfferFirestoreDAO implements OfferDAO {
         return ret;
     }
 
+    @Override
+    public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("qualification", qualification);
+        updates.put("numberOfReviews", numberOfReviews);
+        ApiFuture<WriteResult> ud = db.collection("offer").document(id).update(updates);
+        return true;
+    }
 }

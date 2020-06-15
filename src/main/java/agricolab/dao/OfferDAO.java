@@ -31,4 +31,5 @@ public interface OfferDAO {
     boolean deleteOffer(String id);
 
 
+    boolean updateOfferReviews(String id, double qualification, int numberOfReviews);
 }
