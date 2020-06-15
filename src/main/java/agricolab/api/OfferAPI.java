@@ -6,7 +6,6 @@ import agricolab.model.Product;
 import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -64,7 +63,7 @@ public class OfferAPI {
     @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}/{page}/{pivot}")
     public ArrayList<Offer> getActiveOrders(@PathVariable String productName, @PathVariable double maxPrice, @PathVariable int presentation,
                                             @PathVariable double minPrice, @PathVariable int order, @PathVariable int page,
-                                            @PathVariable int pivot) throws ExecutionException, InterruptedException {
+                                            @PathVariable int pivot){
         return offerService.getActiveOffers(productName, minPrice, maxPrice, presentation, order, page, pivot);
     }
 
