@@ -84,7 +84,7 @@ public class OrderAPI {
         return orderService.getActiveOrdersBySeller(email, productName, state);
     }
 
-    @PostMapping("/qualification")
+    @PutMapping("/qualification")
     public boolean updateOrderQualification(@RequestBody Comment comment) {
         return orderService.updateOrderQualification(comment);
     }
