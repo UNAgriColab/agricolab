@@ -101,12 +101,15 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference user = db.collection("user");
         User u = getUser(email);
-        try {
-            user.document(email).update("qualification",qualification,"numberOfReviews",u.getNumberOfReviews()+1).get();
-            return true;
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        if(u != null){
+            try {
+                user.document(email).update("qualification",qualification,"numberOfReviews",u.getNumberOfReviews()+1).get();
+                return true;
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         return false;
-    }
+        }
+
 }
