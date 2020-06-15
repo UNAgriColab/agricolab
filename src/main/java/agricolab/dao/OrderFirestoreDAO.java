@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-@Repository("Firestore")
+@Repository("OrderFirestore")
 public class OrderFirestoreDAO implements OrderDAO {
 
 

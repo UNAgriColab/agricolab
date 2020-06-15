@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-@Repository("Firestore")
+@Repository("UserFirestore")
 public class UserFirestoreDAO implements UserDAO {
 
     @Override

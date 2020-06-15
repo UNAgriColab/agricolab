@@ -6,6 +6,7 @@ import agricolab.model.Offer;
 import agricolab.model.Order;
 import agricolab.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class OrderService {
     private final CommentService commentService;
 
     @Autowired
-    public OrderService(OrderDAO orderDAO, OfferService offerService, UserService userService, CommentService commentService) {
+    public OrderService(@Qualifier("OrderFirestore") OrderDAO orderDAO, OfferService offerService, UserService userService, CommentService commentService) {
         this.orderDAO = orderDAO;
         this.offerService = offerService;
         this.userService = userService;

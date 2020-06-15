@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
 
 
     @Autowired
-    public UserService(@Qualifier("Firestore") UserDAO userDAO, OrderDAO orderDao, OfferDAO offerDAO) {
+    public UserService(@Qualifier("UserFirestore") UserDAO userDAO, OrderDAO orderDao, OfferDAO offerDAO) {
 
         this.passwordEncoder = new BCryptPasswordEncoder();
         this.userDAO = userDAO;
