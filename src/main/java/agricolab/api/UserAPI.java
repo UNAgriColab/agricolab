@@ -54,10 +54,6 @@ public class UserAPI {
         return userService.updateUserData(email, mailing,phoneNumber);
     }
 
-    @PutMapping("/{email}/{qualification}")
-    public boolean updateUserQualification(@PathVariable String email, @PathVariable double qualification){
-        return userService.updateUserQualification(email,qualification);
-    }
     @GetMapping
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
