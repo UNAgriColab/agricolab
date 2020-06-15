@@ -32,4 +32,7 @@ public interface OfferDAO {
 
 
     boolean updateOfferReviews(String id, double qualification, int numberOfReviews);
+
+    ArrayList<Offer> getSuggestedOffers(String email);
+
 }
