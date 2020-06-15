@@ -7,9 +7,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Repository("UserFirestore")
@@ -88,11 +86,29 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public boolean updateUser(User u) {
-        Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("user").document(u.getEmail());
-        ApiFuture<WriteResult> future = ref.set(u);
-        return false;
+        public boolean updateUserData(String email, Mailing mailing, long phoneNumber) {
+            Firestore db = FirestoreClient.getFirestore();
+        CollectionReference user = db.collection("user");
+        User u = getUser(email);
+        u.setMailing(mailing);
+        u.setPhoneNumber(phoneNumber);
+        ApiFuture<WriteResult> update = user.document(email).set(u);
+        return true;
     }
 
+    @Override
+    public boolean updateUserQualification(String email, double qualification) {
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference user = db.collection("user");
+        User u = getUser(email);
+        if(u != null){
+            try {
+                user.document(email).update("qualification",qualification,"numberOfReviews",u.getNumberOfReviews()+1).get();
+                return true;
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+        }
 }

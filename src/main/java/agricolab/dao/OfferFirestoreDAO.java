@@ -69,10 +69,13 @@ public class OfferFirestoreDAO implements OfferDAO {
 
     //DELETE
     @Override
-    public void deleteOffer(String id) {
+    public boolean deleteOffer(String id) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection("offer");
-        ApiFuture<WriteResult> writeResult = requestRef.document(id).delete();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("state", false);
+        ApiFuture<WriteResult> cancel = requestRef.document(id).update(updates);
+        return true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -121,6 +124,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         }
         return allOffers;
     }
+
 
     ////////////////////////////////////////////////////////////////////////////////////
     //DEVUELVE OFFERS DE UN USUARIO DADO SU EMAIL
@@ -222,11 +226,11 @@ public class OfferFirestoreDAO implements OfferDAO {
         if (presentation != 0) {
             q = q.whereEqualTo("presentation", presentation);
         }
-        if (minPrice != 0 && order != 3) {
+        if (minPrice != 0 && order != 3 && order!=0) {
             q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
         }
-        if (maxPrice != 0 && order != 3) {
-            q = q.whereLessThan("pricePresentation", maxPrice);
+        if (maxPrice != 0 && order != 3 && order!=0) {
+            q = q.whereLessThanOrEqualTo("pricePresentation", maxPrice);
         }
         if (page != 1) {
             q = q.startAfter(last);
@@ -267,4 +271,13 @@ public class OfferFirestoreDAO implements OfferDAO {
         return ret;
     }
 
+    @Override
+    public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("qualification", qualification);
+        updates.put("numberOfReviews", numberOfReviews);
+        ApiFuture<WriteResult> ud = db.collection("offer").document(id).update(updates);
+        return true;
+    }
 }

@@ -5,30 +5,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Comment {
 
     private String id;
-    private String commentario;
+    private String comment;
     private String orderReference;
-    private int calificacion;
+    private int qualification;
 
     public Comment() {
 
     }
 
-    public Comment(@JsonProperty("commentario") String commentario,
+    public Comment(@JsonProperty("comment") String comment,
                    @JsonProperty("orderReference") String orderReference,
-                   @JsonProperty("calificacion") int calificacion) {
+                   @JsonProperty("qualification") int qualification) {
         this.id = "";
-        this.commentario = commentario;
+        this.comment = comment;
         this.orderReference = orderReference;
-        this.calificacion = calificacion;
+        this.qualification = qualification;
     }
 
     @Override
     public String toString() {
         return "Comment{" +
                 "id='" + id + '\'' +
-                ", commentario='" + commentario + '\'' +
+                ", comment='" + comment + '\'' +
                 ", orderReference='" + orderReference + '\'' +
-                ", calificacion='" + calificacion + '\'' +
+                ", qualification=" + qualification +
                 '}';
     }
 
@@ -40,12 +40,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getCommentario() {
-        return commentario;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCommentario(String commentario) {
-        this.commentario = commentario;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getOrderReference() {
@@ -56,11 +56,11 @@ public class Comment {
         this.orderReference = orderReference;
     }
 
-    public int getCalificacion() {
-        return calificacion;
+    public int getQualification() {
+        return qualification;
     }
 
-    public void setCalificacion(int calificacion) {
-        this.calificacion = calificacion;
+    public void setQualification(int qualification) {
+        this.qualification = qualification;
     }
 }

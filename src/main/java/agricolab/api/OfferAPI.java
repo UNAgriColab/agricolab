@@ -6,6 +6,7 @@ import agricolab.model.Product;
 import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class OfferAPI {
         offerService.updateOffer(o);
     }
 
-    @DeleteMapping("del/{id}")
-    public void deleteOffer(@PathVariable String id) {
-        offerService.deleteOffer(id);
+    @PutMapping("del/{id}")
+    public boolean deleteOffer(@PathVariable String id) {
+        return offerService.deleteOffer(id);
     }
 
     @GetMapping("/{id}")
