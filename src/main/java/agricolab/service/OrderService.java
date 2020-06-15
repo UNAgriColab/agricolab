@@ -131,9 +131,6 @@ public class OrderService {
     public boolean updateOrderStatus(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if (theOrder.equals(null)) {
-            return false;
-        }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible update)
@@ -164,9 +161,6 @@ public class OrderService {
     public boolean cancelOrder(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if (theOrder.equals(null)) {
-            return false;
-        }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible cancel)
@@ -190,6 +184,14 @@ public class OrderService {
         } else {
             return false;
         }
+    }
+
+    public ArrayList<Order> getVentasDashboard (String email){
+        return orderDAO.getVentasDashboard(email);
+    }
+
+    public ArrayList<Order> getComprasDashboard (String email){
+        return orderDAO.getComprasDashboard(email);
     }
 
     public boolean updateOrder(int id, double qualification) {
