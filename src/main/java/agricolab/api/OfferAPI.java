@@ -54,9 +54,6 @@ public class OfferAPI {
         return offerService.getAllOffers();
     }
 
-    @GetMapping("/suggested/{email}")
-    public ArrayList<Offer> getSuggestedOffers(@PathVariable String email){return offerService.getSuggestedOffers(email);}
-
     @GetMapping("/user/{email}")
     public ArrayList<Offer> getOffersByUser(@PathVariable String email) {
         return offerService.gerOffersByUser(email);
@@ -74,10 +71,8 @@ public class OfferAPI {
         return commentService.getAllCommentsByOffer(offerID);
     }
 
-    @PostMapping("product")
-    public boolean postProduct(@RequestBody Product product) {
-        return offerService.postProduct(product);
-    }
+    @GetMapping("/suggested/{email}")
+    public ArrayList<Offer> getSuggestedOffers(@PathVariable String email){return offerService.getSuggestedOffers(email);}
 
     @GetMapping("numberOfOffers")
     public int getNumberofOffers(){return offerService.getNumberofOffers();}
