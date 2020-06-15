@@ -25,9 +25,9 @@ public class OrderAPI {
         return orderService.addOrder(r);
     }
 
-    @DeleteMapping("del/{id}")
-    public void deleteOrder(@PathVariable String id) {
-        orderService.deleteOrder(id);
+    @PutMapping("del/{id}")
+    public boolean deleteOrder(@PathVariable String id) {
+        return orderService.deleteOrder(id);
     }
 
     @PutMapping("/update/{id}/{email}")
@@ -80,7 +80,7 @@ public class OrderAPI {
         return orderService.getActiveOrdersBySeller(email, productName, state);
     }
 
-    @PostMapping("/qualification")
+    @PutMapping("/qualification")
     public boolean updateOrderQualification(@RequestBody Comment comment) {
         return orderService.updateOrderQualification(comment);
     }

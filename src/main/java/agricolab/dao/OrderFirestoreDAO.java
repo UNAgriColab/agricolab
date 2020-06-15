@@ -8,9 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Repository("OrderFirestore")
@@ -63,10 +61,12 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public boolean updateOrder(Order r) {
+    public boolean updateOrder(int id, double qualification) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("order").document(r.getId());
-        ApiFuture<WriteResult> future = ref.set(r);
+        DocumentReference ref = db.collection("order").document(String.valueOf(id));
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("qualification", qualification);
+        ApiFuture<WriteResult> future = ref.update(updates);
         return true;
     }
 
@@ -195,9 +195,11 @@ public class OrderFirestoreDAO implements OrderDAO {
     }
 
     @Override
-    public void deleteOrder(String id) {
-        //UNUSED
-        System.out.println("No implementado");
+    public boolean deleteOrder(String id) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(id);
+        ApiFuture<WriteResult> result = ref.delete();
+        return true;
     }
     //BUYER METHODS ------------------------------------------
 
