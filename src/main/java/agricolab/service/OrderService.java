@@ -112,7 +112,7 @@ public class OrderService {
             int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getCalificacion()) / (o.getNumberOfReviews() + 1);
             o.setQualification(offerQualification);
             o.setNumberOfReviews(o.getNumberOfReviews() + 1);
-            offerService.updateOffer(o);
+            offerService.updateOfferReviews(String.valueOf(o.getId()),o.getQualification(),o.getNumberOfReviews());
 
             order.setQualification(comment.getCalificacion());
             return orderDAO.updateOrder(Integer.parseInt(order.getId()),order.getQualification());
