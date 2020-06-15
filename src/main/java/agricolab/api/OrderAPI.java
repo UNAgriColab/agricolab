@@ -25,14 +25,18 @@ public class OrderAPI {
         return orderService.addOrder(r);
     }
 
-    @DeleteMapping("del/{id}")
-    public void deleteOrder(@PathVariable String id) {
-        orderService.deleteOrder(id);
+    @PutMapping("del/{id}")
+    public boolean deleteOrder(@PathVariable String id) {
+        return orderService.deleteOrder(id);
     }
 
     @PutMapping("/update/{id}/{email}")
     public boolean updateOrderStatus(@PathVariable String id, @PathVariable String email) {
         return orderService.updateOrderStatus(id, email);
+    }
+    @PutMapping("/update/{id}/{qualification}")
+    public boolean updateOrder(@PathVariable int id, @PathVariable double qualification){
+        return orderService.updateOrder(id,qualification);
     }
 
     @PutMapping("/cancel/{id}/{email}")

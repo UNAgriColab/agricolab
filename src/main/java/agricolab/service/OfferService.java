@@ -147,4 +147,7 @@ public class OfferService {
         return offerDAO.getLastOfferId();
     }
 
+    public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
+        return offerDAO.updateOfferReviews(id, qualification,numberOfReviews);
+    }
 }

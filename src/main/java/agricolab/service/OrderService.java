@@ -83,8 +83,8 @@ public class OrderService {
         return orderDAO.getActiveOrdersBySeller(email, productName, state);
     }
 
-    public void deleteOrder(String id) {
-        orderDAO.deleteOrder(id);
+    public boolean deleteOrder(String id) {
+        return orderDAO.deleteOrder(id);
     }
 
     public int getLastOrderId() {
@@ -107,7 +107,7 @@ public class OrderService {
 
             u.setQualification(newQualification);
             u.setNumberOfReviews(u.getNumberOfReviews() + 1);
-            userService.updateUserQualification(u.getEmail(),u.getQualification());
+            userService.updateUserQualification(u.getEmail(), u.getQualification());
 
             int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getCalificacion()) / (o.getNumberOfReviews() + 1);
             o.setQualification(offerQualification);
@@ -115,7 +115,7 @@ public class OrderService {
             offerService.updateOffer(o);
 
             order.setQualification(comment.getCalificacion());
-            return orderDAO.updateOrder(order);
+            return orderDAO.updateOrder(Integer.parseInt(order.getId()),order.getQualification());
         } else {
             System.out.println("calificacion fuera de rango no puede ser procesada");
             return false;
@@ -184,5 +184,9 @@ public class OrderService {
         } else {
             return false;
         }
+    }
+
+    public boolean updateOrder(int id, double qualification) {
+        return orderDAO.updateOrder(id, qualification);
     }
 }
