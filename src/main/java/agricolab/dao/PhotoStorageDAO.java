@@ -1,17 +1,19 @@
 package agricolab.dao;
 
-import com.google.cloud.storage.*;
+import com.google.api.gax.paging.Page;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.stereotype.Repository;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 
-@Repository("Firestore")
-public class PhotoStorageDAO implements PhotoDAO{
+@Repository("PhotoFirestore")
+public class PhotoStorageDAO implements PhotoDAO {
 
     @Override
-    public boolean uploadObject(String objectName, byte[] objectBytes){
+    public boolean uploadObject(String objectName, byte[] objectBytes) {
         Bucket bucket = StorageClient.getInstance().bucket();
         //BlobId blobId = BlobId.of(bucket.getName(), objectName);
         //BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
@@ -24,5 +26,16 @@ public class PhotoStorageDAO implements PhotoDAO{
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<String> listObjects(String objectFolder) {
+        Bucket bucket = StorageClient.getInstance().bucket();
+        Page<Blob> blobs = bucket.list(Storage.BlobListOption.prefix(objectFolder), Storage.BlobListOption.currentDirectory());
+        ArrayList<String> objectList = new ArrayList<>();
+        for (Blob blob : blobs.iterateAll()) {
+            objectList.add(blob.getName());
+        }
+        return objectList;
     }
 }
