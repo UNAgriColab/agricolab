@@ -110,5 +110,24 @@ public class UserFirestoreDAO implements UserDAO {
             }
         }
         return false;
-        }
+    }
+
+    @Override
+    public void updateOffersRecieved(String email, int newNum) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("user").document(email);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("numberOfOrdersRecieved", newNum);
+        ApiFuture<WriteResult> future = ref.update(updates);
+    }
+
+    @Override
+    public void updateOffersMade(String email, int newNum) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("user").document(email);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("numberOfOrdersDone", newNum);
+        ApiFuture<WriteResult> future = ref.update(updates);
+    }
+
 }
