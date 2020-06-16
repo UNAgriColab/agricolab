@@ -23,4 +23,8 @@ public interface UserDAO {
     boolean updateUserData(String email, Mailing mailing, long phoneNumber);
 
     boolean updateUserQualification(String email, double qualification);
+
+    void updateOffersRecieved(String email, int newNum);
+
+    void updateOffersMade(String email, int newNum);
 }

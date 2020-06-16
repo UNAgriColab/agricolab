@@ -39,7 +39,5 @@ public interface OrderDAO {
 
     boolean updateOrderStatus(String id, int i);
 
-    void updateOffersRecieved(String email, int newNum);
 
-    void updateOffersMade(String email, int newNum);
 }
