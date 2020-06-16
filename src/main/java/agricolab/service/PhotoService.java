@@ -19,8 +19,15 @@ public class PhotoService {
     }
 
     public boolean uploadPhoto(String offer, String originalFilename, byte[] fileBytes) {
-        String objName = "photos/" + offer + "/" + originalFilename;
-        return photoDAO.uploadObject(objName, fileBytes);
+        // TODO: Confirm photo limits and handling
+
+        // Check for empty photo list and upload photo, else abort upload
+        if(listPhotos(offer).isEmpty()){
+            String objName = "photos/" + offer + "/" + originalFilename;
+            return photoDAO.uploadObject(objName, fileBytes);
+        } else {
+            return false;
+        }
     }
 
     public ArrayList<String> listPhotos(String offer) {
