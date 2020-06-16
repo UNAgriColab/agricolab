@@ -76,18 +76,18 @@ public class OfferService {
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        if(page == 0){
+            ofertas = invert(ofertas);
+        }
         if ((order == 3 || order == 0) && ((minPrice != 0) || (maxPrice != 0))) {
-            do {
+            while (offers.size() < 10 && Objects.requireNonNull(ofertas).size() != 0){
                 //filtrar por rango de precio en caso de necesitar un ordenamiento diferente
                 if ((minPrice != 0) && (maxPrice != 0)) {
                     for (Offer o : Objects.requireNonNull(ofertas)) {
-                        if (page == 0) {
-                            ofertas = invert(ofertas);
-                        }
                         if (o.getPricePresentation() <= maxPrice && o.getPricePresentation() >= minPrice) {
                             if (offers.size() < 10) {
                                 offers.add(o);
-                                System.out.println("SE AÑADIO= " + o.getId());
+                                System.out.println("......MAX PRICE Y MIN PRICE DISTINTO DE 0...... SE AÑADIO= " + o.getId());
                             }
                         }
                     }
@@ -96,6 +96,7 @@ public class OfferService {
                         if (o.getPricePresentation() >= minPrice) {
                             if (offers.size() < 10) {
                                 offers.add(o);
+                                System.out.println("......MAX PRICE EN 0 Y MIN PRICE DISTINTO DE 0...... SE AÑADIO= " + o.getId());
                             }
                         }
                     }
@@ -104,27 +105,26 @@ public class OfferService {
                         if (o.getPricePresentation() <= maxPrice) {
                             if (offers.size() < 10) {
                                 offers.add(o);
+                                System.out.println("......MAX PRICE DISTINTO DE 0 Y MIN PRICE EN 0...... SE AÑADIO= " + o.getId());
                             }
                         }
                     }
                 }
-
                 try {
                     if (page == 0 && Objects.requireNonNull(ofertas).size() != 0) {
                         System.out.println("pagina anterior y tamaño de ofertas distinto de 0");
                         ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
                                 order, 0, ofertas.get(ofertas.size() - 1).getId());
+                        ofertas = invert(ofertas);
                     } else if (Objects.requireNonNull(ofertas).size() != 0){
                         System.out.println("pagina siguiente y tamaño de ofertas igual a 0");
                         ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
                                 order, 2, ofertas.get(ofertas.size() - 1).getId());
                     }
+
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-            }while (offers.size() < 10 && Objects.requireNonNull(ofertas).size() != 0);
-            if (page == 0){
-                offers = invert(offers);
             }
             return offers;
         }
