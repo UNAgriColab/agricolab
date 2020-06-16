@@ -13,8 +13,8 @@ public class User {
     private Mailing mailing;
     private double qualification;
     private int numberOfReviews;
-    private int numberOfOrdersdone;
-    private int numberOfOrdersrecieved;
+    private int numberOfOrdersDone;
+    private int numberOfOrdersRecieved;
 
     public User() {
     }
@@ -35,8 +35,8 @@ public class User {
         this.mailing = new Mailing();
         this.qualification = 0;
         this.numberOfReviews = 0;
-        this.numberOfOrdersdone = 0;
-        this.numberOfOrdersrecieved = 0;
+        this.numberOfOrdersDone = 0;
+        this.numberOfOrdersRecieved = 0;
     }
 
     @Override
@@ -51,8 +51,8 @@ public class User {
                 ", mailing=" + mailing +
                 ", qualification=" + qualification +
                 ", numberOfReviews=" + numberOfReviews +
-                ", numberOfOrdersdone=" + numberOfOrdersdone +
-                ", numberOfOrdersrecieved=" + numberOfOrdersrecieved +
+                ", numberOfOrdersdone=" + numberOfOrdersDone +
+                ", numberOfOrdersrecieved=" + numberOfOrdersRecieved +
                 '}';
     }
 
@@ -128,19 +128,19 @@ public class User {
         this.numberOfReviews = numberOfReviews;
     }
 
-    public int getNumberOfOrdersdone() {
-        return numberOfOrdersdone;
+    public int getNumberOfOrdersDone() {
+        return numberOfOrdersDone;
     }
 
-    public void setNumberOfOrdersdone(int numberOfOrdersdone) {
-        this.numberOfOrdersdone = numberOfOrdersdone;
+    public void setNumberOfOrdersDone(int numberOfOrdersDone) {
+        this.numberOfOrdersDone = numberOfOrdersDone;
     }
 
-    public int getNumberOfOrdersrecieved() {
-        return numberOfOrdersrecieved;
+    public int getNumberOfOrdersRecieved() {
+        return numberOfOrdersRecieved;
     }
 
-    public void setNumberOfOrdersrecieved(int numberOfOrdersrecieved) {
-        this.numberOfOrdersrecieved = numberOfOrdersrecieved;
+    public void setNumberOfOrdersRecieved(int numberOfOrdersRecieved) {
+        this.numberOfOrdersRecieved = numberOfOrdersRecieved;
     }
 }
