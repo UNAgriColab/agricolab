@@ -38,4 +38,8 @@ public interface OrderDAO {
     ArrayList<Order> getComprasDashboard(String email);
 
     boolean updateOrderStatus(String id, int i);
+
+    void updateOffersRecieved(String email, int newNum);
+
+    void updateOffersMade(String email, int newNum);
 }

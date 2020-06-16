@@ -284,6 +284,24 @@ public class OrderFirestoreDAO implements OrderDAO {
         return result != null;
     }
 
+    @Override
+    public void updateOffersRecieved(String email, int newNum) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(email);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("numberOfOrdersRecieved", newNum);
+        ApiFuture<WriteResult> future = ref.update(updates);
+    }
+
+    @Override
+    public void updateOffersMade(String email, int newNum) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(email);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("numberOfOrdersDone", newNum);
+        ApiFuture<WriteResult> future = ref.update(updates);
+    }
+
     // AUXILIARY METHODS-------------------------------------------------
 
     public ID setOrderId() {

@@ -96,8 +96,8 @@ public class UserService implements UserDetailsService {
     public ArrayList<Integer> getDashboard(String email) {
         ArrayList<Integer> data= new ArrayList<>();
         User u = userDAO.getUser(email);
-        data.add(u.getNumberOfOrdersdone()) ;
-        data.add(u.getNumberOfOrdersrecieved());
+        data.add(u.getNumberOfOrdersDone()) ;
+        data.add(u.getNumberOfOrdersRecieved());
         if(u.getMailing()== null){
             data.add(0);
         }else{
