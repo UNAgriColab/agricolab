@@ -19,9 +19,7 @@ public class UserFirestoreDAO implements UserDAO {
 
         Firestore db = FirestoreClient.getFirestore();
         db.collection(FirestoreDAO.COLLECTION_USER).document(user.getEmail()).set(user);
-        System.out.println(user);
         return true;
-
     }
 
     @Override
@@ -62,7 +60,6 @@ public class UserFirestoreDAO implements UserDAO {
             for (QueryDocumentSnapshot a : docList) {
                 allUsers.add(a.toObject(User.class));
             }
-            System.out.println(allUsers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
