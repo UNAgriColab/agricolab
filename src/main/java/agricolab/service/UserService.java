@@ -47,6 +47,10 @@ public class UserService implements UserDetailsService {
             System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
             return false;
         }
+        if(user.getPassword().matches("[0-9A-F]+")){
+            System.out.println("contraseña invalida, debe contener almenos un numero y una mayuscula");
+            return false;
+        }
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return userDAO.createUser(user);
     }
@@ -81,7 +85,6 @@ public class UserService implements UserDetailsService {
     public boolean createMailing(String email, Mailing mailing) {
         User user = getUser(email);
         user.setMailing(mailing);
-        System.out.println(mailing);
         return userDAO.createMailing(user);//, mailing);
     }
 
