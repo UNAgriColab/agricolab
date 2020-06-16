@@ -106,4 +106,13 @@ public class UserService implements UserDetailsService {
         data.add(offerDAO.getAllOffers().size()+1);
         return  data;
     }
+    //ordenes que recibe un usuario vendedor
+    public void updateOrdersRecieved(String email, int newNum){
+        userDAO.updateOffersRecieved(email,newNum);
+    }
+
+    //ordenes que hace un usuario comprador
+    public void updateOrdersMade(String email, int newNum){
+        userDAO.updateOffersMade(email, newNum);
+    }
 }
