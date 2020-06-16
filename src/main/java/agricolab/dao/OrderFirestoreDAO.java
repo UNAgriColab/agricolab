@@ -239,7 +239,6 @@ public class OrderFirestoreDAO implements OrderDAO {
         }
         return userOrder;
     }
-    //BUYER METHODS ------------------------------------------
 
     //SELLER METHODS -----------------------------------------
     @Override
@@ -279,8 +278,6 @@ public class OrderFirestoreDAO implements OrderDAO {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        //System.out.println("Write result: " + result);
-        // true if success, false if still null
         return result != null;
     }
 
