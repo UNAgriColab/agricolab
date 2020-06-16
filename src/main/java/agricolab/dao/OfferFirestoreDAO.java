@@ -118,7 +118,6 @@ public class OfferFirestoreDAO implements OfferDAO {
             for (QueryDocumentSnapshot a : docList) {
                 allOffers.add(a.toObject(Offer.class));
             }
-            System.out.println(allOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -242,7 +241,6 @@ public class OfferFirestoreDAO implements OfferDAO {
             docList = future.get(30, TimeUnit.SECONDS).getDocuments();
             for (QueryDocumentSnapshot a : docList) {
                 activeOffers.add(a.toObject(Offer.class));
-                System.out.println(a.toObject(Offer.class));
             }
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();

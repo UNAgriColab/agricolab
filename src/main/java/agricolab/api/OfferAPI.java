@@ -74,6 +74,4 @@ public class OfferAPI {
     @GetMapping("/suggested/{email}")
     public ArrayList<Offer> getSuggestedOffers(@PathVariable String email){return offerService.getSuggestedOffers(email);}
 
-    @GetMapping("numberOfOffers")
-    public int getNumberofOffers(){return offerService.getNumberofOffers();}
 }

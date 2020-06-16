@@ -165,9 +165,4 @@ public class OfferService {
         }
         return addedOffers;
     }
-
-    public int getNumberofOffers(){
-        return getAllOffers().size()+1;
-    }
-
 }
