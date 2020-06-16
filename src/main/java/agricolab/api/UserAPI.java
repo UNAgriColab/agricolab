@@ -71,7 +71,9 @@ public class UserAPI {
         return userService.getAllUsers();
     }
 
-    @GetMapping ArrayList<Integer> getDashboard(String email){
+    @GetMapping("dashboard/{email}")
+    ArrayList<Integer> getDashboard(@PathVariable String email){
         return userService.getDashboard(email);
     }
+
 }

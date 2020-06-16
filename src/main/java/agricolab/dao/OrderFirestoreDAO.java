@@ -201,6 +201,44 @@ public class OrderFirestoreDAO implements OrderDAO {
         ApiFuture<WriteResult> result = ref.delete();
         return true;
     }
+
+    @Override
+    public ArrayList<Order> getVentasDashboard(String email) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        Query q = orderRef.whereEqualTo("sellerEmail", email).whereGreaterThanOrEqualTo("state", 2).limit(5);
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
+
+    @Override
+    public ArrayList<Order> getComprasDashboard(String email) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        Query q = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThanOrEqualTo("state", 2).limit(5);
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
     //BUYER METHODS ------------------------------------------
 
     //SELLER METHODS -----------------------------------------
