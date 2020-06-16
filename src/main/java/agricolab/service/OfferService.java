@@ -38,7 +38,7 @@ public class OfferService {
     }
 
     public boolean addOffer(Offer offer) {
-        if (productoValdo(offer.getProductName()) && offerDAO.getOffersByUserAndProduct(offer.getSellerEmail(), offer.getProductName()).isEmpty()) {
+        if (productoValdo(offer.getProductName()) && offerDAO.getOffersByUserAndProduct(offer.getSellerEmail(), offer.getProductName()).isEmpty() && offer.getPresentation()>0 && offer.getPresentation()<6) {
             return offerDAO.createOffer(offer);
         } else {
             return false;
