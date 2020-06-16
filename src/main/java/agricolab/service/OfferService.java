@@ -110,11 +110,11 @@ public class OfferService {
                 }
 
                 try {
-                    if (page == 0 && ofertas.size() != 0) {
+                    if (page == 0 && Objects.requireNonNull(ofertas).size() != 0) {
                         System.out.println("pagina anterior y tamaño de ofertas distinto de 0");
                         ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
                                 order, 0, ofertas.get(ofertas.size() - 1).getId());
-                    } else if (ofertas.size() != 0){
+                    } else if (Objects.requireNonNull(ofertas).size() != 0){
                         System.out.println("pagina siguiente y tamaño de ofertas igual a 0");
                         ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
                                 order, 2, ofertas.get(ofertas.size() - 1).getId());
@@ -149,5 +149,20 @@ public class OfferService {
 
     public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
         return offerDAO.updateOfferReviews(id, qualification,numberOfReviews);
+    }
+
+    public ArrayList<Offer> getSuggestedOffers(String email) {
+        ArrayList<Offer> offers =  offerDAO.getSuggestedOffers(email);
+        ArrayList<Offer> addedOffers = new ArrayList<>();
+
+        for (Offer o : offers) {
+            if (!o.getSellerEmail().equalsIgnoreCase(email)){
+                addedOffers.add(o);
+                if(addedOffers.size()==5){
+                    break;
+                }
+            }
+        }
+        return addedOffers;
     }
 }

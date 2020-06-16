@@ -6,11 +6,9 @@ import agricolab.model.Product;
 import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/offer")
@@ -64,7 +62,7 @@ public class OfferAPI {
     @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}/{page}/{pivot}")
     public ArrayList<Offer> getActiveOrders(@PathVariable String productName, @PathVariable double maxPrice, @PathVariable int presentation,
                                             @PathVariable double minPrice, @PathVariable int order, @PathVariable int page,
-                                            @PathVariable int pivot) throws ExecutionException, InterruptedException {
+                                            @PathVariable int pivot){
         return offerService.getActiveOffers(productName, minPrice, maxPrice, presentation, order, page, pivot);
     }
 
@@ -73,9 +71,7 @@ public class OfferAPI {
         return commentService.getAllCommentsByOffer(offerID);
     }
 
-    @PostMapping("product")
-    public boolean postProduct(@RequestBody Product product) {
-        return offerService.postProduct(product);
-    }
+    @GetMapping("/suggested/{email}")
+    public ArrayList<Offer> getSuggestedOffers(@PathVariable String email){return offerService.getSuggestedOffers(email);}
 
 }

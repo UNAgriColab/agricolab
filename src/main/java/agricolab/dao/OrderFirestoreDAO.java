@@ -201,7 +201,44 @@ public class OrderFirestoreDAO implements OrderDAO {
         ApiFuture<WriteResult> result = ref.delete();
         return true;
     }
-    //BUYER METHODS ------------------------------------------
+
+    @Override
+    public ArrayList<Order> getVentasDashboard(String email) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        Query q = orderRef.whereEqualTo("sellerEmail", email).whereGreaterThanOrEqualTo("state", 2).limit(5);
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
+
+    @Override
+    public ArrayList<Order> getComprasDashboard(String email) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection("order");
+        Query q = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThanOrEqualTo("state", 2).limit(5);
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
 
     //SELLER METHODS -----------------------------------------
     @Override
@@ -241,9 +278,25 @@ public class OrderFirestoreDAO implements OrderDAO {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        //System.out.println("Write result: " + result);
-        // true if success, false if still null
         return result != null;
+    }
+
+    @Override
+    public void updateOffersRecieved(String email, int newNum) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(email);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("numberOfOrdersRecieved", newNum);
+        ApiFuture<WriteResult> future = ref.update(updates);
+    }
+
+    @Override
+    public void updateOffersMade(String email, int newNum) {
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference ref = db.collection("order").document(email);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("numberOfOrdersDone", newNum);
+        ApiFuture<WriteResult> future = ref.update(updates);
     }
 
     // AUXILIARY METHODS-------------------------------------------------
