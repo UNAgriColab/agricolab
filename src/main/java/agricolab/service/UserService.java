@@ -92,4 +92,18 @@ public class UserService implements UserDetailsService {
     public boolean updateUserQualification(String email, double qualification) {
         return userDAO.updateUserQualification(email,qualification);
     }
+
+    public ArrayList<Integer> getDashboard(String email) {
+        ArrayList<Integer> data= new ArrayList<>();
+        User u = userDAO.getUser(email);
+        data.add(u.getNumberOfOrdersDone()) ;
+        data.add(u.getNumberOfOrdersRecieved());
+        if(u.getMailing()== null){
+            data.add(0);
+        }else{
+            data.add(1);
+        }
+        data.add(offerDAO.getAllOffers().size()+1);
+        return  data;
+    }
 }

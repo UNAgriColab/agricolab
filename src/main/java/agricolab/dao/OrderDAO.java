@@ -33,6 +33,13 @@ public interface OrderDAO {
 
     boolean deleteOrder(String id);
 
+    ArrayList<Order> getVentasDashboard(String email);
+
+    ArrayList<Order> getComprasDashboard(String email);
 
     boolean updateOrderStatus(String id, int i);
+
+    void updateOffersRecieved(String email, int newNum);
+
+    void updateOffersMade(String email, int newNum);
 }

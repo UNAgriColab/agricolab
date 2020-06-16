@@ -111,14 +111,13 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> allOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference offerRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = offerRef.get();
+        ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("state"  , true).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
                 allOffers.add(a.toObject(Offer.class));
             }
-            System.out.println(allOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -132,14 +131,14 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> userOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection("offer");
-        ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("sellerEmail", email).get();
+        Query q = requestRef.whereEqualTo("sellerEmail", email);
+        ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
             for (QueryDocumentSnapshot a : docList) {
                 userOffers.add(a.toObject(Offer.class));
             }
-            System.out.println(userOffers);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -242,7 +241,6 @@ public class OfferFirestoreDAO implements OfferDAO {
             docList = future.get(30, TimeUnit.SECONDS).getDocuments();
             for (QueryDocumentSnapshot a : docList) {
                 activeOffers.add(a.toObject(Offer.class));
-                System.out.println(a.toObject(Offer.class));
             }
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.printStackTrace();
@@ -251,6 +249,35 @@ public class OfferFirestoreDAO implements OfferDAO {
     }
 
 
+    @Override
+    public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
+        Firestore db = FirestoreClient.getFirestore();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("qualification", qualification);
+        updates.put("numberOfReviews", numberOfReviews);
+        ApiFuture<WriteResult> ud = db.collection("offer").document(id).update(updates);
+        return true;
+    }
+
+    @Override
+    public ArrayList<Offer> getSuggestedOffers(String email) {
+        ArrayList<Offer> userOffers = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference requestRef = db.collection("offer");
+        Query q = requestRef.whereEqualTo("state", true)
+                .orderBy("qualification" , Query.Direction.DESCENDING);
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOffers.add(a.toObject(Offer.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOffers;
+    }
     //AUXILIARY METHODS
 
     public int getLastOfferId() {
@@ -271,13 +298,4 @@ public class OfferFirestoreDAO implements OfferDAO {
         return ret;
     }
 
-    @Override
-    public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
-        Firestore db = FirestoreClient.getFirestore();
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("qualification", qualification);
-        updates.put("numberOfReviews", numberOfReviews);
-        ApiFuture<WriteResult> ud = db.collection("offer").document(id).update(updates);
-        return true;
-    }
 }

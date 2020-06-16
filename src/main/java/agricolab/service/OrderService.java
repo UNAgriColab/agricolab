@@ -56,10 +56,29 @@ public class OrderService {
             return false;
         }
 
+        User seller = userService.getUser(order.getSellerEmail());
+        User buyer = userService.getUser(order.getBuyerEmail());
+
+        // TODO: 15/06/2020 Metodos que actualicen los respectivos campos de los usuarios arriba 
+        seller.setNumberOfOrdersRecieved(seller.getNumberOfOrdersRecieved()+1);
+        buyer.setNumberOfOrdersDone(buyer.getNumberOfOrdersDone()+1);
+
+        updateOffersRecieved(seller.getEmail(),seller.getNumberOfOrdersRecieved());
+        updateOffersMade(buyer.getEmail(), buyer.getNumberOfOrdersDone());
+
         // No inconsistencies, delegate return to DAO status
         return orderDAO.createOrder(order);
     }
+    //ordenes que recibe un usuario vendedor
+    public void updateOffersRecieved(String email, int newNum){
+        orderDAO.updateOffersRecieved(email,newNum);
+    }
 
+    //ordenes que hace un usuario comprador
+    public void updateOffersMade(String email, int newNum){
+        orderDAO.updateOffersMade(email, newNum);
+    }
+    //buyer // numero de ofertas que hace
     public Order getOrder(String id) {
         return orderDAO.getOrder(id);
     }
@@ -125,9 +144,6 @@ public class OrderService {
     public boolean updateOrderStatus(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if (theOrder.equals(null)) {
-            return false;
-        }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible update)
@@ -158,9 +174,6 @@ public class OrderService {
     public boolean cancelOrder(String id, String email) {
         // Fetch order and status
         Order theOrder = orderDAO.getOrder(id);
-        if (theOrder.equals(null)) {
-            return false;
-        }
         int orderState = theOrder.getState();
 
         // Check if order is completed or cancelled (no possible cancel)
@@ -184,6 +197,14 @@ public class OrderService {
         } else {
             return false;
         }
+    }
+
+    public ArrayList<Order> getVentasDashboard (String email){
+        return orderDAO.getVentasDashboard(email);
+    }
+
+    public ArrayList<Order> getComprasDashboard (String email){
+        return orderDAO.getComprasDashboard(email);
     }
 
     public boolean updateOrder(int id, double qualification) {
