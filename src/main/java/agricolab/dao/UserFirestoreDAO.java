@@ -13,11 +13,13 @@ import java.util.concurrent.ExecutionException;
 @Repository("UserFirestore")
 public class UserFirestoreDAO implements UserDAO {
 
+    public static final String COLLECTION_USER = "user";
+
     @Override
     public boolean createUser(User user) {
 
         Firestore db = FirestoreClient.getFirestore();
-        db.collection("user").document(user.getEmail()).set(user);
+        db.collection(COLLECTION_USER).document(user.getEmail()).set(user);
         System.out.println(user);
         return true;
 
@@ -26,7 +28,7 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public User getUser(String id) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("user").document(id);
+        DocumentReference ref = db.collection(COLLECTION_USER).document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document;
         User ret = null;
@@ -46,14 +48,14 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public void deleteUser(String email) {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("user");
+        CollectionReference requestRef = db.collection(COLLECTION_USER);
         ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
     }
 
     public ArrayList<User> getAllUsers() {
         ArrayList<User> allUsers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference userRef = db.collection("user");
+        CollectionReference userRef = db.collection(COLLECTION_USER);
         ApiFuture<QuerySnapshot> docs = userRef.get();
         List<QueryDocumentSnapshot> docList;
         try {
@@ -71,7 +73,7 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public Mailing getMailingByUser(String email) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference request = db.collection("user");
+        CollectionReference request = db.collection(COLLECTION_USER);
         ApiFuture<DocumentSnapshot> obj = request.document(email).get();
         return Objects.requireNonNull(Objects.requireNonNull(obj.get().toObject(User.class)).getMailing());
     }
@@ -81,14 +83,14 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db = FirestoreClient.getFirestore();
         //Map<String, Object> updates = new HashMap<>();
         //updates.put("mailing", mailing);
-        db.collection("user").document(user.getEmail()).set(user);
+        db.collection(COLLECTION_USER).document(user.getEmail()).set(user);
         return true;
     }
 
     @Override
         public boolean updateUserData(String email, Mailing mailing, long phoneNumber) {
             Firestore db = FirestoreClient.getFirestore();
-        CollectionReference user = db.collection("user");
+        CollectionReference user = db.collection(COLLECTION_USER);
         User u = getUser(email);
         u.setMailing(mailing);
         u.setPhoneNumber(phoneNumber);
@@ -99,7 +101,7 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public boolean updateUserQualification(String email, double qualification) {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference user = db.collection("user");
+        CollectionReference user = db.collection(COLLECTION_USER);
         User u = getUser(email);
         if(u != null){
             try {
@@ -115,7 +117,7 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public void updateOffersRecieved(String email, int newNum) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("user").document(email);
+        DocumentReference ref = db.collection(COLLECTION_USER).document(email);
         Map<String, Object> updates = new HashMap<>();
         updates.put("numberOfOrdersRecieved", newNum);
         ApiFuture<WriteResult> future = ref.update(updates);
@@ -124,7 +126,7 @@ public class UserFirestoreDAO implements UserDAO {
     @Override
     public void updateOffersMade(String email, int newNum) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("user").document(email);
+        DocumentReference ref = db.collection(COLLECTION_USER).document(email);
         Map<String, Object> updates = new HashMap<>();
         updates.put("numberOfOrdersDone", newNum);
         ApiFuture<WriteResult> future = ref.update(updates);

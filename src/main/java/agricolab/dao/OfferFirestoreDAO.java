@@ -14,12 +14,16 @@ import java.util.concurrent.TimeoutException;
 
 @Repository
 public class OfferFirestoreDAO implements OfferDAO {
+
+    public static final String COLLECTION_OFFER = "offer";
+    public static final String COLLECTION_IDS = "ids";
+
     ////////////////////////////////////////////////////////////////////////////////////
     //Basic CRUD(CREATE READ UPDATE DELETE)
     @Override
     public boolean createOffer(Offer offer) {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference ref = db.collection("offer");
+        CollectionReference ref = db.collection(COLLECTION_OFFER);
         ID id = setOfferId();
         offer.setId(id.getId());
         ref.document(id.toString()).set(offer);
@@ -31,7 +35,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     @Override
     public Offer getOffer(String id) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("offer").document(id);
+        DocumentReference ref = db.collection(COLLECTION_OFFER).document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document;
         Offer ret = null;
@@ -57,7 +61,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         updates.put("pricePresentation", r.getPricePresentation());
         updates.put("minQuantity", r.getMinQuantity());
         updates.put("description", r.getDescription());
-        ApiFuture<WriteResult> ud = db.collection("offer").document(String.valueOf(r.getId())).update(updates);
+        ApiFuture<WriteResult> ud = db.collection(COLLECTION_OFFER).document(String.valueOf(r.getId())).update(updates);
         try {
             System.out.println(ud.get().getUpdateTime());
             return true;
@@ -71,7 +75,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     @Override
     public boolean deleteOffer(String id) {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("offer");
+        CollectionReference requestRef = db.collection(COLLECTION_OFFER);
         Map<String, Object> updates = new HashMap<>();
         updates.put("state", false);
         ApiFuture<WriteResult> cancel = requestRef.document(id).update(updates);
@@ -86,7 +90,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ID setOfferId() {
         ID ret = new ID();
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("ids").document("idoffer");
+        DocumentReference ref = db.collection(COLLECTION_IDS).document("idoffer");
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document;
         try {
@@ -110,7 +114,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ArrayList<Offer> getAllOffers() {
         ArrayList<Offer> allOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference offerRef = db.collection("offer");
+        CollectionReference offerRef = db.collection(COLLECTION_OFFER);
         ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("state"  , true).get();
         List<QueryDocumentSnapshot> docList;
         try {
@@ -130,7 +134,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ArrayList<Offer> getOffersByUser(String email) {
         ArrayList<Offer> userOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("offer");
+        CollectionReference requestRef = db.collection(COLLECTION_OFFER);
         Query q = requestRef.whereEqualTo("sellerEmail", email);
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
@@ -149,7 +153,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ArrayList<Offer> getOffersByUserAndProduct(String email, String productName) {
         ArrayList<Offer> userOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("offer");
+        CollectionReference requestRef = db.collection(COLLECTION_OFFER);
         ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("sellerEmail", email)
                 .whereEqualTo("state", true)
                 .whereEqualTo("productName", productName).get();
@@ -173,7 +177,7 @@ public class OfferFirestoreDAO implements OfferDAO {
 
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection("offer");
+        CollectionReference orderRef = db.collection(COLLECTION_OFFER);
         DocumentSnapshot last = null;
         if (page != 1) {
             last = orderRef.document(String.valueOf(pivot)).get().get();
@@ -255,7 +259,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         Map<String, Object> updates = new HashMap<>();
         updates.put("qualification", qualification);
         updates.put("numberOfReviews", numberOfReviews);
-        ApiFuture<WriteResult> ud = db.collection("offer").document(id).update(updates);
+        ApiFuture<WriteResult> ud = db.collection(COLLECTION_OFFER).document(id).update(updates);
         return true;
     }
 
@@ -263,7 +267,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public ArrayList<Offer> getSuggestedOffers(String email) {
         ArrayList<Offer> userOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference requestRef = db.collection("offer");
+        CollectionReference requestRef = db.collection(COLLECTION_OFFER);
         Query q = requestRef.whereEqualTo("state", true)
                 .orderBy("qualification" , Query.Direction.DESCENDING);
         ApiFuture<QuerySnapshot> docs = q.get();
@@ -283,7 +287,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     public int getLastOfferId() {
         int ret = 0;
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("ids").document("idoffer");
+        DocumentReference ref = db.collection(COLLECTION_IDS).document("idoffer");
         ApiFuture<DocumentSnapshot> future = ref.get();
         try {
             DocumentSnapshot document = future.get();
