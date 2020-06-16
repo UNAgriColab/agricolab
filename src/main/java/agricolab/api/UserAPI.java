@@ -5,10 +5,7 @@ import agricolab.model.Mailing;
 import agricolab.model.User;
 import agricolab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -26,11 +23,8 @@ public class UserAPI {
     }
 
     @PostMapping
-    public ResponseEntity<String> postUser(@RequestBody User u) {
-        if(userService.addUser(u)){
-            return new ResponseEntity<>("Usuario añadido", HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>("Usuario o contraseña incorrecta", HttpStatus.BAD_REQUEST);
+    public boolean postUser(@RequestBody User u) {
+        return userService.addUser(u);
     }
 
     @DeleteMapping("del/{email}")
@@ -55,9 +49,10 @@ public class UserAPI {
     public boolean createMailing(@PathVariable String email, @RequestBody Mailing mailing) {
         return userService.createMailing(email, mailing);
     }
+
     @PutMapping("/address/{email}/{phoneNumber}")
     public boolean updateUserData(@PathVariable String email, @RequestBody Mailing mailing, @PathVariable long phoneNumber) {
-        return userService.updateUserData(email, mailing,phoneNumber);
+        return userService.updateUserData(email, mailing, phoneNumber);
     }
 
     @GetMapping
@@ -66,7 +61,7 @@ public class UserAPI {
     }
 
     @GetMapping("dashboard/{email}")
-    ArrayList<Integer> getDashboard(@PathVariable String email){
+    ArrayList<Integer> getDashboard(@PathVariable String email) {
         return userService.getDashboard(email);
     }
 
