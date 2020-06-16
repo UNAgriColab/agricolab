@@ -1,5 +1,6 @@
-package agricolab.dao;
+package agricolab.firestoredao;
 
+import agricolab.dao.PhotoDAO;
 import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
