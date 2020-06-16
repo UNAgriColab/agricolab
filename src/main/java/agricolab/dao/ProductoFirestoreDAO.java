@@ -16,11 +16,14 @@ import java.util.concurrent.ExecutionException;
 @Repository
 public class ProductoFirestoreDAO implements ProductoDAO {
 
+    public static final String COLLECTION_PRODUCT = "producto";
+
     @Override
+
     public ArrayList<Product> getProductos() {
         ArrayList<Product> products = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection("producto");
+        CollectionReference orderRef = db.collection(COLLECTION_PRODUCT);
         ApiFuture<QuerySnapshot> docs = orderRef.get();
         List<QueryDocumentSnapshot> docList;
         try {
@@ -37,7 +40,7 @@ public class ProductoFirestoreDAO implements ProductoDAO {
     @Override
     public boolean addProduct(Product product) {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference ref = db.collection("producto");
+        CollectionReference ref = db.collection(COLLECTION_PRODUCT);
         String id = product.getId();
         ref.document(id).set(product);
         return true;

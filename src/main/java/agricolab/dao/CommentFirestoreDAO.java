@@ -15,11 +15,14 @@ import java.util.concurrent.ExecutionException;
 @Repository
 public class CommentFirestoreDAO implements CommentDAO {
 
+    public static final String COLLECTION_COMMENT = "comment";
+    public static final String COLLECTION_IDS = "ids";
+
     @Override
     public ID setOfferId() {
         ID ret = new ID();
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("ids").document("idcomment");
+        DocumentReference ref = db.collection(COLLECTION_IDS).document("idcomment");
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document;
         try {
@@ -40,7 +43,7 @@ public class CommentFirestoreDAO implements CommentDAO {
     @Override
     public boolean createComment(Comment comment) {
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference ref = db.collection("comment");
+        CollectionReference ref = db.collection(COLLECTION_COMMENT);
         ID id = setOfferId();
         comment.setId(id.toString());
         ref.document(id.toString()).set(comment);
@@ -51,7 +54,7 @@ public class CommentFirestoreDAO implements CommentDAO {
     @Override
     public Comment getComment(String id) {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference ref = db.collection("comment").document(id);
+        DocumentReference ref = db.collection(COLLECTION_COMMENT).document(id);
         ApiFuture<DocumentSnapshot> future = ref.get();
         DocumentSnapshot document;
         Comment ret = null;
@@ -72,7 +75,7 @@ public class CommentFirestoreDAO implements CommentDAO {
     public ArrayList<Comment> getAllCommentsByOffer(String offerId) {
         ArrayList<Comment> comments = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
-        CollectionReference ref = db.collection("comment");
+        CollectionReference ref = db.collection(COLLECTION_COMMENT);
         ApiFuture<QuerySnapshot> docs = ref.whereEqualTo("offerReference", offerId).get();
         List<QueryDocumentSnapshot> docList;
         try {
