@@ -265,7 +265,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection("offer");
         Query q = requestRef.whereEqualTo("state", true)
-                .orderBy("id" , Query.Direction.DESCENDING);
+                .orderBy("qualification" , Query.Direction.DESCENDING);
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {
