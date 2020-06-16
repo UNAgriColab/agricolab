@@ -29,10 +29,8 @@ public class OrderFirestoreDAO implements OrderDAO {
         CollectionReference ref = db.collection("order");
 
         try {
-            //ref.document(id.toString()).set(order);
             order.setId(setOrderId().toString());
             ref.document(order.getId()).set(order).get();
-            System.out.println(order);
             return true;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
