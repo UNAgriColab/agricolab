@@ -29,6 +29,7 @@ public class FirebaseInit {
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(credentials)
                 .setProjectId("agricolab-un")
+                .setStorageBucket("agricolab-un.appspot.com")
                 .build();
         FirebaseApp.initializeApp(options);
 
