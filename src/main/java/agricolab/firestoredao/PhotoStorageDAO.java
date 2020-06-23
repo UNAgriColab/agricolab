@@ -5,6 +5,7 @@ import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +28,13 @@ public class PhotoStorageDAO implements PhotoDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean deleteObject(String objName) {
+        Bucket bucket = StorageClient.getInstance().bucket();
+        Storage storage = StorageOptions.newBuilder().build().getService();
+        return storage.delete(objName);
     }
 
     @Override
