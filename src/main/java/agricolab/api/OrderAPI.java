@@ -22,7 +22,6 @@ public class OrderAPI {
 
     @PostMapping
     public boolean postOrder(@RequestBody Order r) {
-        System.out.println(r);
         return orderService.addOrder(r);
     }
 
