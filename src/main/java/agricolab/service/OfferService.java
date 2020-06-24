@@ -80,7 +80,7 @@ public class OfferService {
             ofertas = invert(ofertas);
         }
         if ((order == 3 || order == 0) && ((minPrice != 0) || (maxPrice != 0))) {
-            while (offers.size() < 10 && Objects.requireNonNull(ofertas).size() != 0){
+            do{
                 //filtrar por rango de precio en caso de necesitar un ordenamiento diferente
                 if ((minPrice != 0) && (maxPrice != 0)) {
                     for (Offer o : Objects.requireNonNull(ofertas)) {
@@ -125,7 +125,7 @@ public class OfferService {
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
+            }while (offers.size() < 10 && Objects.requireNonNull(ofertas).size() != 0);
             return offers;
         }
         return ofertas;
