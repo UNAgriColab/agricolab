@@ -12,7 +12,7 @@ public interface UserDAO {
 
     User getUser(String email);
 
-    void deleteUser(String email);
+    boolean deleteUser(String email);
 
     ArrayList<User> getAllUsers();
 

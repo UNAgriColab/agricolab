@@ -76,8 +76,15 @@ public class OfferFirestoreDAO implements OfferDAO {
         CollectionReference requestRef = db.collection(FirestoreDAO.COLLECTION_OFFER);
         Map<String, Object> updates = new HashMap<>();
         updates.put("state", false);
-        ApiFuture<WriteResult> cancel = requestRef.document(id).update(updates);
-        return true;
+        try {
+            WriteResult cancel = requestRef.document(id).update(updates).get();
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

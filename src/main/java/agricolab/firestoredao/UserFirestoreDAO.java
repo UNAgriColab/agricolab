@@ -43,10 +43,19 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(String email) {
+    public boolean deleteUser(String email) {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection(FirestoreDAO.COLLECTION_USER);
-        ApiFuture<WriteResult> writeResult = requestRef.document(email).delete();
+        try {
+            WriteResult writeResult = requestRef.document(email).delete().get();
+            System.out.println("Successful delete from user " + email);
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public ArrayList<User> getAllUsers() {

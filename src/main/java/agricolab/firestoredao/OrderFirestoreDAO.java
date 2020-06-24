@@ -224,8 +224,15 @@ public class OrderFirestoreDAO implements OrderDAO {
     public boolean deleteOrder(String id) {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference ref = db.collection(FirestoreDAO.COLLECTION_ORDER).document(id);
-        ApiFuture<WriteResult> result = ref.delete();
-        return true;
+        try {
+            WriteResult result = ref.delete().get();
+            return true;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

@@ -60,8 +60,8 @@ public class UserService implements UserDetailsService {
         return userDAO.getAllUsers();
     }
 
-    public void deleteUser(String email) {
-        userDAO.deleteUser(email);
+    public boolean deleteUser(String email) {
+        return userDAO.deleteUser(email);
     }
 
     public PasswordEncoder getPasswordEncoder() {

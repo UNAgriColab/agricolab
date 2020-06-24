@@ -28,9 +28,8 @@ public class UserAPI {
     }
 
     @DeleteMapping("del/{email}")
-    public void deleteUser(@PathVariable String email) {
-        userService.deleteUser(email);
-        System.out.println("Successful delete from user " + email);
+    public boolean deleteUser(@PathVariable String email) {
+        return userService.deleteUser(email);
     }
 
     // GET METHODS
