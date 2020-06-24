@@ -21,13 +21,18 @@ public class PhotoService {
     public boolean uploadPhoto(String offer, String originalFilename, byte[] fileBytes) {
         // TODO: Confirm photo limits and handling
 
-        // Check for empty photo list and upload photo, else abort upload
-        if(listPhotos(offer).isEmpty()){
-            String objName = "photos/" + offer + "/" + originalFilename;
+        ArrayList<String> photoList = listPhotos(offer);
+        String objName = "photos/" + offer + "/" + originalFilename;
+        // If no offer photos or if photo is successfully deleted, then upload photo
+        if (photoList.isEmpty() || deletePhoto(photoList.get(0))) {
             return photoDAO.uploadObject(objName, fileBytes);
         } else {
             return false;
         }
+    }
+
+    public boolean deletePhoto(String objName) {
+        return photoDAO.deleteObject(objName);
     }
 
     public ArrayList<String> listPhotos(String offer) {

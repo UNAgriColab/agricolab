@@ -2,9 +2,7 @@ package agricolab.firestoredao;
 
 import agricolab.dao.PhotoDAO;
 import com.google.api.gax.paging.Page;
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.*;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +25,13 @@ public class PhotoStorageDAO implements PhotoDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean deleteObject(String objName) {
+        Bucket bucket = StorageClient.getInstance().bucket();
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+        return storage.delete(bucket.getName(), objName);
     }
 
     @Override
