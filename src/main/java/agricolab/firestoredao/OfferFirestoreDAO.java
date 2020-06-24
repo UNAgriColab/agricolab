@@ -180,7 +180,6 @@ public class OfferFirestoreDAO implements OfferDAO {
         if (page != 1) {
             last = orderRef.document(String.valueOf(pivot)).get().get();
             Offer temp = last.toObject(Offer.class);
-            System.out.println("last called = " + temp);
         }
         Query q = orderRef.whereEqualTo("state", true);
         if (order == 0) {
