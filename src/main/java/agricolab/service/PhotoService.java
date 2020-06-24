@@ -4,7 +4,6 @@ import agricolab.dao.PhotoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -31,12 +30,12 @@ public class PhotoService {
         }
     }
 
-    public boolean deletePhoto(String objName) {
-        return photoDAO.deleteObject(objName);
-    }
-
     public ArrayList<String> listPhotos(String offer) {
         String photoFolder = "photos/" + offer + "/";
         return photoDAO.listObjects(photoFolder);
+    }
+
+    public boolean deletePhoto(String objName) {
+        return photoDAO.deleteObject(objName);
     }
 }

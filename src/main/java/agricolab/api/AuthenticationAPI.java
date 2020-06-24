@@ -28,7 +28,7 @@ public class AuthenticationAPI {
     public String generateToken(@RequestBody JwtRequest user) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
         } catch (Exception e) {
             throw new Exception("invalid username/password");

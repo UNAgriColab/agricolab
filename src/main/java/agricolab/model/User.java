@@ -42,18 +42,18 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", seller=" + seller +
-                ", age=" + age +
-                ", phoneNumber=" + phoneNumber +
-                ", mailing=" + mailing +
-                ", qualification=" + qualification +
-                ", numberOfReviews=" + numberOfReviews +
-                ", numberOfOrdersdone=" + numberOfOrdersDone +
-                ", numberOfOrdersrecieved=" + numberOfOrdersRecieved +
-                '}';
+            "email='" + email + '\'' +
+            ", name='" + name + '\'' +
+            ", password='" + password + '\'' +
+            ", seller=" + seller +
+            ", age=" + age +
+            ", phoneNumber=" + phoneNumber +
+            ", mailing=" + mailing +
+            ", qualification=" + qualification +
+            ", numberOfReviews=" + numberOfReviews +
+            ", numberOfOrdersdone=" + numberOfOrdersDone +
+            ", numberOfOrdersrecieved=" + numberOfOrdersRecieved +
+            '}';
     }
 
     public String getEmail() {

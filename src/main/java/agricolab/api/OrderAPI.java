@@ -86,12 +86,12 @@ public class OrderAPI {
     }
 
     @GetMapping("/compras/{email}")
-    public ArrayList<Order> getComprasDashboard (@PathVariable String email){
+    public ArrayList<Order> getComprasDashboard(@PathVariable String email) {
         return orderService.getComprasDashboard(email);
     }
 
     @GetMapping("/ventas/{email}")
-    public ArrayList<Order> getVentasDashboard (@PathVariable String email){
+    public ArrayList<Order> getVentasDashboard(@PathVariable String email) {
         return orderService.getVentasDashboard(email);
     }
 }

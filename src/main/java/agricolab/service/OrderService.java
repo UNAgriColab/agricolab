@@ -59,10 +59,10 @@ public class OrderService {
         User seller = userService.getUser(order.getSellerEmail());
         User buyer = userService.getUser(order.getBuyerEmail());
 
-        seller.setNumberOfOrdersRecieved(seller.getNumberOfOrdersRecieved()+1);
-        buyer.setNumberOfOrdersDone(buyer.getNumberOfOrdersDone()+1);
+        seller.setNumberOfOrdersRecieved(seller.getNumberOfOrdersRecieved() + 1);
+        buyer.setNumberOfOrdersDone(buyer.getNumberOfOrdersDone() + 1);
 
-        userService.updateOrdersRecieved(seller.getEmail(),seller.getNumberOfOrdersRecieved());
+        userService.updateOrdersRecieved(seller.getEmail(), seller.getNumberOfOrdersRecieved());
         userService.updateOrdersMade(buyer.getEmail(), buyer.getNumberOfOrdersDone());
 
         // No inconsistencies, delegate return to DAO status
@@ -122,10 +122,10 @@ public class OrderService {
             int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getQualification()) / (o.getNumberOfReviews() + 1);
             o.setQualification(offerQualification);
             o.setNumberOfReviews(o.getNumberOfReviews() + 1);
-            offerService.updateOfferReviews(String.valueOf(o.getId()),o.getQualification(),o.getNumberOfReviews());
+            offerService.updateOfferReviews(String.valueOf(o.getId()), o.getQualification(), o.getNumberOfReviews());
 
             order.setQualification(comment.getQualification());
-            return orderDAO.updateOrder(Integer.parseInt(order.getId()),order.getQualification());
+            return orderDAO.updateOrder(Integer.parseInt(order.getId()), order.getQualification());
         } else {
             System.out.println("calificacion fuera de rango no puede ser procesada");
             return false;
@@ -190,11 +190,11 @@ public class OrderService {
         }
     }
 
-    public ArrayList<Order> getVentasDashboard (String email){
+    public ArrayList<Order> getVentasDashboard(String email) {
         return orderDAO.getVentasDashboard(email);
     }
 
-    public ArrayList<Order> getComprasDashboard (String email){
+    public ArrayList<Order> getComprasDashboard(String email) {
         return orderDAO.getComprasDashboard(email);
     }
 

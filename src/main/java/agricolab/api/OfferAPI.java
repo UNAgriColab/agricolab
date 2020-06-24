@@ -2,7 +2,6 @@ package agricolab.api;
 
 import agricolab.model.Comment;
 import agricolab.model.Offer;
-import agricolab.model.Product;
 import agricolab.service.CommentService;
 import agricolab.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class OfferAPI {
     @GetMapping("/{productName}/{maxPrice}/{presentation}/{minPrice}/{order}/{page}/{pivot}")
     public ArrayList<Offer> getActiveOrders(@PathVariable String productName, @PathVariable double maxPrice, @PathVariable int presentation,
                                             @PathVariable double minPrice, @PathVariable int order, @PathVariable int page,
-                                            @PathVariable int pivot){
+                                            @PathVariable int pivot) {
         return offerService.getActiveOffers(productName, minPrice, maxPrice, presentation, order, page, pivot);
     }
 
@@ -72,6 +71,8 @@ public class OfferAPI {
     }
 
     @GetMapping("/suggested/{email}")
-    public ArrayList<Offer> getSuggestedOffers(@PathVariable String email){return offerService.getSuggestedOffers(email);}
+    public ArrayList<Offer> getSuggestedOffers(@PathVariable String email) {
+        return offerService.getSuggestedOffers(email);
+    }
 
 }

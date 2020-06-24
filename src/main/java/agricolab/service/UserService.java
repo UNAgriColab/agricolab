@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
             System.out.println("debes ser mayor de edad para hacer uso de nuestra herramienta");
             return false;
         }
-        if(user.getPassword().matches("[0-9A-F]+")){
+        if (user.getPassword().matches("[0-9A-F]+")) {
             System.out.println("contraseña invalida, debe contener almenos un numero y una mayuscula");
             return false;
         }
@@ -78,44 +78,45 @@ public class UserService implements UserDetailsService {
         return userDAO.getMailingByUser(email);
     }
 
-    public User getUser(String email) {
-        return userDAO.getUser(email);
-    }
-
     public boolean createMailing(String email, Mailing mailing) {
         User user = getUser(email);
         user.setMailing(mailing);
         return userDAO.createMailing(user);//, mailing);
     }
 
+    public User getUser(String email) {
+        return userDAO.getUser(email);
+    }
+
     public boolean updateUserData(String email, Mailing mailing, long phoneNumber) {
-        return userDAO.updateUserData(email,mailing,phoneNumber);
+        return userDAO.updateUserData(email, mailing, phoneNumber);
     }
 
     public boolean updateUserQualification(String email, double qualification) {
-        return userDAO.updateUserQualification(email,qualification);
+        return userDAO.updateUserQualification(email, qualification);
     }
 
     public ArrayList<Integer> getDashboard(String email) {
-        ArrayList<Integer> data= new ArrayList<>();
+        ArrayList<Integer> data = new ArrayList<>();
         User u = userDAO.getUser(email);
-        data.add(u.getNumberOfOrdersDone()) ;
+        data.add(u.getNumberOfOrdersDone());
         data.add(u.getNumberOfOrdersRecieved());
-        if(u.getMailing()== null){
+        if (u.getMailing() == null) {
             data.add(0);
-        }else{
+        } else {
             data.add(1);
         }
-        data.add(offerDAO.getAllOffers().size()+1);
-        return  data;
+        data.add(offerDAO.getAllOffers().size() + 1);
+        return data;
     }
+
     //ordenes que recibe un usuario vendedor
-    public void updateOrdersRecieved(String email, int newNum){
-        userDAO.updateOffersRecieved(email,newNum);
+    public void updateOrdersRecieved(String email, int newNum) {
+        userDAO.updateOffersRecieved(email, newNum);
     }
 
     //ordenes que hace un usuario comprador
-    public void updateOrdersMade(String email, int newNum){
+    public void updateOrdersMade(String email, int newNum) {
         userDAO.updateOffersMade(email, newNum);
     }
 }

@@ -167,6 +167,33 @@ public class OrderFirestoreDAO implements OrderDAO {
 
     //SELLER METHODS -----------------------------------------
 
+    //SELLER METHODS -----------------------------------------
+    @Override
+    public ArrayList<Order> getOrdersBySeller(String email, String productName, int state) {
+        ArrayList<Order> userOrder = new ArrayList<>();
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference orderRef = db.collection(FirestoreDAO.COLLECTION_ORDER);
+        Query q = orderRef.whereEqualTo("sellerEmail", email).whereLessThanOrEqualTo("state", 1);
+
+        if (!productName.equals("all")) {
+            q = q.whereEqualTo("productName", productName);
+        }
+        if (state != -1) {
+            q = q.whereEqualTo("state", state);
+        }
+        ApiFuture<QuerySnapshot> docs = q.get();
+        List<QueryDocumentSnapshot> docList;
+        try {
+            docList = docs.get().getDocuments();
+            for (QueryDocumentSnapshot a : docList) {
+                userOrder.add(a.toObject(Order.class));
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return userOrder;
+    }
+
     @Override
     public ArrayList<Order> getActiveOrdersBySeller(String email, String productName, int state) {
         ArrayList<Order> userOrder = new ArrayList<>();
@@ -226,33 +253,6 @@ public class OrderFirestoreDAO implements OrderDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference orderRef = db.collection(FirestoreDAO.COLLECTION_ORDER);
         Query q = orderRef.whereEqualTo("buyerEmail", email).whereGreaterThanOrEqualTo("state", 2).limit(5);
-        ApiFuture<QuerySnapshot> docs = q.get();
-        List<QueryDocumentSnapshot> docList;
-        try {
-            docList = docs.get().getDocuments();
-            for (QueryDocumentSnapshot a : docList) {
-                userOrder.add(a.toObject(Order.class));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return userOrder;
-    }
-
-    //SELLER METHODS -----------------------------------------
-    @Override
-    public ArrayList<Order> getOrdersBySeller(String email, String productName, int state) {
-        ArrayList<Order> userOrder = new ArrayList<>();
-        Firestore db = FirestoreClient.getFirestore();
-        CollectionReference orderRef = db.collection(FirestoreDAO.COLLECTION_ORDER);
-        Query q = orderRef.whereEqualTo("sellerEmail", email).whereLessThanOrEqualTo("state", 1);
-
-        if (!productName.equals("all")) {
-            q = q.whereEqualTo("productName", productName);
-        }
-        if (state != -1) {
-            q = q.whereEqualTo("state", state);
-        }
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {

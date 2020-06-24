@@ -24,6 +24,14 @@ public class OfferService {
         this.productoDAO = productoDAO;
     }
 
+    public boolean addOffer(Offer offer) {
+        if (productoValdo(offer.getProductName()) && offerDAO.getOffersByUserAndProduct(offer.getSellerEmail(), offer.getProductName()).isEmpty() && offer.getPresentation() > 0 && offer.getPresentation() < 6) {
+            return offerDAO.createOffer(offer);
+        } else {
+            return false;
+        }
+    }
+
     public boolean productoValdo(String producto) {
         boolean coinsidence = false;
         for (Product p : productoDAO.getProductos()) {
@@ -35,14 +43,6 @@ public class OfferService {
             }
         }
         return coinsidence;
-    }
-
-    public boolean addOffer(Offer offer) {
-        if (productoValdo(offer.getProductName()) && offerDAO.getOffersByUserAndProduct(offer.getSellerEmail(), offer.getProductName()).isEmpty() && offer.getPresentation()>0 && offer.getPresentation()<6) {
-            return offerDAO.createOffer(offer);
-        } else {
-            return false;
-        }
     }
 
     public boolean postProduct(Product product) {
@@ -72,15 +72,15 @@ public class OfferService {
         ArrayList<Offer> ofertas = null;
         try {
             ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
-                    order, page, pivot);
+                order, page, pivot);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
-        if(page == 0){
+        if (page == 0) {
             ofertas = invert(ofertas);
         }
         if ((order == 3 || order == 0) && ((minPrice != 0) || (maxPrice != 0))) {
-            do{
+            do {
                 //filtrar por rango de precio en caso de necesitar un ordenamiento diferente
                 if ((minPrice != 0) && (maxPrice != 0)) {
                     for (Offer o : Objects.requireNonNull(ofertas)) {
@@ -114,18 +114,18 @@ public class OfferService {
                     if (page == 0 && Objects.requireNonNull(ofertas).size() != 0) {
                         System.out.println("pagina anterior y tamaño de ofertas distinto de 0");
                         ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
-                                order, 0, ofertas.get(ofertas.size() - 1).getId());
+                            order, 0, ofertas.get(ofertas.size() - 1).getId());
                         ofertas = invert(ofertas);
-                    } else if (Objects.requireNonNull(ofertas).size() != 0){
+                    } else if (Objects.requireNonNull(ofertas).size() != 0) {
                         System.out.println("pagina siguiente y tamaño de ofertas igual a 0");
                         ofertas = offerDAO.getActiveOffers(productName, minPrice, maxPrice, presentation,
-                                order, 2, ofertas.get(ofertas.size() - 1).getId());
+                            order, 2, ofertas.get(ofertas.size() - 1).getId());
                     }
 
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
-            }while (offers.size() < 10 && Objects.requireNonNull(ofertas).size() != 0);
+            } while (offers.size() < 10 && Objects.requireNonNull(ofertas).size() != 0);
             return offers;
         }
         return ofertas;
@@ -148,17 +148,17 @@ public class OfferService {
     }
 
     public boolean updateOfferReviews(String id, double qualification, int numberOfReviews) {
-        return offerDAO.updateOfferReviews(id, qualification,numberOfReviews);
+        return offerDAO.updateOfferReviews(id, qualification, numberOfReviews);
     }
 
     public ArrayList<Offer> getSuggestedOffers(String email) {
-        ArrayList<Offer> offers =  offerDAO.getSuggestedOffers(email);
+        ArrayList<Offer> offers = offerDAO.getSuggestedOffers(email);
         ArrayList<Offer> addedOffers = new ArrayList<>();
 
         for (Offer o : offers) {
-            if (!o.getSellerEmail().equalsIgnoreCase(email)){
+            if (!o.getSellerEmail().equalsIgnoreCase(email)) {
                 addedOffers.add(o);
-                if(addedOffers.size()==5){
+                if (addedOffers.size() == 5) {
                     break;
                 }
             }

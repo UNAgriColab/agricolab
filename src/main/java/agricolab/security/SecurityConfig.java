@@ -57,14 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/api/v1/auth").permitAll()
-                .antMatchers("/", "/static/**", "/public/**", "/resources/**", "/resources/public/**").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .mvcMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
-                .anyRequest().authenticated()
-                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .authorizeRequests().antMatchers("/api/v1/auth").permitAll()
+            .antMatchers("/", "/static/**", "/public/**", "/resources/**", "/resources/public/**").permitAll()
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .mvcMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
+            .anyRequest().authenticated()
+            .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .and().sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().cacheControl();
     }
 
@@ -87,8 +87,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**").allowedHeaders("*")
-                        .allowedOrigins("*").allowedMethods("*")
-                        .allowCredentials(true);
+                    .allowedOrigins("*").allowedMethods("*")
+                    .allowCredentials(true);
             }
         };
     }

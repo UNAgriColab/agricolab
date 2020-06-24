@@ -40,11 +40,11 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" + "id " + id +
-                ", userEmail='" + buyerEmail + '\'' +
-                ", unit='" + presentation + '\'' +
-                ", numberOfUnits='" + numberOfUnits + '\'' +
-                ", totalPrice='" + totalPrice + '\'' +
-                '}';
+            ", userEmail='" + buyerEmail + '\'' +
+            ", unit='" + presentation + '\'' +
+            ", numberOfUnits='" + numberOfUnits + '\'' +
+            ", totalPrice='" + totalPrice + '\'' +
+            '}';
     }
 
     public String getId() {

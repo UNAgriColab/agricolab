@@ -24,10 +24,10 @@ public class Product {
     @Override
     public String toString() {
         return "Producto{" +
-                "id=" + id +
-                ", categoria='" + categoria + '\'' +
-                ", productos=" + productNames +
-                '}';
+            "id=" + id +
+            ", categoria='" + categoria + '\'' +
+            ", productos=" + productNames +
+            '}';
     }
 
     public String getId() {

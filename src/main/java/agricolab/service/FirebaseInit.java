@@ -1,16 +1,11 @@
 package agricolab.service;
 
 import com.google.auth.oauth2.GoogleCredentials;
-
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-
-import com.google.cloud.firestore.Firestore;
-
-import com.google.firebase.FirebaseApp;
-
 import java.io.IOException;
 
 @Service
@@ -26,10 +21,10 @@ public class FirebaseInit {
             e.printStackTrace();
         }
         FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(credentials)
-                .setProjectId("agricolab-un")
-                .setStorageBucket("agricolab-un.appspot.com")
-                .build();
+            .setCredentials(credentials)
+            .setProjectId("agricolab-un")
+            .setStorageBucket("agricolab-un.appspot.com")
+            .build();
         FirebaseApp.initializeApp(options);
     }
 }

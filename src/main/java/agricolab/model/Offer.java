@@ -43,17 +43,17 @@ public class Offer {
     @Override
     public String toString() {
         return "Offer{" +
-                "id='" + id + '\'' +
-                ", sellerEmail='" + sellerEmail + '\'' +
-                ", productName='" + productName + '\'' +
-                ", presentation=" + presentation +
-                ", pricePresentation=" + pricePresentation +
-                ", minQuantity=" + minQuantity +
-                ", description='" + description + '\'' +
-                ", state=" + state +
-                ", qualification=" + qualification +
-                ", numberOfReviews=" + numberOfReviews +
-                '}';
+            "id='" + id + '\'' +
+            ", sellerEmail='" + sellerEmail + '\'' +
+            ", productName='" + productName + '\'' +
+            ", presentation=" + presentation +
+            ", pricePresentation=" + pricePresentation +
+            ", minQuantity=" + minQuantity +
+            ", description='" + description + '\'' +
+            ", state=" + state +
+            ", qualification=" + qualification +
+            ", numberOfReviews=" + numberOfReviews +
+            '}';
     }
 
     public int getId() {

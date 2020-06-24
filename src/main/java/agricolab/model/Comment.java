@@ -25,11 +25,11 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "id='" + id + '\'' +
-                ", comment='" + comment + '\'' +
-                ", orderReference='" + orderReference + '\'' +
-                ", qualification=" + qualification +
-                '}';
+            "id='" + id + '\'' +
+            ", comment='" + comment + '\'' +
+            ", orderReference='" + orderReference + '\'' +
+            ", qualification=" + qualification +
+            '}';
     }
 
     public String getId() {

@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class PhotoAPI {
     }
 
     @PostMapping(value = "/upload/{offer}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public boolean postPhoto(@PathVariable String offer, @RequestParam("file") MultipartFile file){
+    public boolean postPhoto(@PathVariable String offer, @RequestParam("file") MultipartFile file) {
         try {
             byte[] fileBytes = file.getBytes();
             return photoService.uploadPhoto(offer, file.getOriginalFilename(), fileBytes);
@@ -33,7 +32,7 @@ public class PhotoAPI {
     }
 
     @GetMapping("/list/{offer}")
-    public ArrayList<String> listPhotos(@PathVariable String offer){
+    public ArrayList<String> listPhotos(@PathVariable String offer) {
         return photoService.listPhotos(offer);
     }
 }

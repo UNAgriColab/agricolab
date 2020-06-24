@@ -113,7 +113,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         ArrayList<Offer> allOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference offerRef = db.collection(FirestoreDAO.COLLECTION_OFFER);
-        ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("state"  , true).get();
+        ApiFuture<QuerySnapshot> docs = offerRef.whereEqualTo("state", true).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -153,8 +153,8 @@ public class OfferFirestoreDAO implements OfferDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection(FirestoreDAO.COLLECTION_OFFER);
         ApiFuture<QuerySnapshot> docs = requestRef.whereEqualTo("sellerEmail", email)
-                .whereEqualTo("state", true)
-                .whereEqualTo("productName", productName).get();
+            .whereEqualTo("state", true)
+            .whereEqualTo("productName", productName).get();
         List<QueryDocumentSnapshot> docList;
         try {
             docList = docs.get().getDocuments();
@@ -171,7 +171,7 @@ public class OfferFirestoreDAO implements OfferDAO {
     @Override
     public ArrayList<Offer> getActiveOffers(String productName, double minPrice, double maxPrice,
                                             int presentation, int order, int page, int pivot)
-            throws ExecutionException, InterruptedException {
+        throws ExecutionException, InterruptedException {
 
         ArrayList<Offer> activeOffers = new ArrayList<>();
         Firestore db = FirestoreClient.getFirestore();
@@ -227,10 +227,10 @@ public class OfferFirestoreDAO implements OfferDAO {
         if (presentation != 0) {
             q = q.whereEqualTo("presentation", presentation);
         }
-        if (minPrice != 0 && order != 3 && order!=0) {
+        if (minPrice != 0 && order != 3 && order != 0) {
             q = q.whereGreaterThanOrEqualTo("pricePresentation", minPrice);
         }
-        if (maxPrice != 0 && order != 3 && order!=0) {
+        if (maxPrice != 0 && order != 3 && order != 0) {
             q = q.whereLessThanOrEqualTo("pricePresentation", maxPrice);
         }
         if (page != 1) {
@@ -267,7 +267,7 @@ public class OfferFirestoreDAO implements OfferDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference requestRef = db.collection(FirestoreDAO.COLLECTION_OFFER);
         Query q = requestRef.whereEqualTo("state", true)
-                .orderBy("qualification" , Query.Direction.DESCENDING);
+            .orderBy("qualification", Query.Direction.DESCENDING);
         ApiFuture<QuerySnapshot> docs = q.get();
         List<QueryDocumentSnapshot> docList;
         try {

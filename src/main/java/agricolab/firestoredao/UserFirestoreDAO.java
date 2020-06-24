@@ -84,8 +84,8 @@ public class UserFirestoreDAO implements UserDAO {
     }
 
     @Override
-        public boolean updateUserData(String email, Mailing mailing, long phoneNumber) {
-            Firestore db = FirestoreClient.getFirestore();
+    public boolean updateUserData(String email, Mailing mailing, long phoneNumber) {
+        Firestore db = FirestoreClient.getFirestore();
         CollectionReference user = db.collection(FirestoreDAO.COLLECTION_USER);
         User u = getUser(email);
         u.setMailing(mailing);
@@ -99,9 +99,9 @@ public class UserFirestoreDAO implements UserDAO {
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference user = db.collection(FirestoreDAO.COLLECTION_USER);
         User u = getUser(email);
-        if(u != null){
+        if (u != null) {
             try {
-                user.document(email).update("qualification",qualification,"numberOfReviews",u.getNumberOfReviews()+1).get();
+                user.document(email).update("qualification", qualification, "numberOfReviews", u.getNumberOfReviews() + 1).get();
                 return true;
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
