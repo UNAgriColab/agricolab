@@ -39,11 +39,19 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "id " + id +
-            ", userEmail='" + buyerEmail + '\'' +
-            ", unit='" + presentation + '\'' +
-            ", numberOfUnits='" + numberOfUnits + '\'' +
-            ", totalPrice='" + totalPrice + '\'' +
+        return "Order{" +
+            "id='" + id + '\'' +
+            ", sellerEmail='" + sellerEmail + '\'' +
+            ", buyerEmail='" + buyerEmail + '\'' +
+            ", productName='" + productName + '\'' +
+            ", offerReference='" + offerReference + '\'' +
+            ", presentation=" + presentation +
+            ", numberOfUnits=" + numberOfUnits +
+            ", totalPrice=" + totalPrice +
+            ", description='" + description + '\'' +
+            ", state=" + state +
+            ", mailing=" + mailing +
+            ", qualification=" + qualification +
             '}';
     }
 

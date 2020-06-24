@@ -33,7 +33,7 @@ public class OfferAPI {
         offerService.updateOffer(o);
     }
 
-    @PutMapping("del/{id}")
+    @DeleteMapping("del/{id}")
     public boolean deleteOffer(@PathVariable String id) {
         return offerService.deleteOffer(id);
     }

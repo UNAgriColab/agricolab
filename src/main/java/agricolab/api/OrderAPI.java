@@ -22,10 +22,11 @@ public class OrderAPI {
 
     @PostMapping
     public boolean postOrder(@RequestBody Order r) {
+        System.out.println(r);
         return orderService.addOrder(r);
     }
 
-    @PutMapping("del/{id}")
+    @DeleteMapping("del/{id}")
     public boolean deleteOrder(@PathVariable String id) {
         return orderService.deleteOrder(id);
     }
