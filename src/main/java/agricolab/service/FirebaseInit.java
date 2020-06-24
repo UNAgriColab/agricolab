@@ -31,7 +31,5 @@ public class FirebaseInit {
                 .setStorageBucket("agricolab-un.appspot.com")
                 .build();
         FirebaseApp.initializeApp(options);
-
-        Firestore db = FirestoreClient.getFirestore();
     }
 }
