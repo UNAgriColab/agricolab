@@ -29,8 +29,8 @@ public class OfferAPI {
     }
 
     @PutMapping
-    public void updateOffer(@RequestBody Offer o) {
-        offerService.updateOffer(o);
+    public boolean updateOffer(@RequestBody Offer o) {
+        return  offerService.updateOffer(o);
     }
 
     @DeleteMapping("del/{id}")
