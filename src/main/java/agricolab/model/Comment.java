@@ -7,7 +7,7 @@ public class Comment {
     private String id;
     private String comment;
     private String orderReference;
-    private int qualification;
+    private double qualification;
 
     public Comment() {
 
@@ -56,11 +56,11 @@ public class Comment {
         this.orderReference = orderReference;
     }
 
-    public int getQualification() {
+    public double getQualification() {
         return qualification;
     }
 
-    public void setQualification(int qualification) {
+    public void setQualification(double qualification) {
         this.qualification = qualification;
     }
 }
