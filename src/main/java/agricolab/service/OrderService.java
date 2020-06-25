@@ -119,7 +119,7 @@ public class OrderService {
             u.setNumberOfReviews(u.getNumberOfReviews() + 1);
             userService.updateUserQualification(u.getEmail(), u.getQualification());
 
-            int offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getQualification()) / (o.getNumberOfReviews() + 1);
+            double offerQualification = ((o.getQualification() * o.getNumberOfReviews()) + comment.getQualification()) / (o.getNumberOfReviews() + 1);
             o.setQualification(offerQualification);
             o.setNumberOfReviews(o.getNumberOfReviews() + 1);
             offerService.updateOfferReviews(String.valueOf(o.getId()), o.getQualification(), o.getNumberOfReviews());

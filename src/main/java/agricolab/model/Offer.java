@@ -14,7 +14,7 @@ public class Offer {
     private int minQuantity;
     private String description;
     private Boolean state;
-    private int qualification;
+    private double qualification;
     private int numberOfReviews;
 
 
@@ -120,11 +120,11 @@ public class Offer {
         this.state = state;
     }
 
-    public int getQualification() {
+    public double getQualification() {
         return qualification;
     }
 
-    public void setQualification(int qualification) {
+    public void setQualification(double qualification) {
         this.qualification = qualification;
     }
 
