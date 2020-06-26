@@ -106,7 +106,7 @@ public class UserService implements UserDetailsService {
         } else {
             data.add(0);
         }
-        data.add(offerDAO.getAllOffers().size() + 1);
+        data.add(offerDAO.getAllOffers().size()+1);
         return data;
     }
 
