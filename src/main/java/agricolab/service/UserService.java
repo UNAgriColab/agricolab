@@ -101,10 +101,10 @@ public class UserService implements UserDetailsService {
         User u = userDAO.getUser(email);
         data.add(u.getNumberOfOrdersDone());
         data.add(u.getNumberOfOrdersRecieved());
-        if (u.getMailing() == null) {
-            data.add(0);
-        } else {
+        if (u.getMailing().getCity() == null) {
             data.add(1);
+        } else {
+            data.add(0);
         }
         data.add(offerDAO.getAllOffers().size() + 1);
         return data;
