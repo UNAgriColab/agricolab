@@ -12,7 +12,7 @@ public class AgriColabAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(AgriColabAppApplication.class, args);
     }
-
+//  funcional test
     @GetMapping("/")
     public String hello() {
         return "working";
